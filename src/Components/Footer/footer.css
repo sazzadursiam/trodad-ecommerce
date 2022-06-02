@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+/* Utilities [bg, padding, margin] */
+.mt_30 {
+    margin-top: 30px;
+}
+
+.mt_100 {
+    margin-top: 100px !important;
+}
+
+.mb_30 {
+    margin-bottom: 30px;
+}
+
+
+.pt_50 {
+    padding-top: 50px;
+}
+
+.bg_grey {
+
+    background-color: #e4e4e4
+}
+
+/* ================= Footer Container ======================== */
+
+.footer_container {
+    padding: 0px 0px 100px 0px;
+}
+
+
+.footer_title {
+    padding: 100px 0px 50px 0px;
+}
+
+.dashline {
+    position: relative;
+}
+
+.dashline::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -50%;
+    left: 50%;
+    width: 100px;
+    height: 2px;
+    background-color: black;
+}
+
+.footer_body {
+    margin-top: -35px !important;
+}
+
+.footer_hr {
+    border-top: 3px solid #e3e2e1;
+    margin-top: 0;
+    padding-bottom: 3px;
+}
+
+/* ========================== IMAGE ============================== */
+
+.footer_img_wrapper_1 {
+    max-width: 52px;
+    max-height: 52px;
+    margin: auto;
+}
+.footer_img_wrapper_2 {
+    max-width: 65px;
+    max-height: 65px;
+    margin: auto;
+
+}
+
+.footer_img.logo {
+    width: 150%;
+    height: auto;
+    margin: auto;
+}
+.footer_img {
+    width: 100%;
+    height: auto;
+}
+
+.footer_img_title {
+    line-height: 1.6;
+}
+
+.footer_flag_img {
+    width: 65px;
+}
+
+
+
+/* =================================== FOOTER BOTTOM NAV ============================= */
+
+.footer_img_desc {}
+
+.footer_nav ul {
+    list-style-type: none;
+}
+
+.footer_nav ul a {
+    text-decoration: none;
+    line-height: 30px;
+    height: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    color: #005ea1;
+    margin-right: 10px;
+
+}
+
+.footer_nav ul a:hover {
+    color: #ed1c24;
+}
+
+.footer_copyright {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+}
+
+.custom_anchor_tag a {
+    color: #005ea1;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 150%;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    border-style: none;
+
+}
