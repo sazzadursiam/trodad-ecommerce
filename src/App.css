@@ -1,0 +1,30 @@
+/* page setup */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'regular';
+    text-decoration: none !important;
+    list-style: none;
+}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+.cl_light_grey{
+    color: #666;
+}
+.cl_navy{
+    color: #003153;
+}
+.cl_light_navy{
+    color: #1763a1;
+}
+.bg_navy {
+    background-color: #003153;
+}
+.bg_smooky {
+    background-color: #26506d;
+}
+.bg_light_grey {
+    background-color: #EFEEED;
+}
+
