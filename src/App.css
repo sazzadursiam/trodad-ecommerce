@@ -5,7 +5,7 @@
     box-sizing: border-box;
     font-family: 'regular';
     text-decoration: none !important;
-    list-style: none;
+    /* list-style: none; */
 }
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
