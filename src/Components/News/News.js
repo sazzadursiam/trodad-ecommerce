@@ -1,4 +1,3 @@
-import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import styled from "styled-components";
 
@@ -9,6 +8,7 @@ const CardStyles = styled.button`
   &:hover {
     color: red;
   }
+
 `;
 
 const HrStyle = styled.hr`

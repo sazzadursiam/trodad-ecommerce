@@ -1,0 +1,47 @@
+/* R/L Banner */
+.bannerAdd {
+    height: 80%;
+    width: 100%;
+}
+
+
+.index_page .bannerAdd img{
+    height: 100%;
+    width: 100%;
+}
+
+/* banner vanish */
+@media screen and (max-width: 1399px) {
+    .side_banner {
+        display: none !important;
+    }
+}
+
+/* Top Carousel */
+.index_page .carousel-indicators {
+    display: none !important;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+
+    background: #26506d;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
+
+}
+
+.index_page  .carousel-control-next-icon, .carousel-control-prev-icon {
+    background-size: 19px !important;
+}
+
+.index_page .carousel-caption {
+    position: absolute;
+    right: 20px !important;
+    bottom: 0 !important;
+    left: unset !important;
+    padding-bottom: unset !important;
+    z-index: 9 !important;
+}
+
+
