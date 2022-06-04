@@ -7,7 +7,12 @@ import News from "./Components/News/News";
 
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import UserDashboard from "./Pages/User/UserDashboard";
+
+import Product from "./Components/Products/Product";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 import Index from "./Pages/Index/Index";
+
 function App() {
   return (
     <Router>
@@ -17,6 +22,7 @@ function App() {
         <Route path="/footer" element={<Footer />} />
         <Route path="/user" element={<UserDashboard />} />
         <Route path="/news" element={<News />} />
+        <Route path="/products" element={<Product />} />
       </Routes>
     </Router>
   );
