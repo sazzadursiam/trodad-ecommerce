@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
 import News from '../../Components/News/News';
+import Product from '../../Components/Products/Product';
 
 
 
@@ -131,11 +132,12 @@ const Index = () => {
                                 <img src={require('../../Assets/right_add.jpg')} alt="" />
                             </div>
                         </Col>
-                        
+
                     </Row>
                 </Container>
             </div>
-            <News />
+            <Product />
+            <News/>
             <Footer />
         </div>
     );

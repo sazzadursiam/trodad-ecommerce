@@ -1,9 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Footer from "./Components/Footer/Footer";
-
-import News from "./Components/News/News";
 
 import AdminDashboard from "./Pages/Admin/AdminDashboard";
 import UserDashboard from "./Pages/User/UserDashboard";
@@ -12,6 +9,7 @@ import Product from "./Components/Products/Product";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Index from "./Pages/Index/Index";
+import ProductDetails from "./Components/Products/ProductDetails/ProductDetails";
 
 function App() {
   return (
@@ -19,10 +17,12 @@ function App() {
       <Routes>
       <Route path="/" element={<Index/>} />
         <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/footer" element={<Footer />} />
         <Route path="/user" element={<UserDashboard />} />
-        <Route path="/news" element={<News />} />
+
+
+        {/* Products */}
         <Route path="/products" element={<Product />} />
+        <Route path="/products/:productId" element={<ProductDetails />} />
       </Routes>
     </Router>
   );
