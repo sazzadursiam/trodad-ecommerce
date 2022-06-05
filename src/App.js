@@ -12,17 +12,23 @@ import Product from "./Components/Products/Product";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Index from "./Pages/Index/Index";
+import Brands from "./Pages/Admin/Brands";
+import ProductCategories from "./Pages/Admin/ProductCategories";
 
 function App() {
   return (
     <Router>
       <Routes>
       <Route path="/" element={<Index/>} />
-        <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/footer" element={<Footer />} />
         <Route path="/user" element={<UserDashboard />} />
         <Route path="/news" element={<News />} />
         <Route path="/products" element={<Product />} />
+        {/* <Route path="/products" element={<Product />} /> */}
+        
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/admin/brands" element={<Brands />} />
+        <Route path="/admin/categories" element={<ProductCategories />} />
       </Routes>
     </Router>
   );
