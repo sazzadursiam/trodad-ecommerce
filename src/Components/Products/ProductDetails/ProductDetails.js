@@ -178,6 +178,7 @@ const ProductDetails = () => {
                                             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam omnis sequi sit mollitia dolores illo nostrum iste at repellat consequuntur, architecto aperiam quidem eos ipsam rerum ipsa hic odit aliquam.</p>
                                         </div>
 
+                                        {/* review */}
                                         <div className="review">
                                             <Rating  className='mb-2' style={{ color: '#666666',fontSize:'25px' }} name="half-rating" defaultValue={4.5} precision={0.5} readOnly />
                                             <h6 className='mb-1'>Fantastic!</h6>
