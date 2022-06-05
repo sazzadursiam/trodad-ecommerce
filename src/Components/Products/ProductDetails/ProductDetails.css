@@ -1,0 +1,106 @@
+.product_thumbnails_details {
+    border-bottom: 2px solid #ece9e6;
+}
+.product_cart .title h1 {
+    font-size: 34px;
+    font-weight: 700;
+    font-family: "Open Sans";
+}
+
+.product_cart .title p {
+    font-size: 14px;
+    font-family: "Open Sans";
+    font-weight: 400;
+    color: #666;
+}
+
+.product_description h3 {
+    font-size: 24px;
+    font-weight: 700;
+    font-family: "Open Sans";
+}
+
+.product_description p {
+    font-size: 14px;
+    font-family: "Open Sans";
+    font-weight: 400;
+    color: #666;
+}
+
+
+
+.check_box_border {
+    border: 1px solid #d8d6d4;
+}
+
+.check_box_content {
+    margin: 30px 20px 30px 0px;
+}
+
+.check_box .form-check .form-check-input {
+    display: none;
+}
+
+.check_box .form-check-label {
+    text-align: center;
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    box-shadow: 0px 2px 0px #ced4da;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.check_box .form-check-label:hover {
+    background-color: #003153;
+    color: white;
+}
+
+.check_box .form-check-input:checked+.form-check-label {
+    background-color: #003153 !important;
+    color: white !important;
+
+}
+
+.discount_price{
+    font-size: 30px;
+    font-weight: 700;
+    font-family: "Open Sans";
+}
+
+
+/* REVIEW */
+
+.product_review {
+    background-color: #E0E0E0;
+    height: 600px;
+    overflow-y: auto;
+    border-radius: 5px;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.product_review::-webkit-scrollbar {
+    /* display: none; */
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+.example {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.product_review h6{
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Open Sans";
+}
+
+.product_review p {
+    font-size: 14px;
+    font-family: "Open Sans";
+    font-weight: 400;
+    color: #666;
+}

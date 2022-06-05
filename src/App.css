@@ -9,6 +9,13 @@
 }
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
 
+.w-90{
+    width: 90%;
+}
+.w_45{
+    width: 45%;
+}
+
 .cl_light_grey{
     color: #666;
 }

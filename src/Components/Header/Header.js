@@ -114,7 +114,7 @@ const Header = () => {
                             </Nav.Link>
 
                             <Nav.Link href="#action2" className=" py-3">New Prices</Nav.Link>
-                            <Nav.Link href="#action2" >News</Nav.Link>
+                            <Nav.Link href="#action2" >New</Nav.Link>
 
 
                             <NavDropdown title="Snuff" >

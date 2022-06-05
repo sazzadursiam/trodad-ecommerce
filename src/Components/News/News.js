@@ -67,7 +67,7 @@ const News = () => {
           <Col xs={12} sm={6} md={4} className="mb-3">
             <div className="mb-3">
               <img
-                className="img-fluid"
+                className="w-100"
                 src="https://via.placeholder.com/350x350"
                 alt="News"
               />

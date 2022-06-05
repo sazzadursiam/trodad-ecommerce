@@ -5,7 +5,7 @@ import "./products.css";
 
 const Product = () => {
   return (
-    <Container>
+    <Container  className='mb-5'>
       <h1 className="text-center mb-5 product-section-title">
         Snus online - Snusbolaget
       </h1>
