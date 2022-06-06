@@ -5,7 +5,7 @@ import "./App.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import AdminDashboard from "./Pages/Admin/AdminDashboard";
+import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
 
 import UserDashboard from "./Pages/User/UserDashboard";
 
@@ -15,7 +15,6 @@ import Index from "./Pages/Index/Index";
 import ProductDetails from "./Components/Products/ProductDetails/ProductDetails";
 
 import Admin from "./Pages/Admin/Admin";
-import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
 import Brands from "./Pages/Admin/Brands";
 import ProductCategories from "./Pages/Admin/ProductCategories";
 import AddProduct from "./Pages/Admin/Product/AddProduct";
