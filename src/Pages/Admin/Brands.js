@@ -19,7 +19,8 @@
     const brandImage = useRef();
     const shortDesc = useRef();
   
-    // Fetch Table Data
+    //=================================== Fetch Table Data ===================================
+
     const [tableData, setTableData] = useState([]);
   
     const renderAllBrands = async () => {
@@ -52,7 +53,8 @@
     const [editedBrandImage, setEditedBrandImage] = useState();
     const [editedBrandDesc, setEditedBrandDesc] = useState();
   
-    // Add new
+    // ============================= Add new data =============================
+
     const addNewData = (modalValue) => {
       setFile([]);
       setModalSize("lg");
@@ -60,12 +62,10 @@
       setModalShow(true);
     };
   
-    // form submit to backend
+    // ============================= form submit to backend ======================
+
     const storeData = (e) => {
-      // const clientsName = brandName.current.value;
-      // const clientsLogo = brandImage.current.files[0];/api/admin/brands
   
-      // console.log("ts:", checked);
       const formdata = new FormData();
       formdata.append("brandName", brandName.current.value);
       formdata.append("brandImage", brandImage.current.files[0]);
@@ -94,7 +94,6 @@
     };
   
     const statusUpdate = (id, status) => {
-      // console.log("In");
       axios
         .get(
           `${BACKEND_BASE_URL}/api/admin/brands/status-update/${id}/${status}`
@@ -104,7 +103,9 @@
         });
     };
   
-    // View single image
+
+    // ===================== View single image ===================================
+
     const showSingleImageData = (modalValue, id) => {
       setModalSize("");
       axios.get(`${BACKEND_BASE_URL}/api/admin/brands/view/${id}`).then((res) => {
@@ -117,7 +118,8 @@
       });
     };
   
-    // Edit data
+    // ===================== Edit data ==========================================
+
     const [Id, setId] = useState();
     // console.log("initial value", isChecked);
     const fetchDataForEdit = (modalValue, id) => {
@@ -150,7 +152,8 @@
       }
     };
   
-    // Updated data to backend
+    // ===================== Updated data to backend ===============================
+
     const updateImageGallery = (e) => {
       const UpdatedBrandImage = brandImage.current.files[0];
   
@@ -180,7 +183,7 @@
       e.preventDefault();
     };
   
-    // Delete Data
+    // =============================== Delete Data ===============================
     const deleteData = async (id) => {
       const isConfirm = await Swal.fire({
         title: "Are you sure?",
@@ -247,7 +250,7 @@
         <div className="content-wrapper">
           <div className="breadcrumb">
             <div className="breadcrumb-item">
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/admin">Dashboard</Link>
               <Link to="#" className="before">
                 Add
               </Link>
@@ -264,6 +267,7 @@
                       <Button
                         variant="success"
                         size="sm"
+                        className="border-0"
                         onClick={() => addNewData("Add")}
                       >
                         Add &nbsp;
@@ -303,7 +307,7 @@
                             <td>
                               {data.status == 1 ? (
                                 <div
-                                  className="btn btn-success btn-sm"
+                                  className="btn btn-success btn-sm border-0"
                                   onClick={() =>
                                     statusUpdate(data.id, data.status)
                                   }
@@ -312,7 +316,7 @@
                                 </div>
                               ) : (
                                 <div
-                                  className="btn btn-danger btn-sm"
+                                  className="btn btn-danger btn-sm border-0"
                                   onClick={() =>
                                     statusUpdate(data.id, data.status)
                                   }
