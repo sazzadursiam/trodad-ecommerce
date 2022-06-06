@@ -43,7 +43,6 @@
 }
 
 
-
 /* ================= Admin section merged Code ====================== */
 
 
@@ -225,3 +224,13 @@ padding: 8px 14px;
         font-size: 10px;
     }
 }
+
+.line_height_12{
+    line-height: 20px;
+}
+
+.fs14{
+    font-size: 20px !important;
+}
+
+
