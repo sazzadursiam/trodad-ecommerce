@@ -47,7 +47,7 @@ const Sidebar = () => {
                       Product Categories
                     </Nav.Link>
                     <Nav.Link as={Link} to="products/add-new">
-                       Product
+                       Products
                     </Nav.Link>
 
                     <NavDropdown
