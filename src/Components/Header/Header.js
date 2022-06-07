@@ -1,10 +1,14 @@
-import React from 'react';
-import { Button, Card, Container, Form, FormControl, InputGroup, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Col, Container, Form, FormControl, InputGroup, Nav, Navbar, NavDropdown, Offcanvas, Row } from 'react-bootstrap';
 import './Header.css';
 import * as FaIcons from 'react-icons/fa'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link_Path_URL } from '../../Utils/LinkPath';
 
 const Header = () => {
+
+    const [navData, setNavData] = useState([]);
 
     const getday = new Date();
     const day = getday.getDay();
@@ -15,6 +19,20 @@ const Header = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
     }
+
+    console.log(navData);
+
+    const navDynamicData = () => {
+        axios
+            .get(`${Link_Path_URL}api/product-categories`)
+            .then((res) => {
+                setNavData(res.data.allProductCaregories);
+            });
+    };
+    useEffect(() => {
+        navDynamicData();
+    }, []);
+
     return (
         <div className="header">
 
@@ -117,39 +135,22 @@ const Header = () => {
                             <Nav.Link href="#action2" >New</Nav.Link>
 
 
-                            <NavDropdown title="Snuff" >
-                                <NavDropdown.Item href="#action3">
-                                    <div className="d-flex justify-content-between">
-                                        <p>1</p>
-                                        <p>2</p>
-                                    </div>
-                                </NavDropdown.Item>
-                            </NavDropdown>
+                            {navData.map((data, i) => (
+                                (data.sub_category.length) ?
 
+                                    <NavDropdown title={data.name} key={i}>
+                                        {data.sub_category.map((category, j) => (
+                                            <NavDropdown.Item href="#action3" key={j}>
+                                                <p className="m-0" style={{color: '#005ea1',fontSize: '14px'}}>{category.name}</p>
+                                            </NavDropdown.Item>
+                                        ))}
+                                    </NavDropdown>
+                                    :
+                                    <Nav.Link href="#action2" className=" py-3" key={i}>{data.name}</Nav.Link>
+                            ))}
 
-                            <NavDropdown title="All White Portion" className=" ">
-                                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action4">
-                                    Another action
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action5">
-                                    Something else here
-                                </NavDropdown.Item>
-                            </NavDropdown>
+                            
 
-                            <NavDropdown title="Make Your Own Snus" className=" ">
-                                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action4">
-                                    Another action
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action5">
-                                    Something else here
-                                </NavDropdown.Item>
-                            </NavDropdown>
-
-                            <Nav.Link href="#action2" className=" py-3">Mixpack</Nav.Link>
                             <Nav.Link href="#action2" className=" py-3">Election manifesto 2022</Nav.Link>
                             <Nav.Link href="#action2" className=" py-3 bg-danger">Subscribe</Nav.Link>
 
@@ -164,6 +165,8 @@ const Header = () => {
                                 </NavDropdown.Item>
                             </NavDropdown>
                         </Nav>
+
+
                     </Container>
                 </div>
                 <div className="bottom_header_2 bg_light_grey ">
@@ -194,7 +197,6 @@ const Header = () => {
 
             {/* mobile header */}
             <div className="mobile_header">
-                {/* {[false].map((expand) => ( */}
                 <Navbar key='false' bg="light" expand='false' className="mb-3 mobile_nav">
                     <Container >
 
