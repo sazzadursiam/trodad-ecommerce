@@ -19,7 +19,11 @@ import Brands from "./Pages/Admin/Brands";
 import ProductCategories from "./Pages/Admin/ProductCategories";
 import AddProduct from "./Pages/Admin/Product/AddProduct";
 import Test from "./Pages/Admin/DynamicInputTest";
+
 import "./Pages/Admin/CSS/admin.css";
+
+import Checkout from "./Components/Checkout/Checkout";
+
 
 function App() {
   return (
@@ -32,6 +36,8 @@ function App() {
         {/* Products */}
         <Route path="/products" element={<Product />} />
         <Route path="/products/:productId" element={<ProductDetails />} />
+
+        <Route path="/checkout" element={<Checkout />} />
 
         {/* Admin Routes */}
         <Route path="admin" element={<Admin />}>

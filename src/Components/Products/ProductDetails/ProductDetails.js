@@ -238,7 +238,7 @@ const ProductDetails = () => {
                                                     <Form>
                                                         <div className="rating_padding bg-light">
                                                             <div className="d-flex justify-content-center align-items-center mb-4 py-2">
-                                                                <p className="mb-0 me-2 fs14"> Your rating: </p>
+                                                                <p className="mb-0 me-2 fs20"> Your rating: </p>
                                                                 <Rating className='' style={{ color: '#666666', fontSize: '30px' }} name="half-rating" defaultValue={4.5} precision={0.5}  />
                                                             </div>
                                                         </div>
