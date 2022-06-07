@@ -106,7 +106,7 @@ const News = () => {
                   </TextBox>
 
                   <CardStyles as="button" className="text-decoration-none">
-                    News 2022-06-01
+                    News 2022-06-02
                   </CardStyles>
                 </Card.Body>
               </a>
