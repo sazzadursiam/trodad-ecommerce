@@ -281,11 +281,19 @@ const Header = () => {
                                     <Nav.Link href="#action2">Election manifesto 2022</Nav.Link>
                                     <Nav.Link href="#action2">Subscribe</Nav.Link>
 
-                                   <NavDropdown title="Brand" className=" ">
-                {brands.map((data, i) => (
-                  <NavDropdown.Item key={i}>{data.brandName}</NavDropdown.Item>
-                ))}
-              </NavDropdown>
+                                    <NavDropdown
+                                        title="Brand"
+                                        id='offcanvasNavbarDropdown-expand-false'
+                                    >
+                                        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                                        <NavDropdown.Item href="#action4">
+                                            Another action
+                                        </NavDropdown.Item>
+                                        <NavDropdown.Divider />
+                                        <NavDropdown.Item href="#action5">
+                                            Something else here
+                                        </NavDropdown.Item>
+                                    </NavDropdown>
 
 
                                     <hr />
@@ -306,119 +314,9 @@ const Header = () => {
                     </Container>
                 </Navbar>
                 {/* ))} */}
-
             </div>
-          </Container>
         </div>
-      </div>
-
-      {/* mobile header */}
-      <div className="mobile_header">
-        {/* {[false].map((expand) => ( */}
-        <Navbar
-          key="false"
-          bg="light"
-          expand="false"
-          className="mb-3 mobile_nav"
-        >
-          <Container>
-            <Navbar.Toggle aria-controls="offcanvasNavbar-expand-false" />
-
-            <Navbar.Brand href="#">Tobak Shandel</Navbar.Brand>
-
-            <Navbar.Brand href="#" className="border-start border-2">
-              <div className="d-flex align-items-center px-3">
-                <FaIcons.FaShoppingCart className="me-2" />1
-              </div>
-            </Navbar.Brand>
-
-            <Navbar.Offcanvas
-              id="offcanvasNavbar-expand-false"
-              aria-labelledby="offcanvasNavbarLabel-expand-false"
-              placement="start"
-            >
-              <Offcanvas.Header closeButton className="bg_navy">
-                <Offcanvas.Title id="offcanvasNavbarLabel-expand-false">
-                  <span className="d-flex align-items-center me-3 me-md-2 me-lg-3 me-xl-0">
-                    <Link to="/">
-                      <FaIcons.FaUser className="ms-2 text-light" />
-                    </Link>
-                  </span>
-                </Offcanvas.Title>
-              </Offcanvas.Header>
-
-              <Offcanvas.Body>
-                <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#action1">New Prices</Nav.Link>
-                  <Nav.Link href="#action2">News</Nav.Link>
-
-                  <NavDropdown
-                    title="Snuff"
-                    id="offcanvasNavbarDropdown-expand-false"
-                  >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  <NavDropdown
-                    title="All White Portion"
-                    id="offcanvasNavbarDropdown-expand-false"
-                  >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  <NavDropdown
-                    title="Make Your Own Snus"
-                    id="offcanvasNavbarDropdown-expand-false"
-                  >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
-                  </NavDropdown>
-
-                  <Nav.Link href="#action2">Mixpack</Nav.Link>
-                  <Nav.Link href="#action2">Election manifesto 2022</Nav.Link>
-                  <Nav.Link href="#action2">Subscribe</Nav.Link>
-
-                  <NavDropdown title="Brand" className=" ">
-                {brands.map((data, i) => (
-                  <NavDropdown.Item key={i}>{data.brandName}</NavDropdown.Item>
-                ))}
-              </NavDropdown>
-
-                  <hr />
-
-                  <Nav.Link href="#action1">The snus report</Nav.Link>
-                  <Nav.Link href="#action1">Privacy Policy</Nav.Link>
-                  <Nav.Link href="#action1">Customer service</Nav.Link>
-                  <Nav.Link href="#action1">Shipping & delivery time</Nav.Link>
-                  <Nav.Link href="#action1">About Snusbolaget</Nav.Link>
-                  <Nav.Link href="#action1">The snus journal</Nav.Link>
-                </Nav>
-              </Offcanvas.Body>
-            </Navbar.Offcanvas>
-          </Container>
-        </Navbar>
-        {/* ))} */}
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Header;
