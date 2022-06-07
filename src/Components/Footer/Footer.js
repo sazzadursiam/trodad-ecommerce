@@ -2,14 +2,10 @@ import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./footer.css";
 
-const Footer = () => {
+const Footer = (props) => {
   return (
     <>
-      <div className="container-fluid bg_grey footer_container mt_100">
-        {/* <div className="footer_title text-center ">
-          <h2 className="dashline">Följ oss på instagaram</h2>
-        </div> */}
-
+      <div className={`bg_grey footer_container mt_100 ${props.displayNone}`}>
         {/* ====================== SHIPPING POLICY ========================= */}
         <div className="container ">
           <Row className="text-center d-flex justify-content-between">
@@ -112,7 +108,7 @@ const Footer = () => {
       </div>
 
       {/* ========================== FOOTER TOP ========================= */}
-      <div className="container">
+      <div className={`container ${props.displayNone}`}>
         <div className="footer__body">
           <Row className="pt_50">
             <Col xs={12} sm={6} md={4} className="mb_30">
@@ -244,6 +240,8 @@ const Footer = () => {
           </Row>
         </div>
       </div>
+
+      
       {/* ============================ FOOTER BOTTOM ============================ */}
       <div className="footer_nav p-4 bg_grey">
         <div className="container d-md-flex justify-content-md-between align-items-center">
