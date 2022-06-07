@@ -229,8 +229,12 @@ padding: 8px 14px;
     line-height: 20px;
 }
 
-.fs14{
+.fs20{
     font-size: 20px !important;
+}
+
+.cursor_pointer {
+    cursor: pointer !important;
 }
 
 

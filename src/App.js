@@ -19,6 +19,7 @@ import Brands from "./Pages/Admin/Brands";
 import ProductCategories from "./Pages/Admin/ProductCategories";
 import AddProduct from "./Pages/Admin/Product/AddProduct";
 import Test from "./Pages/Admin/DynamicInputTest";
+import Checkout from "./Components/Checkout/Checkout";
 
 function App() {
   return (
@@ -32,8 +33,10 @@ function App() {
         <Route path="/products" element={<Product />} />
         <Route path="/products/:productId" element={<ProductDetails />} />
 
+        <Route path="/checkout" element={<Checkout />} />
+
         {/* Admin Routes */}
-        <Route path="/admin" element={<Admin />}>
+        <Route path="admin" element={<Admin />}>
           <Route index element={<AdminDashboard />} />
           <Route path="brands" element={<Brands />} />
           <Route path="categories" element={<ProductCategories />} />
