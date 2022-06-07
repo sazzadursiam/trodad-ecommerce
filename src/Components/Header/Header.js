@@ -9,6 +9,7 @@ import { Link_Path_URL } from '../../Utils/LinkPath';
 const Header = () => {
 
     const [navData, setNavData] = useState([]);
+    const [navDataBrand, setNavDataBrand] = useState([]);
 
     const getday = new Date();
     const day = getday.getDay();
@@ -24,9 +25,10 @@ const Header = () => {
 
     const navDynamicData = () => {
         axios
-            .get(`${Link_Path_URL}api/product-categories`)
+            .get(`${Link_Path_URL}api/index-master-get`)
             .then((res) => {
                 setNavData(res.data.allProductCaregories);
+                setNavDataBrand(res.data.allBrands);
             });
     };
     useEffect(() => {
@@ -141,7 +143,7 @@ const Header = () => {
                                     <NavDropdown title={data.name} key={i}>
                                         {data.sub_category.map((category, j) => (
                                             <NavDropdown.Item href="#action3" key={j}>
-                                                <p className="m-0" style={{color: '#005ea1',fontSize: '14px'}}>{category.name}</p>
+                                                <p className="m-0" style={{ color: '#005ea1', fontSize: '14px' }}>{category.name}</p>
                                             </NavDropdown.Item>
                                         ))}
                                     </NavDropdown>
@@ -149,20 +151,20 @@ const Header = () => {
                                     <Nav.Link href="#action2" className=" py-3" key={i}>{data.name}</Nav.Link>
                             ))}
 
-                            
+
 
                             <Nav.Link href="#action2" className=" py-3">Election manifesto 2022</Nav.Link>
                             <Nav.Link href="#action2" className=" py-3 bg-danger">Subscribe</Nav.Link>
 
-                            <NavDropdown title="Brand" className=" ">
-                                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                                <NavDropdown.Item href="#action4">
-                                    Another action
-                                </NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action5">
-                                    Something else here
-                                </NavDropdown.Item>
+
+
+
+                            <NavDropdown title='Brand'>
+                                {navDataBrand.map((dropdownItem, i) => (
+                                    <NavDropdown.Item href="#action3" key={i}>
+                                        <p className="m-0" style={{ color: '#005ea1', fontSize: '14px' }}>{dropdownItem.brandName}</p>
+                                    </NavDropdown.Item>
+                                ))}
                             </NavDropdown>
                         </Nav>
 
