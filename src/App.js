@@ -18,7 +18,7 @@ import Admin from "./Pages/Admin/Admin";
 import Brands from "./Pages/Admin/Brands";
 import ProductCategories from "./Pages/Admin/ProductCategories";
 import AddProduct from "./Pages/Admin/Product/AddProduct";
-import Test from "./Pages/Admin/DynamicInputTest";
+
 
 
 import User from "./Pages/User/User";
@@ -27,6 +27,10 @@ import User from "./Pages/User/User";
 
 import Checkout from "./Components/Checkout/Checkout";
 import Dashboard from "./Pages/User/UserContent/Dashboard/Dashboard";
+import Test from "./Pages/Test";
+import AllProduct from "./Pages/Admin/Product/AllProduct";
+import EditProduct from "./Pages/Admin/Product/EditProduct";
+
 
 
 function App() {
@@ -47,16 +51,25 @@ function App() {
           <Route index element={<AdminDashboard />} />
           <Route path="brands" element={<Brands />} />
           <Route path="categories" element={<ProductCategories />} />
+
+
+          <Route path="products" element={<AllProduct />} />
           <Route path="products/add-new" element={<AddProduct />} />
-          <Route path="test" element={<Test />} />
+          <Route path="products/edit/:id" element={<EditProduct />} />
+          
         </Route>
 
 
         {/* User Dashboard */}
         <Route path="my" element={<User />}>
-        <Route index element={<Dashboard />} />
+          <Route index element={<Dashboard />} />
 
         </Route>
+
+
+        <Route path="/test" element={<Test />} />
+
+
       </Routes>
     </Router>
   );
