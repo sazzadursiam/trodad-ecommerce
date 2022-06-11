@@ -20,4 +20,9 @@ class ProductAttr extends Model
         'isNew',
         'isNewPrice',
     ];
+
+    // public function product()
+    // {
+    //     return $this->belongsTo(Product::class, 'productId');
+    // }
 }

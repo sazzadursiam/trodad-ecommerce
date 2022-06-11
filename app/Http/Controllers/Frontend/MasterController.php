@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class MasterController extends Controller
@@ -15,6 +16,8 @@ class MasterController extends Controller
         $allBrands = Brand::orderBy('brandName', 'asc')->where('status', 1)->get();
 
         $allProductCaregories = Category::with('subCategory')->where('status', 1)->where('parrentCatId', 0)->orderBy('name', 'asc')->get();
+
+
 
         return response()->json([
             'allBrands' => $allBrands,
@@ -47,6 +50,20 @@ class MasterController extends Controller
 
         return response()->json([
             'singleProductCategory' => $singleProductCategory,
+        ]);
+    }
+
+    public function filterNewProduct($filterText)
+    {
+        // return $filterText;
+        $products = "";
+        if ($filterText == 'new') {
+            $products = Product::where('isNew', 1)->get();
+        } else if ($filterText == 'new-price') {
+            $products = Product::where('isNewPrice', 1)->get();
+        }
+        return response()->json([
+            'products' => $products,
         ]);
     }
 }

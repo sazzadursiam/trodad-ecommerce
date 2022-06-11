@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\Product\CategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Frontend\MasterController;
+use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,8 @@ Route::get('/brands/{slug}', [MasterController::class, 'getSingleBrand']);
 // Product category 
 // Route::get('/product-categories', [MasterController::class, 'getAllProductCaregories']);
 Route::get('/product-categories/{slug}', [MasterController::class, 'getSingleProductCategory']);
+
+Route::get('/product/{filterText}', [MasterController::class, 'filterNewProduct']);
 
 /*
 |--------------------------------------------------------------------------
@@ -71,9 +74,12 @@ Route::group(['prefix' => '/admin'], function () {
         // Route::get('/status-update/{id}/{status}', [ProductController::class, 'statusUpdate']);
         Route::put('/update/{id}', [ProductController::class, 'update']);
         Route::delete('/delete/{id}', [ProductController::class, 'destroy']);
+        Route::get('/product-attr-add/{id}', [ProductController::class, 'moreAttr']);
 
         Route::get('/get-cat-brand', [ProductController::class, 'getCatBrand']);
     });
+
+    Route::post('/test', [TestController::class, 'index']);
 
 
     //

@@ -18,4 +18,9 @@ class Product extends Model
         'shortDescription',
         'description',
     ];
+
+    public function ProductAttrs()
+    {
+        return $this->hasMany(ProductAttr::class, 'productId');
+    }
 }
