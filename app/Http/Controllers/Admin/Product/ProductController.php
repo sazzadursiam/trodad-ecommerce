@@ -59,6 +59,7 @@ class ProductController extends Controller
 
             $product->brandId = $request->brandId;
             $product->categoryId = $request->categoryId;
+            $product->subCategoryId = $request->subCategoryId;
 
             $product->shortDescription = $request->shortDescription;
             $product->description = $request->description;
@@ -183,11 +184,13 @@ class ProductController extends Controller
 
     public function getCatBrand()
     {
-        $getCategories = Category::where('status', 1)->orderBy('name', 'asc')->get();
+        $getCategories = Category::where('status', 1)->where('parrentCatId', 0)->orderBy('name', 'asc')->get();
+        $getSubCategories = Category::where('status', 1)->where('parrentCatId', '!=', 0)->orderBy('name', 'asc')->get();
         $getBrands = Brand::where('status', 1)->orderBy('brandName', 'asc')->get();
 
         return response()->json([
             'getCategories' => $getCategories,
+            'getSubCategories' => $getSubCategories,
             'getBrands' => $getBrands,
         ]);
     }

@@ -66,4 +66,21 @@ class MasterController extends Controller
             'products' => $products,
         ]);
     }
+
+    public function filterTabs()
+    {
+        // echo "hi";
+        $tabs = Category::where('parrentCatId', 0)->orderBy('name', 'asc')->get();
+        return response()->json([
+            'tabs' => $tabs,
+        ]);
+    }
+
+    public function filterTabProduct($categoryId)
+    {
+        $tabProducts = Product::where('categoryId', $categoryId)->orderBy('name', 'asc')->get();
+        return response()->json([
+            'tabProducts' => $tabProducts,
+        ]);
+    }
 }

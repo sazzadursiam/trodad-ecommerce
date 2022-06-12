@@ -24,6 +24,10 @@ Route::get('/product-categories/{slug}', [MasterController::class, 'getSinglePro
 
 Route::get('/product/{filterText}', [MasterController::class, 'filterNewProduct']);
 
+Route::get('/tabs', [MasterController::class, 'filterTabs']);
+
+Route::get('/product/tab/{id}', [MasterController::class, 'filterTabProduct']);
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
