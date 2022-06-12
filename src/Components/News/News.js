@@ -98,11 +98,11 @@ const News = () => {
                     New Swedish study: snus has a minimal effect on the body
                   </Card.Title>
                   <TextBox>
-                    <Card.Text>
+                   
                       Nicotine in snus does not affect the body very much at
                       all. This is shown by a new study from Linköping
                       University.
-                    </Card.Text>
+                    
                   </TextBox>
 
                   <CardStyles as="button" className="text-decoration-none">
@@ -132,12 +132,12 @@ const News = () => {
                 <Card.Body>
                   <Card.Title>World No Tobacco Day 2022</Card.Title>
                   <TextBox>
-                    <Card.Text>
+                    
                       May 31 is the annual World No Tobacco Day. For the year
                       2022, the theme is "protecting the environment" - with the
                       aim of raising the environmental impact of tobacco and
                       giving smokers another reason to quit.
-                    </Card.Text>
+                    
                   </TextBox>
                   <CardStyles as="button" className="text-decoration-none">
                     News 2022-05-31
@@ -168,11 +168,11 @@ const News = () => {
                     Time for a zero vision for tobacco-related mortality
                   </Card.Title>
                   <TextBox>
-                    <Card.Text>
+                   
                       We want politics to primarily promote public health and
                       protect our young people. Therefore, a realistic view of
                       tobacco and nicotine products is needed.
-                    </Card.Text>
+                   
                   </TextBox>
                   <CardStyles as="button" className="text-decoration-none">
                     Debate 2022-05-16
@@ -201,14 +201,14 @@ const News = () => {
                 <Card.Body>
                   <Card.Title>To create a World Cup Snus</Card.Title>
                   <TextBox>
-                    <Card.Text>
+                    
                       Kurbits Snus AB is a new production partner for
                       Snusbolaget's competition for home manufacturers of snus:
                       Snus-VM. We will follow one of the owners, also a new jury
                       member, who took the task of turning two of the winning
                       snus into finished products in the most serious way. Read
                       more here!
-                    </Card.Text>
+                   
                   </TextBox>
                   <CardStyles as="button" className="text-decoration-none">
                     News 2022-05-11
