@@ -15,13 +15,13 @@ const Header = () => {
     const day = getday.getDay();
     const daylist = ["Sunday", "Monday", "Tuesday", "Wednesday ", "Thursday", "Friday", "Saturday"];
     const today = daylist[day];
-    console.log("Today is : " + daylist[day] + ".");
+    // console.log("Today is : " + daylist[day] + ".");
 
     const handleSubmit = (e) => {
         e.preventDefault();
     }
 
-    console.log(navData);
+    // console.log(navData);
 
     const navDynamicData = () => {
         axios
@@ -56,29 +56,29 @@ const Header = () => {
                                 </span>
                             </span >
                             <span className='me-3 me-md-2 me-lg-3 me-xl-0'>
-                                <Link to='/'>The snus report</Link>
+                                <Link to='/underconstruction'>The snus report</Link>
                             </span >
                             <span className='me-3 me-md-2 me-lg-3 me-xl-0'>
-                                <Link to='/'>Privacy Policy</Link>
+                                <Link to='/underconstruction'>Privacy Policy</Link>
                             </span>
                             <span className='me-3 me-md-2 me-lg-3 me-xl-0'>
-                                <Link to='/'>Customer service</Link>
+                                <Link to='/underconstruction'>Customer service</Link>
                             </span>
                             <span className='me-3 me-md-2 me-lg-3 me-xl-0'>
-                                <Link to='/'>Shipping & delivery time</Link>
+                                <Link to='/underconstruction'>Shipping & delivery time</Link>
                             </span>
                             <span className='me-3 me-md-2 me-lg-3 me-xl-0'>
-                                <Link to='/'>About Snusbolaget</Link>
+                                <Link to='/underconstruction'>About Snusbolaget</Link>
                             </span>
                             <span className="d-flex align-items-center me-3 me-md-2 me-lg-3 me-xl-0">
-                                <Link to='/'>
+                                <Link to='/underconstruction'>
                                     <FaIcons.FaCircleNotch className="me-2 cl_navy" />
 
                                     The snus journal
                                 </Link>
                             </span >
                             <span className="d-flex align-items-center me-3 me-md-2 me-lg-3 me-xl-0">
-                                <Link to='/'>
+                                <Link to='/my'>
                                     My page
                                     <FaIcons.FaUser className="ms-2" />
                                 </Link>
@@ -90,9 +90,11 @@ const Header = () => {
                 <div className="middle_header">
                     <Container>
                         <div className="d-flex flex-wrap justify-content-between align-items-center py-3">
-                            <div className="ecom_logo">
-                                <img src={require('../../Assets/Header/logo.png')} alt="" />
-                            </div>
+                            <Link to="/">
+                                <div className="ecom_logo">
+                                    <img src={require('../../Assets/Header/logo.png')} alt="" />
+                                </div>
+                            </Link>
                             <div>
                                 <Form className="" onSubmit={handleSubmit}>
                                     <InputGroup className="">
@@ -107,20 +109,22 @@ const Header = () => {
 
                             </div>
                             <div>
-                                <Card className=' text-white cart_design'>
-                                    <Card.Body>
-                                        <div className="d-flex align-items-center w-100 ">
-                                            <div className="d-flex align-items-center me-3 w-25">
-                                                <FaIcons.FaShoppingCart className="me-2" />
-                                                1
-                                            </div >
-                                            <div className="d-flex align-items-center w-75 justify-content-end">
-                                                12,000 kr
-                                                <FaIcons.FaChevronCircleRight className="ms-3" />
-                                            </div >
-                                        </div>
-                                    </Card.Body>
-                                </Card>
+                                <Link to="/checkout">
+                                    <Card className=' text-white cart_design'>
+                                        <Card.Body>
+                                            <div className="d-flex align-items-center w-100 ">
+                                                <div className="d-flex align-items-center me-3 w-25">
+                                                    <FaIcons.FaShoppingCart className="me-2" />
+                                                    1
+                                                </div >
+                                                <div className="d-flex align-items-center w-75 justify-content-end">
+                                                    12,000 kr
+                                                    <FaIcons.FaChevronCircleRight className="ms-3" />
+                                                </div >
+                                            </div>
+                                        </Card.Body>
+                                    </Card>
+                                </Link>
                             </div>
                         </div>
                     </Container>
@@ -129,12 +133,12 @@ const Header = () => {
                 <div className="bottom_header">
                     <Container>
                         <Nav className=" position-relative">
-                            <Nav.Link href="#action1" className="py-3 bg_smooky">
+                            <Nav.Link as={Link} to="/" className="py-3 bg_smooky">
                                 <FaIcons.FaHome className='text-white ' />
                             </Nav.Link>
 
-                            <Nav.Link href="#action2" className=" py-3">New Prices</Nav.Link>
-                            <Nav.Link href="#action2" >New</Nav.Link>
+                            <Nav.Link as={Link} to="/products/newprice" className=" py-3">New Prices</Nav.Link>
+                            <Nav.Link as={Link} to="/products" >New</Nav.Link>
 
 
                             {navData.map((data, i) => (
@@ -142,26 +146,26 @@ const Header = () => {
 
                                     <NavDropdown title={data.name} key={i}>
                                         {data.sub_category.map((category, j) => (
-                                            <NavDropdown.Item href="#action3" key={j}>
+                                            <NavDropdown.Item  key={j} as={Link} to="/products">
                                                 <p className="m-0" style={{ color: '#005ea1', fontSize: '14px' }}>{category.name}</p>
                                             </NavDropdown.Item>
                                         ))}
                                     </NavDropdown>
                                     :
-                                    <Nav.Link href="#action2" className=" py-3" key={i}>{data.name}</Nav.Link>
+                                    <Nav.Link as={Link} to="/products" className=" py-3" key={i}>{data.name}</Nav.Link>
                             ))}
 
 
 
-                            <Nav.Link href="#action2" className=" py-3">Election manifesto 2022</Nav.Link>
-                            <Nav.Link href="#action2" className=" py-3 bg-danger">Subscribe</Nav.Link>
+                            <Nav.Link as={Link} to="/products" className=" py-3">Election manifesto 2022</Nav.Link>
+                            <Nav.Link as={Link} to="/products" className=" py-3 bg-danger">Subscribe</Nav.Link>
 
 
 
 
                             <NavDropdown title='Brand'>
                                 {navDataBrand.map((dropdownItem, i) => (
-                                    <NavDropdown.Item href="#action3" key={i}>
+                                    <NavDropdown.Item as={Link} to="/products" key={i}>
                                         <p className="m-0" style={{ color: '#005ea1', fontSize: '14px' }}>{dropdownItem.brandName}</p>
                                     </NavDropdown.Item>
                                 ))}

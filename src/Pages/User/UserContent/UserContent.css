@@ -42,15 +42,27 @@
 }
 .leftbar .leftbar_content ul li{
     padding: 8px 0px; 
+    
+}
+.leftbar .leftbar_content ul li.active{
+    border-right: 3px solid #446084;
+    color: black;
+}
+.leftbar .leftbar_content ul li:hover{
+    border-right: 3px solid #446084;
 }
 .leftbar .leftbar_content ul li+li{
     border-top: 1px solid #ececec;
     
 }
-.leftbar .leftbar_content ul li a{
+.leftbar .leftbar_content ul  a{
     color: #666666D9;
     font-size: 14px;
     padding-bottom: 10px; 
     font-weight: bold;
+    transition :0.5s linear;
 
+}
+.leftbar .leftbar_content ul  a:hover{
+    color: black;
 }

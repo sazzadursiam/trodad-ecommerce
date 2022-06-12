@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 
-:root{
+:root {
     /* ===== Colors ===== */
     --body-color: #2456e0;
     --sidebar-color: #FFF;
@@ -20,49 +20,51 @@
 
 
 /* ===== Reusable code - Here ===== */
-.sidebar li{
+.sidebar li {
     list-style: none;
 }
 
-.sidebar .icon{
+.sidebar .icon {
     min-width: 60px;
     color: white;
     font-size: 20px;
 }
 
-.sidebar .text{
+.sidebar .text {
     color: white;
 }
 
-.sidebar .text{
+.sidebar .text {
     font-size: 17px;
     font-weight: 500;
     white-space: nowrap;
     opacity: 1;
 }
-.sidebar.close .text{
+
+.sidebar.close .text {
     opacity: 0;
 }
+
 /* =========================== */
 
-.sidebar header{
+.sidebar header {
     position: relative;
 }
 
 
 
-.sidebar header .image{
+.sidebar header .image {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.sidebar header .image img{
+.sidebar header .image img {
     width: 40px;
     border-radius: 6px;
 }
 
-.sidebar header .toggle{
+.sidebar header .toggle {
     position: absolute;
     top: 50%;
     right: -10px;
@@ -80,17 +82,17 @@
     transition: var(--tran-05);
 }
 
-body.dark .sidebar header .toggle{
+body.dark .sidebar header .toggle {
     color: var(--text-color);
 }
 
-.sidebar.close .toggle{
+.sidebar.close .toggle {
     transform: translateY(-50%) rotate(0deg);
 }
 
 
 
-.sidebar li a{
+.sidebar li a {
     list-style: none;
     height: 100%;
     background-color: transparent;
@@ -104,63 +106,69 @@ body.dark .sidebar header .toggle{
     padding: 10px 0px;
 }
 
-.sidebar li:hover{
+.sidebar li:hover {
     background-color: var(--primary-color);
     border-radius: 6px;
 }
 
-.sidebar .menu-bar{
+.sidebar .menu-bar {
     /* height: calc(100% - 55px); */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     overflow-y: scroll;
 }
-.menu-bar::-webkit-scrollbar{
+
+.menu-bar::-webkit-scrollbar {
     display: none;
 }
 
 
-.rightbar{
+.rightbar {
     max-height: 100vh;
     overflow-y: scroll;
-    width:100%;
+    width: 100%;
     background-color: white;
     transition: var(--tran-05);
     z-index: 3;
 }
-.sidebar{
+
+.sidebar {
     width: 250px;
     background: #3a3333;
     transition: var(--tran-05);
-    z-index: 5;  
+    z-index: 5;
     height: 100vh;
 }
 
-.sidebar.close ~ .rightbar{
+.sidebar.close~.rightbar {
     width: calc(100% - 88px);
-   
+
 }
+
 /* ===== Sidebar ===== */
 
-.sidebar.close{
-    width: 88px; 
+.sidebar.close {
+    width: 88px;
 }
 
 
-.dropdown-menu.show {
+.menu .dropdown-menu.show {
     inset: 16px auto auto 11px !important;
     background: transparent !important;
     border: none !important;
 }
-.nav-item.dropdown a{
-     color: white !important;
+
+.menu .nav-item.dropdown a {
+    color: white !important;
 }
-.dropdown-menu.show a{
-     color: white !important;
-     padding-left:  10px;
+
+.menu .dropdown-menu.show a {
+    color: white !important;
+    padding-left: 10px;
 }
-.dropdown-menu.show a:hover{
+
+.menu .dropdown-menu.show a:hover {
     background-color: var(--primary-color);
     border-radius: 6px;
 }

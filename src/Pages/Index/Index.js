@@ -37,7 +37,7 @@ const Index = () => {
                                     <Carousel.Item>
                                         <img src={require('../../Assets/slider.jpg')} alt="" className='w-100' />
                                         <Carousel.Caption>
-                                            <Link to='/news'>
+                                            <Link to='/products/spicy'>
                                                 <Button variant="danger">Buy Now</Button>
                                             </Link>
                                         </Carousel.Caption>
@@ -45,7 +45,7 @@ const Index = () => {
                                     <Carousel.Item>
                                         <img src={require('../../Assets/slider.jpg')} alt="" className='w-100' />
                                         <Carousel.Caption>
-                                            <Link to='/news'>
+                                            <Link to='/products/spicy2'>
                                                 <Button variant="danger">Buy Now</Button>
                                             </Link>
                                         </Carousel.Caption>
@@ -67,7 +67,7 @@ const Index = () => {
                                                 <Card.Text>
                                                     192,45 KR / 6-PACK
                                                 </Card.Text>
-                                                <Button variant="danger">Go somewhere</Button>
+                                                <Button as={Link} to="/products/1" variant="danger">Go somewhere</Button>
                                             </Card.Body>
                                         </Card>
                                     </Col>
@@ -80,7 +80,7 @@ const Index = () => {
                                                 <Card.Text>
                                                     192,45 KR / 6-PACK
                                                 </Card.Text>
-                                                <Button variant="danger">Go somewhere</Button>
+                                                <Button as={Link} to="/products/2" variant="danger">Go somewhere</Button>
                                             </Card.Body>
                                         </Card>
                                     </Col>
@@ -93,7 +93,7 @@ const Index = () => {
                                                 <Card.Text>
                                                     192,45 KR / 6-PACK
                                                 </Card.Text>
-                                                <Button variant="danger">Go somewhere</Button>
+                                                <Button as={Link} to="/products/3" variant="danger">Go somewhere</Button>
                                             </Card.Body>
                                         </Card>
                                     </Col>
@@ -106,7 +106,7 @@ const Index = () => {
                                                 <Card.Text>
                                                     192,45 KR / 6-PACK
                                                 </Card.Text>
-                                                <Button variant="danger">Go somewhere</Button>
+                                                <Button as={Link} to="/products/4" variant="danger">Go somewhere</Button>
                                             </Card.Body>
                                         </Card>
                                     </Col>

@@ -27,9 +27,13 @@ import User from "./Pages/User/User";
 
 import Checkout from "./Components/Checkout/Checkout";
 import Dashboard from "./Pages/User/UserContent/Dashboard/Dashboard";
-import Test from "./Pages/Test";
+
 import AllProduct from "./Pages/Admin/Product/AllProduct";
 import EditProduct from "./Pages/Admin/Product/EditProduct";
+import ProductCategory from "./Pages/ProductCategory/ProductCategory";
+import Report from "./Pages/Report/Report";
+import Address from "./Pages/User/UserContent/Dashboard/Address/Address";
+import EditAddress from "./Pages/User/UserContent/Dashboard/EditAddress/EditAddress";
 
 
 
@@ -41,12 +45,17 @@ function App() {
 
 
         {/* Products */}
-        <Route path="/products" element={<Product />} />
+        <Route path="/products/:id" element={<ProductCategory/>} />
         <Route path="/products/:productId" element={<ProductDetails />} />
 
         <Route path="/checkout" element={<Checkout />} />
 
-        {/* Admin Routes */}
+
+        <Route path="/underconstruction" element={<Report />} />
+
+
+
+        {/* Admin Dashboard */}
         <Route path="admin" element={<Admin />}>
           <Route index element={<AdminDashboard />} />
           <Route path="brands" element={<Brands />} />
@@ -56,18 +65,19 @@ function App() {
           <Route path="products" element={<AllProduct />} />
           <Route path="products/add-new" element={<AddProduct />} />
           <Route path="products/edit/:id" element={<EditProduct />} />
-          
+
         </Route>
 
 
         {/* User Dashboard */}
         <Route path="my" element={<User />}>
           <Route index element={<Dashboard />} />
-
+          <Route path="address" element={<Address />} />
+          <Route path="edit-address" element={<EditAddress />} />
         </Route>
 
 
-        <Route path="/test" element={<Test />} />
+
 
 
       </Routes>

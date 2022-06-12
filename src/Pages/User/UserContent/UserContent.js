@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link, Outlet } from 'react-router-dom';
 import './UserContent.css'
 
 const UserContent = () => {
+
+    const [clickState, setClickState] = useState();
+
+    const ToggleClass = (index) => {
+        setClickState(index);
+    };
+
     return (
 
         <div className="userProfile">
@@ -36,34 +43,48 @@ const UserContent = () => {
                             {/* leftbar_content */}
                             <div className="leftbar_content">
                                 <ul>
-                                    <li>
-                                        <Link to=''>Dashboard</Link>
-                                    </li>
-                                    <li>
-                                        <Link to=''>Orders</Link>
-                                    </li>
-                                    <li>
-                                        <Link to=''>Gift Cards</Link>
-                                    </li>
-                                    <li>
-                                        <Link to=''>Account Details</Link>
-                                    </li>
-                                    <li>
-                                        <Link to=''>Download</Link>
-                                    </li>
-                                    <li>
-                                        <Link to=''>Addreases</Link>
-                                    </li>
-                                    <li>
-                                        <Link to=''>Logout</Link>
-                                    </li>
+                                    <Link to='' onClick={() =>ToggleClass(1)}>
+                                        <li className={`${clickState === 1 ? 'active' : ''}`}>
+                                            Dashboard
+                                        </li>
+                                    </Link>
+                                    <Link to='' onClick={() =>ToggleClass(2)}>
+                                        <li className={`${clickState === 2 ? 'active' : ''}`}>
+                                            Orders
+                                        </li>
+                                    </Link>
+                                    <Link to='' onClick={() =>ToggleClass(3)}>
+                                        <li className={`${clickState === 3 ? 'active' : ''}`}>
+                                            Gift Cards
+                                        </li>
+                                    </Link>
+                                    <Link to='' onClick={() =>ToggleClass(4)}>
+                                        <li className={`${clickState === 4 ? 'active' : ''}`}>
+                                            Account Details
+                                        </li>
+                                    </Link>
+                                    <Link to='' onClick={() =>ToggleClass(5)}>
+                                        <li className={`${clickState === 5 ? 'active' : ''}`}>
+                                            Download
+                                        </li>
+                                    </Link>
+                                    <Link to='address' onClick={() =>ToggleClass(6)}>
+                                        <li className={`${clickState === 6 ? 'active' : ''}`}>
+                                            Addreases
+                                        </li>
+                                    </Link>
+                                    <Link to='' onClick={() =>ToggleClass(7)}>
+                                        <li className={`${clickState === 7 ? 'active' : ''}`}>
+                                            Logout
+                                        </li>
+                                    </Link>
                                 </ul>
                             </div>
                         </div>
                     </Col>
                     {/* Right bar */}
                     <Col md={8} lg={9}>
-                        <Outlet/>
+                        <Outlet />
                     </Col>
                 </Row>
             </Container>
