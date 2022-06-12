@@ -1,0 +1,68 @@
+.userProfile .pageTitle {
+    background-color: #f7f7f7;
+    border-top: 1px solid #ececec;
+    border-bottom: 1px solid #ececec;
+}
+
+.userProfile .pageTitle .inner{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.userProfile .pageTitle .inner h1{
+    font-size: 1.6em;
+    color: #0a0a0a;
+    text-rendering: optimizeSpeed;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+.userProfile .pageTitle .inner p{
+    font-size: 13px;
+    color: #0a0a0a;
+    text-rendering: optimizeSpeed;
+}
+
+.leftbar {
+    border-right: 1px solid #ececec;
+}
+
+.leftbar .leftbar_title .profile_image{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%
+}
+.leftbar .leftbar_title .profile_image img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%
+}
+
+.leftbar .leftbar_content ul {
+    list-style: none;
+    padding-left: 0;
+}
+.leftbar .leftbar_content ul li{
+    padding: 8px 0px; 
+    
+}
+.leftbar .leftbar_content ul li.active{
+    border-right: 3px solid #446084;
+    color: black;
+}
+.leftbar .leftbar_content ul li:hover{
+    border-right: 3px solid #446084;
+}
+.leftbar .leftbar_content ul li+li{
+    border-top: 1px solid #ececec;
+    
+}
+.leftbar .leftbar_content ul  a{
+    color: #666666D9;
+    font-size: 14px;
+    padding-bottom: 10px; 
+    font-weight: bold;
+    transition :0.5s linear;
+
+}
+.leftbar .leftbar_content ul  a:hover{
+    color: black;
+}

@@ -1,0 +1,8 @@
+
+.btm_border_dash {
+    border-bottom: 1px dashed #414141!important;
+}
+.m_force_end {
+    display: flex;
+    justify-content: end;
+}

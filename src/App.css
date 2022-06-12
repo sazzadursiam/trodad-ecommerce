@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+/* page setup */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans';
+    text-decoration: none !important;
+    /* list-style: none; */
+}
+
+
+.w-90 {
+    width: 90%;
+}
+
+.w_45 {
+    width: 45%;
+}
+
+.cl_light_grey {
+    color: #666;
+}
+
+.cl_navy {
+    color: #003153;
+}
+.cl_white{
+    color: white;
+}
+
+.cl_light_navy {
+    color: #1763a1;
+}
+
+.bg_navy {
+    background-color: #003153;
+}
+
+.bg_smooky {
+    background-color: #26506d;
+}
+
+.bg_light_grey {
+    background-color: #EFEEED;
+}
+
+
+
+
+.line_height_12{
+    line-height: 20px;
+}
+
+.fs20{
+    font-size: 20px !important;
+}
+
+.cursor_pointer {
+    cursor: pointer !important;
+}
+
+
+
+.jodit-container.jodit.jodit_theme_default.jodit-wysiwyg_mode{
+    min-width: unset !important;
+}
+

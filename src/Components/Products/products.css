@@ -1,0 +1,115 @@
+/* ================================= Product Tab Starts ============================================ */
+
+
+.products-tabs {
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid #d8d6d4;
+    padding: 10px 15px;
+
+}
+
+.product-card {
+    border: 1px solid white !important;
+
+}
+
+.product-card:hover {
+    border: 1px solid rgb(187, 185, 185) !important;
+}
+
+.products-tabs a {
+    color: #003153;
+}
+
+.products-tabs.active {
+    background-color: #003153;
+
+}
+
+.products-tabs.active a {
+    color: #fff;
+}
+
+/* ================================= Product Tab Ends============================================ */
+
+/* ================================= Product Image============================================ */
+
+.products-cards .img-wrapper {
+    width: 100%;
+    height: auto;
+}
+
+.product-flag {
+    display: inline-block;
+    position: absolute;
+    padding: 0.5rem 0.7rem;
+    border-radius: 4px;
+    line-height: normal;
+    left: 2px;
+    bottom: 15px;
+    max-width: 100%;
+    z-index: 1;
+    background-color: #606;
+    color: #fff;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* ================================= Product Name, Rating, Price============================================ */
+
+
+.product-details {
+    font-weight: bold;
+    text-align: left;
+    line-height: 16px;
+    font-size: 14px;
+}
+
+.product-rating span {
+    font-size: 13px;
+}
+
+.product-price span {
+    font-size: 10px;
+    color: grey;
+}
+
+.product-price span:nth-child(2) {
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+}
+
+/* ================================= Product Variant Dropdown , Add to Cart Button ============================================ */
+
+.product-variant-select {
+    border: 1px solid grey;
+    border-radius: 6px 0 0 6px !important;
+}
+
+.product-variant-select:focus {
+    border-color: rgb(216, 216, 216) !important;
+    box-shadow: none !important;
+
+}
+
+.add-to-cart-btn {
+    border-radius: 0 6px 6px 0 !important;
+
+}
+
+/* ================================= MEDIA QUERIES ============================================ */
+
+
+@media screen and (max-width: 576px) {
+    .products-tabs ul li {
+        width: 50% !important;
+    }
+
+    .product-section-title {
+        font-size: 22px;
+    }
+}
