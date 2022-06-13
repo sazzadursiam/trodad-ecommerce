@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import './Address.css'
 
 const Address = () => {
+
+    const link = 'https://backend-ecommerce.trodad.com/api/product/new-price'
+
+    
     return (
         <div className="address mt-3 mb-5">
             <p className="mb-4">The following addresses will be used on the checkout page by default.</p>
@@ -12,7 +16,8 @@ const Address = () => {
                 <Col lg={3}>
                     <h3>Billing address</h3>
 
-                    <Link to='edit-address'>
+                    <Link to='/my/edit-address'
+                    state = {link}>
                         Edit
                     </Link>
                     <address>
@@ -30,7 +35,7 @@ const Address = () => {
                 <Col lg={3}>
                     <h3>Shipping address</h3>
 
-                    <Link to='/my'>
+                    <Link to='/my/edit-address'>
                         Edit
                     </Link>
                     <address>

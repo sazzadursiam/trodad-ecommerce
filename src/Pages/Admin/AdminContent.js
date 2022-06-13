@@ -61,19 +61,19 @@ const Test = () => {
                 </NavDropdown> */}
               </li>
               <li className="nav-link">
-                <Link to=" ">
+                <Link to="shipping-method">
                   <MdIcons.MdLocalShipping className="icon" />
                   <span className="text nav-text">Shipping Method</span>
                 </Link>
               </li>
               <li className="nav-link">
-                <Link to="">
+                <Link to="slider-element">
                   <BsIcons.BsSliders className="icon" />
                   <span className="text nav-text">Slider Elements</span>
                 </Link>
               </li>
               <li className="nav-link">
-                <Link to="">
+                <Link to="coupons">
                   <FaIcons.FaTags className="icon" />
                   <span className="text nav-text">Coupons</span>
                 </Link>
@@ -98,7 +98,7 @@ const Test = () => {
                 </Link>
               </li>
               <li className="nav-link">
-                <Link to=" ">
+                <Link to="">
                   <ImIcons.ImExit className="icon" />
                   <span className="text nav-text">Logout</span>
                 </Link>

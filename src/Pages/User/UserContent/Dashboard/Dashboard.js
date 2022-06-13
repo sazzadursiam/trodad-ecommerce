@@ -35,22 +35,22 @@ const Dashboard = () => {
             <div>
                 <Row>
                     <Col md={4} className="mb-3">
-                        <Button className="w-100" git remote set-url origin variant="outline-secondary">Orders</Button>
+                        <Button className="w-100"  variant="outline-secondary">Orders</Button>
                     </Col>
                     <Col md={4} className="mb-3">
-                        <Button className="w-100" git remote set-url origin variant="outline-secondary">Card</Button>
+                        <Button className="w-100"  variant="outline-secondary">Card</Button>
                     </Col>
                     <Col md={4} className="mb-3">
-                        <Button className="w-100" git remote set-url origin variant="outline-secondary">Download</Button>
+                        <Button className="w-100"  variant="outline-secondary">Download</Button>
                     </Col>
                     <Col md={4} className="mb-3">
-                        <Button className="w-100" git remote set-url origin variant="outline-secondary">Addreases</Button>
+                        <Button className="w-100"  variant="outline-secondary">Addreases</Button>
                     </Col>
                     <Col md={4} className="mb-3">
-                        <Button className="w-100" git remote set-url origin variant="outline-secondary">Account Details</Button>
+                        <Button className="w-100"  variant="outline-secondary">Account Details</Button>
                     </Col>
                     <Col md={4} className="mb-3">
-                        <Button className="w-100" git remote set-url origin variant="outline-secondary">Whichlist</Button>
+                        <Button className="w-100"  variant="outline-secondary">Whichlist</Button>
                     </Col>
                 </Row>
             </div>

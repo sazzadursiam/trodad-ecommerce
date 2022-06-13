@@ -28,6 +28,9 @@ import ProductCategory from "./Pages/ProductCategory/ProductCategory";
 import Report from "./Pages/Report/Report";
 import Address from "./Pages/User/UserContent/Dashboard/Address/Address";
 import EditAddress from "./Pages/User/UserContent/Dashboard/EditAddress/EditAddress";
+import JournalDetails from "./Components/Journal/journalDetails";
+import ShippingMethod from "./Pages/Admin/ShippingMethod";
+import SliderElement from "./Pages/Admin/SliderElement";
 
 export const UserContext = createContext();
 
@@ -41,6 +44,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/journals" element={<JournalDetails />} />
 
           {/* Products */}
           <Route
@@ -53,11 +57,13 @@ function App() {
 
           <Route path="/underconstruction" element={<Report />} />
 
-          {/* Admin Dashboard */}
+          {/*===================== Admin Dashboard ===========================*/}
           <Route path="admin" element={<Admin />}>
             <Route index element={<AdminDashboard />} />
             <Route path="brands" element={<Brands />} />
             <Route path="categories" element={<ProductCategories />} />
+            <Route path="shipping-method" element={<ShippingMethod />} />
+            <Route path="slider-element" element={<SliderElement />} />
 
             <Route path="products" element={<AllProduct />} />
             <Route path="products/add-new" element={<AddProduct />} />
