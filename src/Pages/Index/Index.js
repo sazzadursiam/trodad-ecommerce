@@ -2,7 +2,7 @@ import { Button, Card, Carousel, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
-import News from '../../Components/News/News';
+import Journal from '../../Components/Journal/Journal';
 import Product from '../../Components/Products/Product';
 
 
@@ -137,7 +137,7 @@ const Index = () => {
                 </Container>
             </div>
             <Product />
-            <News/>
+            <Journal/>
             <Footer />
         </div>
     );

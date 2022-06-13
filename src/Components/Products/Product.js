@@ -53,6 +53,7 @@ const Product = (props) => {
   const getTabItems = (id) => {
     axios.get(`${BACKEND_BASE_URL}/api/product/tab/${id}`).then((res) => {
       setFilterTab(res.data.tabProducts);
+      console.log(res.data.tabProducts);
     });
   };
 
@@ -64,8 +65,14 @@ const Product = (props) => {
 
       <Row>
         {tabItems.map((data, index) => (
-          <Col xs={6} md={3} key={index} className="products-tabs active my-3 cursor_pointer">
-            <span className="text-white" onClick={() => getTabItems(data.id)}>
+          <Col
+            xs={6}
+            md={3}
+            key={index}
+            className="products-tabs active my-3 cursor_pointer"
+            onClick={() => getTabItems(data.id)}
+          >
+            <span className="text-white" >
               {data.name}
             </span>
           </Col>
@@ -93,12 +100,12 @@ const Product = (props) => {
                           className="img-fluid"
                         />
                         <div className="product-flag-container">
-                          <span className="product-flag">{data.name}</span>
+                          <span className="product-flag">{data.flagText1}</span>
                         </div>
                       </div>
                     </Card.Title>
                     <Card.Text className="product-details">
-                      {data.shortDescription}
+                      {data.name}
                     </Card.Text>
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="product-rating d-flex align-items-center">
@@ -168,12 +175,12 @@ const Product = (props) => {
                           className="img-fluid"
                         />
                         <div className="product-flag-container">
-                          <span className="product-flag">{data.name}</span>
+                          <span className="product-flag">{data.flagText1}</span>
                         </div>
                       </div>
                     </Card.Title>
                     <Card.Text className="product-details">
-                      {data.shortDescription}
+                      {data.name}
                     </Card.Text>
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="product-rating d-flex align-items-center">

@@ -10,47 +10,45 @@ import { Link } from "react-router-dom";
 import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
 import Swal from "sweetalert2";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
-import JoditEditor from "jodit-react";
-import Parse from "html-react-parser";
 
-const Brands = () => {
-  const brandName = useRef();
-  const brandImage = useRef();
-  const shortDesc = useRef();
+const SliderElement = () => {
+  const sliderName = useRef();
+  const sliderImage = useRef();
+  const sliderLink = useRef();
 
   //=================================== Fetch Table Data ===================================
 
   const [tableData, setTableData] = useState([]);
 
-  const renderAllBrands = async () => {
+  const renderAllSliders = async () => {
     try {
-      await axios.get(`${BACKEND_BASE_URL}/api/admin/brands`).then((res) => {
-        setTableData(res.data.allBrands);
-        console.log(res.data.allBrands);
-      });
+      await axios
+        .get(`${BACKEND_BASE_URL}/api/admin/banners-image`)
+        .then((res) => {
+          setTableData(res.data.allBanners);
+          console.log(res.data);
+        });
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    renderAllBrands();
+    renderAllSliders();
   }, []);
-
-  const [descValue, setDescValue] = useState();
 
   // Modal Section Data
   const [modalShow, setModalShow] = useState(false);
   const [modalData, setModalData] = useState("");
   const [modalSize, setModalSize] = useState("lg");
 
-  // View single brand
-  const [singleBrandInfo, setSingleBrandInfo] = useState([]);
+  // View single banner
+  const [singleSlider, setSingleSlider] = useState([]);
 
   // Edit value
-  const [editedBrandName, setEditedBrandName] = useState();
-  const [editedBrandImage, setEditedBrandImage] = useState();
-  const [editedBrandDesc, setEditedBrandDesc] = useState();
+  const [editedSliderTitle, setEditedSliderTitle] = useState();
+  const [editedSliderImage, setEditedSliderImage] = useState();
+  const [editedSliderLink, setEditedSliderLink] = useState();
 
   // ============================= Add new data =============================
 
@@ -65,12 +63,12 @@ const Brands = () => {
 
   const storeData = (e) => {
     const formdata = new FormData();
-    formdata.append("brandName", brandName.current.value);
-    formdata.append("brandImage", brandImage.current.files[0]);
-    formdata.append("shortDesc", shortDesc.current.value);
+    formdata.append("title", sliderName.current.value);
+    formdata.append("image", sliderImage.current.files[0]);
+    formdata.append("btnLink", sliderLink.current.value);
 
     axios
-      .post(`${BACKEND_BASE_URL}/api/admin/brands/store`, formdata, {
+      .post(`${BACKEND_BASE_URL}/api/admin/banners-image/store`, formdata, {
         headers: { "Content-Type": "multipart/form-data" },
       })
 
@@ -81,52 +79,44 @@ const Brands = () => {
             text: response.data.message,
             confirmButtonColor: "#5eba86",
           });
-          renderAllBrands();
-          // setChecked(false);
+          renderAllSliders();
           e.target.reset();
-          setDescValue("", "html");
           setModalShow(false);
         }
       });
+    console.log("submitted");
     e.preventDefault();
-  };
-
-  const statusUpdate = (id, status) => {
-    axios
-      .get(`${BACKEND_BASE_URL}/api/admin/brands/status-update/${id}/${status}`)
-      .then((res) => {
-        renderAllBrands();
-      });
   };
 
   // ===================== View single image ===================================
 
   const showSingleImageData = (modalValue, id) => {
     setModalSize("");
-    axios.get(`${BACKEND_BASE_URL}/api/admin/brands/view/${id}`).then((res) => {
-      // console.log(res.data);
-      setModalSize("sm");
-      setModalData(modalValue);
-      setSingleBrandInfo(res.data.viewBrand);
-      // console.log(res.data.viewHappyClientInfo);
-      setModalShow(true);
-    });
+    axios
+      .get(`${BACKEND_BASE_URL}/api/admin/banners-image/view/${id}`)
+      .then((res) => {
+        // console.log(res.data);
+        setModalSize("lg");
+        setModalData(modalValue);
+        setSingleSlider(res.data.viewBanner);
+        setModalShow(true);
+      });
   };
 
   // ===================== Edit data ==========================================
 
   const [Id, setId] = useState();
-  // console.log("initial value", isChecked);
+
   const fetchDataForEdit = (modalValue, id) => {
     setFile([]);
 
-    axios.get(`${BACKEND_BASE_URL}/api/admin/brands/edit/${id}`).then((res) => {
-      const { id, brandName, brandImage, shortDesc } = res.data.editBrand;
+    axios.get(`${BACKEND_BASE_URL}/api/admin/banners-image/edit/${id}`).then((res) => {
+      const { id, title, image, btnLink } = res.data.editBanner;
       // console.log("db is home", isHome);
       setId(id);
-      setEditedBrandName(brandName);
-      setEditedBrandImage(brandImage);
-      setEditedBrandDesc(shortDesc);
+      setEditedSliderTitle(title);
+      setEditedSliderImage(image);
+      setEditedSliderLink(btnLink);
       setModalData(modalValue);
       setModalSize("lg");
       setModalShow(true);
@@ -149,34 +139,34 @@ const Brands = () => {
 
   // ===================== Updated data to backend ===============================
 
-  const updateImageGallery = (e) => {
-    const UpdatedBrandImage = brandImage.current.files[0];
+    const updatedSlider = (e) => {
+      const UpdatedSliderImage = sliderImage.current.files[0];
 
-    const formdata = new FormData();
-    formdata.append("_method", "PUT");
-    formdata.append("brandName", brandName.current.value);
-    if (UpdatedBrandImage) {
-      formdata.append("brandImage", UpdatedBrandImage);
-    }
-    formdata.append("shortDesc", shortDesc.current.value);
+      const formdata = new FormData();
+      formdata.append("_method", "PUT");
+      formdata.append("title", sliderName.current.value);
+      if (UpdatedSliderImage) {
+        formdata.append("image", UpdatedSliderImage);
+      }
+      formdata.append("btnLink", sliderLink.current.value);
 
-    axios
-      .post(`${BACKEND_BASE_URL}/api/admin/brands/update/${Id}`, formdata, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
+      axios
+        .post(`${BACKEND_BASE_URL}/api/admin/banners-image/update/${Id}`, formdata, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
 
-      .then((response) => {
-        Swal.fire({
-          icon: "success",
-          text: response.data.message,
-          confirmButtonColor: "#5eba86",
+        .then((response) => {
+          Swal.fire({
+            icon: "success",
+            text: response.data.message,
+            confirmButtonColor: "#5eba86",
+          });
+          setModalShow(false);
+          renderAllSliders();
         });
-        setModalShow(false);
-        renderAllBrands();
-      });
 
-    e.preventDefault();
-  };
+      e.preventDefault();
+    };
 
   // =============================== Delete Data ===============================
   const deleteData = async (id) => {
@@ -198,46 +188,16 @@ const Brands = () => {
 
     if (isConfirm) {
       axios
-        .delete(`${BACKEND_BASE_URL}/api/admin/brands/delete/${id}`)
+        .delete(`${BACKEND_BASE_URL}/api/admin/banners-image/delete/${id}`)
         .then((res) => {
           Swal.fire({
             icon: "success",
             text: res.data.message,
             confirmButtonColor: "#5eba86",
           });
-          renderAllBrands();
+          renderAllSliders();
         });
     }
-  };
-
-  // jodit editor options
-  const config = {
-    buttons: [
-      "bold",
-      "strikethrough",
-      "underline",
-      "italic",
-      "|",
-      "ul",
-      "ol",
-      "|",
-      "outdent",
-      "indent",
-      "|",
-      "font",
-      "fontsize",
-      "brush",
-      "paragraph",
-      "|",
-      "table",
-      "link",
-      "|",
-      "align",
-      "undo",
-      "redo",
-      "|",
-      "symbol",
-    ],
   };
 
   return (
@@ -279,9 +239,9 @@ const Brands = () => {
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Brand Name</th>
-                        <th scope="col">Brand Image</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">Slider Title</th>
+                        <th scope="col">Slider Image</th>
+                        <th scope="col">Link</th>
                         <th scope="col">Handle</th>
                       </tr>
                     </thead>
@@ -289,37 +249,17 @@ const Brands = () => {
                       {tableData.map((data, index) => (
                         <tr key={index}>
                           <td> {index + 1}</td>
-                          <td>{data.brandName}</td>
+                          <td>{data.title}</td>
                           <td>
                             <img
                               className="img-thumbnail"
                               width={80}
                               height={50}
-                              src={`${BACKEND_BASE_URL}${data.brandImage}`}
-                              alt={data.brandName}
+                              src={`${BACKEND_BASE_URL}${data.image}`}
+                              alt={data.title}
                             />
                           </td>
-                          <td>
-                            {data.status == 1 ? (
-                              <div
-                                className="btn btn-success btn-sm border-0"
-                                onClick={() =>
-                                  statusUpdate(data.id, data.status)
-                                }
-                              >
-                                Active
-                              </div>
-                            ) : (
-                              <div
-                                className="btn btn-danger btn-sm border-0"
-                                onClick={() =>
-                                  statusUpdate(data.id, data.status)
-                                }
-                              >
-                                In-active
-                              </div>
-                            )}
-                          </td>
+                          <td></td>
                           <td>
                             {/* view button */}
                             <button
@@ -338,7 +278,7 @@ const Brands = () => {
                             </button>
                             {/* edit button */}
                             <button
-                              onClick={() => fetchDataForEdit("Edit", data.id)}
+                                onClick={() => fetchDataForEdit("Edit", data.id)}
                               className="py-1 px-2 bg-warning border-0 rounded-3 me-1 mb-1"
                             >
                               <BiIcons.BiEdit
@@ -351,7 +291,7 @@ const Brands = () => {
                             </button>
                             {/* delete button */}
                             <button
-                              onClick={() => deleteData(data.id)}
+                                onClick={() => deleteData(data.id)}
                               className="py-1 px-2 bg-danger border-0 rounded-3 me-1 mb-1"
                             >
                               <MdIcons.MdDeleteForever
@@ -403,7 +343,7 @@ const Brands = () => {
                         <div className="card">
                           <div className="card-body">
                             <Row className="py-3">
-                              {/* Brand Name */}
+                              {/* Slider Name */}
                               <Form.Group
                                 as={Col}
                                 md="6"
@@ -411,20 +351,16 @@ const Brands = () => {
                                 className="mb-3"
                               >
                                 <Form.Label className="label fw-bold">
-                                  Brand Name
+                                  Slider title
                                 </Form.Label>
                                 <Form.Control
-                                  required
                                   type="text"
-                                  placeholder="Brand Name"
-                                  ref={brandName}
+                                  placeholder="slider title"
+                                  ref={sliderName}
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                  Title is required
-                                </Form.Control.Feedback>
                               </Form.Group>
 
-                              {/* Brand Image */}
+                              {/* Slider Image */}
                               <Form.Group
                                 as={Col}
                                 md="6"
@@ -432,13 +368,13 @@ const Brands = () => {
                                 className="mb-3"
                               >
                                 <Form.Label className="label fw-bold">
-                                  Image Link
+                                  Image <span className="text-danger">*</span>
                                 </Form.Label>
 
                                 <Form.Control
                                   required
                                   type="file"
-                                  ref={brandImage}
+                                  ref={sliderImage}
                                   onChange={handleImgPreview}
                                 />
 
@@ -462,7 +398,7 @@ const Brands = () => {
                                 </Form.Control.Feedback>
                               </Form.Group>
 
-                              {/* Brand Description */}
+                              {/* Slider Button Link */}
                               <Form.Group
                                 as={Col}
                                 md="12"
@@ -470,13 +406,13 @@ const Brands = () => {
                                 className="mb-3"
                               >
                                 <Form.Label className="label fw-bold">
-                                  Description
+                                  Button Link
                                 </Form.Label>
-                                <JoditEditor
-                                  ref={shortDesc}
-                                  config={config}
-                                  tabIndex={1}
-                                  value={descValue}
+                                <Form.Control
+                                  required
+                                  type="text"
+                                  placeholder="link"
+                                  ref={sliderLink}
                                 />
                               </Form.Group>
 
@@ -496,12 +432,12 @@ const Brands = () => {
                 )}
                 {/* Edit modal section */}
                 {modalData === "Edit" && (
-                  <Form onSubmit={updateImageGallery}>
+                  <Form onSubmit={updatedSlider}>
                     <div className="content-wrapper">
                       <div className="card">
                         <div className="card-body">
                           <Row className="py-3">
-                            {/* Brand Name */}
+                            {/* Slider Name */}
                             <Form.Group
                               as={Col}
                               md="6"
@@ -509,23 +445,19 @@ const Brands = () => {
                               className="mb-3"
                             >
                               <Form.Label className="label fw-bold">
-                                Brand Name
+                                Slider Title
                               </Form.Label>
                               <Form.Control
-                                required
                                 type="text"
-                                ref={brandName}
-                                value={editedBrandName}
-                                onChange={(e) => {
-                                  setEditedBrandName(e.target.value);
-                                }}
+                                ref={sliderName}
+                                defaultValue={editedSliderTitle}
+                                // onChange={(e) => {
+                                //   setEditedBrandName(e.target.value);
+                                // }}
                               />
-                              <Form.Control.Feedback type="invalid">
-                                Title is required
-                              </Form.Control.Feedback>
                             </Form.Group>
 
-                            {/* Brand Image */}
+                            {/* Slider Image */}
                             <Form.Group
                               as={Col}
                               md="6"
@@ -533,12 +465,14 @@ const Brands = () => {
                               className="mb-3"
                             >
                               <Form.Label className="label fw-bold">
-                                Brand Image
+                                Slider Image{" "}
+                                <span className="text-danger">*</span>
                               </Form.Label>
 
                               <Form.Control
+                                required
                                 type="file"
-                                ref={brandImage}
+                                ref={sliderImage}
                                 onChange={handleImgPreview}
                               />
 
@@ -561,9 +495,8 @@ const Brands = () => {
                                 <img
                                   width={80}
                                   height={50}
-                                  src={`${BACKEND_BASE_URL}${editedBrandImage}`}
-                                  alt={brandName}
-                                  name="img"
+                                  src={`${BACKEND_BASE_URL}${editedSliderImage}`}
+                                  alt={sliderName}
                                 />
                               )}
 
@@ -572,7 +505,7 @@ const Brands = () => {
                               </Form.Control.Feedback>
                             </Form.Group>
 
-                            {/* Brand Description */}
+                            {/* slider Button Link */}
                             <Form.Group
                               as={Col}
                               md="12"
@@ -580,16 +513,13 @@ const Brands = () => {
                               className="mb-3"
                             >
                               <Form.Label className="label fw-bold">
-                                Short Description
+                                Slider Link
                               </Form.Label>
-                              <JoditEditor
-                                tabIndex={1}
-                                config={config}
-                                ref={shortDesc}
-                                value={editedBrandDesc}
-                                // onChange={(e) => {
-                                //   setEditedBrandDesc(e.target.value);
-                                // }}
+                              <Form.Control
+                                type="text"
+                                placeholder="Link"
+                                ref={sliderName}
+                                defaultValue={editedSliderLink}
                               />
                             </Form.Group>
 
@@ -609,15 +539,12 @@ const Brands = () => {
                 {/* View Modal section */}
                 {modalData === "View" && (
                   <>
-                    <h4>{singleBrandInfo.brandName}</h4>
+                    <h4>{singleSlider.title}</h4>
                     <img
                       className="img-thumbnail"
-                      src={`${BACKEND_BASE_URL}/${singleBrandInfo.brandImage}`}
+                      src={`${BACKEND_BASE_URL}/${singleSlider.image}`}
                       alt=""
                     />
-                    <div className="mt-2">
-                      {Parse(`${singleBrandInfo.shortDesc}`)}
-                    </div>
                   </>
                 )}
               </Modal.Body>
@@ -637,4 +564,4 @@ const Brands = () => {
   );
 };
 
-export default Brands;
+export default SliderElement;

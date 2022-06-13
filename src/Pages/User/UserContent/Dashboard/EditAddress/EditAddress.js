@@ -1,11 +1,14 @@
 import React from 'react';
 import { Button, Form } from 'react-bootstrap';
+import { useLocation } from 'react-router-dom';
 
 const EditAddress = () => {
+    const location = useLocation() ;
+    const check = location.state.length ;
     return (
         <div className="edit_address">
             <h3>Billing address</h3>
-            <Form>
+            <Form className=''>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" />

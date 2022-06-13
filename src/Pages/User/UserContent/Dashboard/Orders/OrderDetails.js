@@ -1,25 +1,22 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import './Address.css'
+import { useParams } from 'react-router-dom';
 
-const Address = () => {
-
-    const link = 'https://backend-ecommerce.trodad.com/api/product/new-price'
-
-    
+const OrderDetails = () => {
+    const { orderId } = useParams();
     return (
-        <div className="address mt-3 mb-5">
-            <p className="mb-4">The following addresses will be used on the checkout page by default.</p>
+        <div>
+            <p>Order #{orderId} was placed on June 13, 2022 and is currently Processing.</p>
+
+            <h3>Order details</h3>
+
+            <div className="order_product_details">
+
+            </div>
 
             <Row>
-                <Col lg={3}>
+                <Col lg={4}>
                     <h3>Billing address</h3>
-
-                    <Link to='/my/edit-address'
-                    state = {link}>
-                        Edit
-                    </Link>
                     <address>
                         Tanver Mehede
                         <br />
@@ -32,12 +29,8 @@ const Address = () => {
                         1216
                     </address>
                 </Col>
-                <Col lg={3}>
+                <Col lg={4}>
                     <h3>Shipping address</h3>
-
-                    <Link to='/my/edit-address'>
-                        Edit
-                    </Link>
                     <address>
                         Tanver Mehede
                         <br />
@@ -55,4 +48,4 @@ const Address = () => {
     );
 };
 
-export default Address;
+export default OrderDetails;
