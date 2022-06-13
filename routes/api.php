@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\Product\CategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
@@ -27,6 +28,13 @@ Route::get('/product/{filterText}', [MasterController::class, 'filterNewProduct'
 Route::get('/tabs', [MasterController::class, 'filterTabs']);
 
 Route::get('/product/tab/{id}', [MasterController::class, 'filterTabProduct']);
+
+
+Route::get('/all-product', [MasterController::class, 'getAllProduct']);
+
+Route::get('/products/single-details/{slug}', [MasterController::class, 'getSingleProductDetails']);
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +90,23 @@ Route::group(['prefix' => '/admin'], function () {
 
         Route::get('/get-cat-brand', [ProductController::class, 'getCatBrand']);
     });
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Banner Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['prefix' => '/banners-image'], function () {
+        Route::get('/', [BannerController::class, 'index']);
+        Route::post('/store', [BannerController::class, 'store']);
+        Route::get('/view/{id}', [BannerController::class, 'show']);
+        Route::get('/edit/{id}', [BannerController::class, 'edit']);
+        Route::put('/update/{id}', [BannerController::class, 'update']);
+        Route::delete('/delete/{id}', [BannerController::class, 'destroy']);
+    });
+
+
 
     Route::post('/test', [TestController::class, 'index']);
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -17,13 +18,29 @@ class MasterController extends Controller
 
         $allProductCaregories = Category::with('subCategory')->where('status', 1)->where('parrentCatId', 0)->orderBy('name', 'asc')->get();
 
+        $allBanners = Banner::get();
+
+        $allProductsMaster = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->orderBy('id', 'desc')->paginate(5);
+
 
 
         return response()->json([
             'allBrands' => $allBrands,
             'allProductCaregories' => $allProductCaregories,
+            'allBanners' => $allBanners,
+            'allProductsMaster' => $allProductsMaster,
         ]);
     }
+
+    public function getSingleProductDetails($slug)
+    {
+        $singleProductDetails = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->where('slug', $slug)->first();
+
+        return response()->json([
+            'singleProductDetails' => $singleProductDetails,
+        ]);
+    }
+
     // Get Single Brand  info
     public function getSingleBrand($slug)
     {
@@ -81,6 +98,15 @@ class MasterController extends Controller
         $tabProducts = Product::where('categoryId', $categoryId)->orderBy('name', 'asc')->get();
         return response()->json([
             'tabProducts' => $tabProducts,
+        ]);
+    }
+
+    public function getAllProduct()
+    {
+        $allProducts = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->paginate(5);
+
+        return response()->json([
+            'allProducts' => $allProducts,
         ]);
     }
 }

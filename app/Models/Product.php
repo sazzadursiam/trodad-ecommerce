@@ -14,6 +14,7 @@ class Product extends Model
         'slug',
         'brandId',
         'categoryId',
+        'subCategoryId',
         'image',
         'shortDescription',
         'description',
@@ -22,5 +23,19 @@ class Product extends Model
     public function ProductAttrs()
     {
         return $this->hasMany(ProductAttr::class, 'productId');
+    }
+
+    public function ProductCategory()
+    {
+        return $this->belongsTo(Category::class, 'categoryId');
+    }
+    public function ProductSubCategory()
+    {
+        return $this->belongsTo(Category::class, 'subCategoryId');
+    }
+
+    public function ProductBrand()
+    {
+        return $this->belongsTo(Brand::class, 'brandId');
     }
 }

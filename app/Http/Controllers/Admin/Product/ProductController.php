@@ -100,6 +100,10 @@ class ProductController extends Controller
             $product->isNew = $request->isNew;
             $product->isNewPrice = $request->isNewPrice;
 
+            $product->sku = 'Art ' . time();
+
+
+
             // $product->isNew1 = $request->isNew1;
             // $product->isNew2 = $request->isNew2;
             // $product->isNew3 = $request->isNew3;
