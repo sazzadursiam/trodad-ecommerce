@@ -48,10 +48,10 @@ function App() {
 
           {/* Products */}
           <Route
-            path="/products/:productcategory"
+            path="/products/category/:productcategory"
             element={<ProductCategory />}
           />
-          <Route path="/products" element={<ProductDetails />} />
+          <Route path="/products/details/:slug" element={<ProductDetails />} />
 
           <Route path="/checkout" element={<Checkout />} />
 

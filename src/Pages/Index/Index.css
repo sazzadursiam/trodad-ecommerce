@@ -5,7 +5,7 @@
 }
 
 
-.index_page .bannerAdd img{
+.index_page .bannerAdd img {
     height: 100%;
     width: 100%;
 }
@@ -22,7 +22,8 @@
     display: none !important;
 }
 
-.carousel-control-next-icon, .carousel-control-prev-icon {
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
 
     background: #26506d;
     width: 40px !important;
@@ -31,7 +32,8 @@
 
 }
 
-.index_page  .carousel-control-next-icon, .carousel-control-prev-icon {
+.index_page .carousel-control-next-icon,
+.carousel-control-prev-icon {
     background-size: 19px !important;
 }
 
@@ -44,4 +46,7 @@
     z-index: 9 !important;
 }
 
-
+.product_card .img-wrapper {
+    width: 100%;
+    min-height: 300px;
+}

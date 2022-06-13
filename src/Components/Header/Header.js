@@ -153,7 +153,7 @@ const Header = () => {
 
               <Nav.Link
                 as={Link}
-                to="/products/new-price"
+                to="/products/category/new-price"
                 onClick={() => setSlugName("new-price")}
                 className="py-3"
               >
@@ -161,7 +161,7 @@ const Header = () => {
               </Nav.Link>
               <Nav.Link
                 as={Link}
-                to="/products/new"
+                to="/products/category/new"
                 onClick={() => setSlugName("new")}
               >
                 New

@@ -110,22 +110,23 @@ const SliderElement = () => {
   const fetchDataForEdit = (modalValue, id) => {
     setFile([]);
 
-    axios.get(`${BACKEND_BASE_URL}/api/admin/banners-image/edit/${id}`).then((res) => {
-      const { id, title, image, btnLink } = res.data.editBanner;
-      // console.log("db is home", isHome);
-      setId(id);
-      setEditedSliderTitle(title);
-      setEditedSliderImage(image);
-      setEditedSliderLink(btnLink);
-      setModalData(modalValue);
-      setModalSize("lg");
-      setModalShow(true);
-    });
+    axios
+      .get(`${BACKEND_BASE_URL}/api/admin/banners-image/edit/${id}`)
+      .then((res) => {
+        const { id, title, image, btnLink } = res.data.editBanner;
+        // console.log("db is home", isHome);
+        setId(id);
+        setEditedSliderTitle(title);
+        setEditedSliderImage(image);
+        setEditedSliderLink(btnLink);
+        setModalData(modalValue);
+        setModalSize("lg");
+        setModalShow(true);
+      });
   };
 
   // Image Preview
   const [files, setFile] = useState([]);
-  // console.log("Check files",files);
 
   const handleImgPreview = (e) => {
     let allfiles = [];
@@ -139,34 +140,38 @@ const SliderElement = () => {
 
   // ===================== Updated data to backend ===============================
 
-    const updatedSlider = (e) => {
-      const UpdatedSliderImage = sliderImage.current.files[0];
+  const updatedSlider = (e) => {
+    const UpdatedSliderImage = sliderImage.current.files[0];
 
-      const formdata = new FormData();
-      formdata.append("_method", "PUT");
-      formdata.append("title", sliderName.current.value);
-      if (UpdatedSliderImage) {
-        formdata.append("image", UpdatedSliderImage);
-      }
-      formdata.append("btnLink", sliderLink.current.value);
+    const formdata = new FormData();
+    formdata.append("_method", "PUT");
+    formdata.append("title", sliderName.current.value);
+    if (UpdatedSliderImage) {
+      formdata.append("image", UpdatedSliderImage);
+    }
+    formdata.append("btnLink", sliderLink.current.value);
 
-      axios
-        .post(`${BACKEND_BASE_URL}/api/admin/banners-image/update/${Id}`, formdata, {
+    axios
+      .post(
+        `${BACKEND_BASE_URL}/api/admin/banners-image/update/${Id}`,
+        formdata,
+        {
           headers: { "Content-Type": "multipart/form-data" },
-        })
+        }
+      )
 
-        .then((response) => {
-          Swal.fire({
-            icon: "success",
-            text: response.data.message,
-            confirmButtonColor: "#5eba86",
-          });
-          setModalShow(false);
-          renderAllSliders();
+      .then((response) => {
+        Swal.fire({
+          icon: "success",
+          text: response.data.message,
+          confirmButtonColor: "#5eba86",
         });
+        setModalShow(false);
+        renderAllSliders();
+      });
 
-      e.preventDefault();
-    };
+    e.preventDefault();
+  };
 
   // =============================== Delete Data ===============================
   const deleteData = async (id) => {
@@ -241,7 +246,6 @@ const SliderElement = () => {
                         <th scope="col">#</th>
                         <th scope="col">Slider Title</th>
                         <th scope="col">Slider Image</th>
-                        <th scope="col">Link</th>
                         <th scope="col">Handle</th>
                       </tr>
                     </thead>
@@ -278,7 +282,7 @@ const SliderElement = () => {
                             </button>
                             {/* edit button */}
                             <button
-                                onClick={() => fetchDataForEdit("Edit", data.id)}
+                              onClick={() => fetchDataForEdit("Edit", data.id)}
                               className="py-1 px-2 bg-warning border-0 rounded-3 me-1 mb-1"
                             >
                               <BiIcons.BiEdit
@@ -291,7 +295,7 @@ const SliderElement = () => {
                             </button>
                             {/* delete button */}
                             <button
-                                onClick={() => deleteData(data.id)}
+                              onClick={() => deleteData(data.id)}
                               className="py-1 px-2 bg-danger border-0 rounded-3 me-1 mb-1"
                             >
                               <MdIcons.MdDeleteForever
@@ -470,7 +474,6 @@ const SliderElement = () => {
                               </Form.Label>
 
                               <Form.Control
-                                required
                                 type="file"
                                 ref={sliderImage}
                                 onChange={handleImgPreview}
@@ -518,7 +521,7 @@ const SliderElement = () => {
                               <Form.Control
                                 type="text"
                                 placeholder="Link"
-                                ref={sliderName}
+                                ref={sliderLink}
                                 defaultValue={editedSliderLink}
                               />
                             </Form.Group>

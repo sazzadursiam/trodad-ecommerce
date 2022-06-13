@@ -6,6 +6,10 @@
     visibility: hidden;
 }
 
+.jodit-add-new-line:after,
+.jodit-add-new-line span {
+    display: none !important;
+}
 
 /* Header */
 .navbar-wrapper {
@@ -137,7 +141,7 @@ tr {
     border-style: solid;
     border-width: 0;
     vertical-align: middle;
-   
+
 }
 
 .btn_danger {
@@ -145,7 +149,7 @@ tr {
 }
 
 .btn_submit {
-padding: 8px 14px;
+    padding: 8px 14px;
 
 }
 

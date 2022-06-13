@@ -3,14 +3,14 @@ import { useContext, useEffect, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import * as BsIcons from "react-icons/bs";
 import * as FaIcons from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { UserContext } from "../../App";
 import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
 
 import "./products.css";
 
-const Product = (props) => {
-  const { slugName, setSlugName } = useContext(UserContext);
+const Product = () => {
+  const { slugName } = useContext(UserContext);
 
   // =============== Fetch Products =============================
   const [newProducts, setNewProducts] = useState([]);
@@ -72,9 +72,7 @@ const Product = (props) => {
             className="products-tabs active my-3 cursor_pointer"
             onClick={() => getTabItems(data.id)}
           >
-            <span className="text-white" >
-              {data.name}
-            </span>
+            <span className="text-white">{data.name}</span>
           </Col>
         ))}
       </Row>
@@ -94,18 +92,22 @@ const Product = (props) => {
                   <Card.Body>
                     <Card.Title>
                       <div className="img-wrapper position-relative">
-                        <img
-                          src={`${BACKEND_BASE_URL}${data.image}`}
-                          alt=""
-                          className="img-fluid"
-                        />
+                        <Link to={`/products/details/${data.slug}`}>
+                          <img
+                            src={`${BACKEND_BASE_URL}${data.image}`}
+                            alt=""
+                            className="img-fluid"
+                          />
+                        </Link>
                         <div className="product-flag-container">
                           <span className="product-flag">{data.flagText1}</span>
                         </div>
                       </div>
                     </Card.Title>
                     <Card.Text className="product-details">
-                      {data.name}
+                      <Link to={`/products/details/${data.slug}`}>
+                        {data.name}
+                      </Link>
                     </Card.Text>
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="product-rating d-flex align-items-center">
@@ -169,19 +171,24 @@ const Product = (props) => {
                   <Card.Body>
                     <Card.Title>
                       <div className="img-wrapper position-relative">
-                        <img
-                          src={`${BACKEND_BASE_URL}${data.image}`}
-                          alt=""
-                          className="img-fluid"
-                        />
+                        <Link to={`/products/details/${data.slug}`}>
+                          <img
+                            src={`${BACKEND_BASE_URL}${data.image}`}
+                            alt=""
+                            className="img-fluid"
+                          />
+                        </Link>
                         <div className="product-flag-container">
                           <span className="product-flag">{data.flagText1}</span>
                         </div>
                       </div>
                     </Card.Title>
                     <Card.Text className="product-details">
-                      {data.name}
+                      <Link to={`/products/details/${data.slug}`}>
+                        {data.name}
+                      </Link>
                     </Card.Text>
+
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="product-rating d-flex align-items-center">
                         <BsIcons.BsStarFill

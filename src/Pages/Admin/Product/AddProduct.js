@@ -15,6 +15,7 @@ const AddProduct = () => {
   const productImage = useRef();
   const brandId = useRef();
   const productCategoryId = useRef();
+  const productSubCategoryId = useRef();
   const productDesc = useRef();
   const productShortDesc = useRef();
   const productPrice = useRef();
@@ -87,6 +88,7 @@ const AddProduct = () => {
   // =================== Fetch Brands Info ==========================
   const [brandData, setBrandData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
+  const [subCategoryData, setSubCategoryData] = useState([]);
   const fetchData = () => {
     axios
       .get(`${BACKEND_BASE_URL}/api/admin/products/get-cat-brand`)
@@ -94,6 +96,7 @@ const AddProduct = () => {
         console.log(res.data);
         setBrandData(res.data.getBrands);
         setCategoryData(res.data.getCategories);
+        setSubCategoryData(res.data.getSubCategories);
       });
   };
 
@@ -120,6 +123,7 @@ const AddProduct = () => {
     formdata.append("image", productImage.current.files[0]);
     formdata.append("brandId", brandId.current.value);
     formdata.append("categoryId", productCategoryId.current.value);
+    formdata.append("subCategoryId", productSubCategoryId.current.value);
     formdata.append("description", productDesc.current.value);
     formdata.append("shortDescription", productShortDesc.current.value);
     formdata.append("price", productPrice.current.value);
@@ -136,11 +140,11 @@ const AddProduct = () => {
     formdata.append("unitPrice4", productUnitPrice4.current.value);
     formdata.append("unitPrice5", productUnitPrice5.current.value);
 
-    formdata.append("productVariantPrice1", productVariantPrice1.current.value);
-    formdata.append("productVariantPrice2", productVariantPrice2.current.value);
-    formdata.append("productVariantPrice3", productVariantPrice3.current.value);
-    formdata.append("productVariantPrice4", productVariantPrice4.current.value);
-    formdata.append("productVariantPrice5", productVariantPrice5.current.value);
+    formdata.append("variantPrice1", productVariantPrice1.current.value);
+    formdata.append("variantPrice2", productVariantPrice2.current.value);
+    formdata.append("variantPrice3", productVariantPrice3.current.value);
+    formdata.append("variantPrice4", productVariantPrice4.current.value);
+    formdata.append("variantPrice5", productVariantPrice5.current.value);
 
     formdata.append("oldPrice1", productOldPrice1.current.value);
     formdata.append("oldPrice2", productOldPrice2.current.value);
@@ -478,22 +482,22 @@ const AddProduct = () => {
                     </Form.Label>
                     <Form.Select
                       aria-label="Default select example"
-                      // required
-                      ref={brandId}
+                      required
+                      ref={productSubCategoryId}
                     >
                       <option value="0">Select Sub-Category</option>
-                      {brandData.map((data, index) => {
+                      {subCategoryData.map((data, index) => {
                         return (
                           <option key={index} value={data.id}>
-                            {data.brandName}
+                            {data.name}
                           </option>
                         );
                       })}
                     </Form.Select>
                   </Form.Group>
 
-                    {/* Checkbox */}
-                    <Form.Group
+                  {/* Checkbox */}
+                  <Form.Group
                     as={Col}
                     md="6"
                     className="mb-3"
@@ -577,7 +581,6 @@ const AddProduct = () => {
                       Title is required
                     </Form.Control.Feedback>
                   </Form.Group>
-                
                 </Row>
                 <Table responsive>
                   <thead>
@@ -632,7 +635,7 @@ const AddProduct = () => {
                           <Form.Control
                             type="number"
                             min="0"
-                            name="unitPrice"
+                            name="variantPrice"
                             placeholder="variant price"
                             ref={productVariantPrice1}
                             // value={}
@@ -739,7 +742,7 @@ const AddProduct = () => {
                           <Form.Control
                             type="number"
                             min="0"
-                            name="unitPrice"
+                            name="variantPrice"
                             placeholder="variant price"
                             ref={productVariantPrice2}
                             // value={}
@@ -846,7 +849,7 @@ const AddProduct = () => {
                           <Form.Control
                             type="number"
                             min="0"
-                            name="unitPrice"
+                            name="variantPrice"
                             placeholder="variant price"
                             ref={productVariantPrice3}
                             // value={}
@@ -953,7 +956,7 @@ const AddProduct = () => {
                           <Form.Control
                             type="number"
                             min="0"
-                            name="unitPrice"
+                            name="variantPrice"
                             placeholder="variant price"
                             ref={productVariantPrice4}
                             // value={}
@@ -1060,7 +1063,7 @@ const AddProduct = () => {
                           <Form.Control
                             type="number"
                             min="0"
-                            name="unitPrice"
+                            name="variantPrice"
                             placeholder="variant price"
                             ref={productVariantPrice5}
                             // value={}
