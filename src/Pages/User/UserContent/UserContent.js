@@ -48,24 +48,19 @@ const UserContent = () => {
                                             Dashboard
                                         </li>
                                     </Link>
-                                    <Link to='' onClick={() =>ToggleClass(2)}>
+                                    <Link to='orders' onClick={() =>ToggleClass(2)}>
                                         <li className={`${clickState === 2 ? 'active' : ''}`}>
                                             Orders
                                         </li>
                                     </Link>
-                                    <Link to='' onClick={() =>ToggleClass(3)}>
+                                    {/* <Link to='' onClick={() =>ToggleClass(3)}>
                                         <li className={`${clickState === 3 ? 'active' : ''}`}>
                                             Gift Cards
                                         </li>
-                                    </Link>
+                                    </Link> */}
                                     <Link to='' onClick={() =>ToggleClass(4)}>
                                         <li className={`${clickState === 4 ? 'active' : ''}`}>
                                             Account Details
-                                        </li>
-                                    </Link>
-                                    <Link to='' onClick={() =>ToggleClass(5)}>
-                                        <li className={`${clickState === 5 ? 'active' : ''}`}>
-                                            Download
                                         </li>
                                     </Link>
                                     <Link to='address' onClick={() =>ToggleClass(6)}>

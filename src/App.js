@@ -34,6 +34,8 @@ import ProductCategory from "./Pages/ProductCategory/ProductCategory";
 import Report from "./Pages/Report/Report";
 import Address from "./Pages/User/UserContent/Dashboard/Address/Address";
 import EditAddress from "./Pages/User/UserContent/Dashboard/EditAddress/EditAddress";
+import Orders from "./Pages/User/UserContent/Dashboard/Orders/Orders";
+import OrderDetails from "./Pages/User/UserContent/Dashboard/Orders/OrderDetails";
 
 
 
@@ -74,6 +76,8 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="address" element={<Address />} />
           <Route path="edit-address" element={<EditAddress />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="orders/:orderId" element={<OrderDetails />} />
         </Route>
 
 
