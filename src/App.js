@@ -31,6 +31,8 @@ import EditAddress from "./Pages/User/UserContent/Dashboard/EditAddress/EditAddr
 import JournalDetails from "./Components/Journal/journalDetails";
 import ShippingMethod from "./Pages/Admin/ShippingMethod";
 import SliderElement from "./Pages/Admin/SliderElement";
+import Orders from "./Pages/User/UserContent/Dashboard/Orders/Orders";
+import OrderDetails from "./Pages/User/UserContent/Dashboard/Orders/OrderDetails";
 
 export const UserContext = createContext();
 
@@ -38,9 +40,7 @@ function App() {
   const [slugName, setSlugName] = useState("new");
 
   return (
-    <UserContext.Provider
-      value={{ slugName, setSlugName }}
-    >
+    <UserContext.Provider value={{ slugName, setSlugName }}>
       <Router>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -75,6 +75,26 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="address" element={<Address />} />
             <Route path="edit-address" element={<EditAddress />} />
+          </Route>
+
+          {/* Admin Dashboard */}
+          <Route path="admin" element={<Admin />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="brands" element={<Brands />} />
+            <Route path="categories" element={<ProductCategories />} />
+
+            <Route path="products" element={<AllProduct />} />
+            <Route path="products/add-new" element={<AddProduct />} />
+            <Route path="products/edit/:id" element={<EditProduct />} />
+          </Route>
+
+          {/* User Dashboard */}
+          <Route path="my" element={<User />}>
+            <Route index element={<Dashboard />} />
+            <Route path="address" element={<Address />} />
+            <Route path="edit-address" element={<EditAddress />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="orders/:orderId" element={<OrderDetails />} />
           </Route>
         </Routes>
       </Router>
