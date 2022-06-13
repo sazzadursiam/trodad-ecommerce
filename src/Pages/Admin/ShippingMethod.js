@@ -383,7 +383,7 @@
               >
                 <Modal.Header>
                   <Modal.Title
-                    className="text-white"
+                   className="text-black"
                     id="contained-modal-title-vcenter"
                   >
                     {modalData}
