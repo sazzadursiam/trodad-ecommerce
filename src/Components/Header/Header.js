@@ -104,7 +104,7 @@ const Header = () => {
         </div>
         {/* middle header */}
         <div className="middle_header">
-          <Container>
+          <Container fluid="xl">
             <div className="d-flex flex-wrap justify-content-between align-items-center py-3">
               <Link to="/">
                 <div className="ecom_logo">
@@ -144,9 +144,9 @@ const Header = () => {
           </Container>
         </div>
         {/* bottom Header */}
-        <div className="bottom_header">
-          <Container>
-            <Nav className=" position-relative">
+        <div className="bottom_header ">
+          <Container fluid="xl">
+            <Nav className=" position-relative ">
               <Nav.Link as={Link} to="/" className="py-3 bg_smooky">
                 <FaIcons.FaHome className="text-white " />
               </Nav.Link>

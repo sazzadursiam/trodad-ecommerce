@@ -33,6 +33,7 @@ import ShippingMethod from "./Pages/Admin/ShippingMethod";
 import SliderElement from "./Pages/Admin/SliderElement";
 import Orders from "./Pages/User/UserContent/Dashboard/Orders/Orders";
 import OrderDetails from "./Pages/User/UserContent/Dashboard/Orders/OrderDetails";
+import AccDetails from "./Pages/User/UserContent/Dashboard/AccDetails/AccDetails";
 
 export const UserContext = createContext();
 
@@ -70,32 +71,21 @@ function App() {
             <Route path="products/edit/:id" element={<EditProduct />} />
           </Route>
 
-          {/* User Dashboard */}
+          {/*===================== User Dashboard ===========================*/}
           <Route path="my" element={<User />}>
             <Route index element={<Dashboard />} />
+
             <Route path="address" element={<Address />} />
             <Route path="edit-address" element={<EditAddress />} />
-          </Route>
 
-          {/* Admin Dashboard */}
-          <Route path="admin" element={<Admin />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="brands" element={<Brands />} />
-            <Route path="categories" element={<ProductCategories />} />
-
-            <Route path="products" element={<AllProduct />} />
-            <Route path="products/add-new" element={<AddProduct />} />
-            <Route path="products/edit/:id" element={<EditProduct />} />
-          </Route>
-
-          {/* User Dashboard */}
-          <Route path="my" element={<User />}>
-            <Route index element={<Dashboard />} />
-            <Route path="address" element={<Address />} />
-            <Route path="edit-address" element={<EditAddress />} />
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:orderId" element={<OrderDetails />} />
+
+            <Route path="edit-account" element={<AccDetails />} />
+
           </Route>
+
+
         </Routes>
       </Router>
     </UserContext.Provider>
