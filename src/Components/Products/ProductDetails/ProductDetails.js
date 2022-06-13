@@ -114,7 +114,7 @@ const ProductDetails = () => {
               <Col md={7}>
                 <div className="product_cart">
                   <div className="title">
-                    {Parser("", productDetails.shortDescription)}
+                    {Parser("" + productDetails.shortDescription)}
                   </div>
 
                   <div className="check_box_border">
@@ -243,7 +243,9 @@ const ProductDetails = () => {
                       <div className="checbox_active_value mb-3">
                         <div className="d-flex justify-content-between align-items-center ms-4">
                           <div>
-                            <span className="cl_light_grey">Art 301997-6P</span>
+                            <span className="cl_light_grey">
+                              {productDetails.sku}
+                            </span>
                           </div>
                           <div className="d-flex align-items-center  text-end">
                             <div className="me-2">
@@ -251,7 +253,9 @@ const ProductDetails = () => {
                             </div>
 
                             <div className="d-flex flex-column">
-                              <span className="discount_price">{productDetails.price} kr</span>
+                              <span className="discount_price">
+                                {productDetails.price} kr
+                              </span>
                               <span className="text-decoration-line-through cl_light_grey">
                                 {productDetails.oldPrice1} kr
                               </span>
@@ -290,7 +294,7 @@ const ProductDetails = () => {
             <Row>
               {/* product_description content */}
               <Col md={6} className="product_description">
-                {Parser("", productDetails.description)}
+                {Parser("" + productDetails.description)}
               </Col>
 
               {/* product review */}
