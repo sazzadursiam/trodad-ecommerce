@@ -28,7 +28,7 @@ const UserContent = () => {
                 <Row>
                     {/* left bar */}
                     <Col md={4} lg={3} >
-                        <div className="leftbar">
+                        <div className="leftbar  h-100 ">
                             {/* leftbar_top */}
                             <div className="leftbar_title mb-3">
                                 <div className="d-flex align-items-center">
@@ -58,7 +58,7 @@ const UserContent = () => {
                                             Gift Cards
                                         </li>
                                     </Link> */}
-                                    <Link to='' onClick={() =>ToggleClass(4)}>
+                                    <Link to='edit-account' onClick={() =>ToggleClass(4)}>
                                         <li className={`${clickState === 4 ? 'active' : ''}`}>
                                             Account Details
                                         </li>

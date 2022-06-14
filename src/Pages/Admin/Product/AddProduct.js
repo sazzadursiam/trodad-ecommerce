@@ -74,17 +74,6 @@ const AddProduct = () => {
     }
   };
 
-  // const [formValues, setFormValues] = useState([
-  //   {
-  //     quantity: "",
-  //     packSize: "",
-  //     unitPrice: "",
-  //     price: "",
-  //     oldPrice: "",
-  //     flagText: "",
-  //   },
-  // ]);
-
   // =================== Fetch Brands Info ==========================
   const [brandData, setBrandData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
@@ -117,6 +106,9 @@ const AddProduct = () => {
     // const IsNewPrice4 = isNewpricecheckboxChecked4;
     // const IsNew5 = isNewcheckboxChecked5;
     // const IsNewPrice5 = isNewpricecheckboxChecked5;
+
+    const newPrice =
+      productPrice.current.value === productUnitPrice1.current.value;
 
     const formdata = new FormData();
     formdata.append("name", productName.current.value);
@@ -338,6 +330,32 @@ const AddProduct = () => {
   //   setCheckeboxChecked5(e.target.checked);
   //   setIsNewpricecheckboxChecked5(e.target.checked);
   // };
+
+  const [pValue, setPValue] = useState({
+    price: "",
+    unitPrice1: "",
+  });
+
+  const handleInput = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setPValue((prevValue) => {
+      if (name === "price") {
+        return {
+          price: value,
+          unitPrice1: prevValue.unitPrice1,
+        };
+      } else if (name === "unitPrice1") {
+        return {
+          price: prevValue.value,
+          unitPrice1: value,
+        };
+      }
+    });
+  };
+
+  
 
   return (
     <div className="main__container">
@@ -575,7 +593,8 @@ const AddProduct = () => {
                       placeholder="Price"
                       name="price"
                       ref={productPrice}
-                      // value={}
+                      onChange={handleInput}
+                      value={pValue.price}
                     />
                     <Form.Control.Feedback type="invalid">
                       Title is required
@@ -586,7 +605,6 @@ const AddProduct = () => {
                   <thead>
                     <tr>
                       <th>#</th>
-
                       <th> Pack Size</th>
                       <th> Unit Price</th>
                       <th>Varient Price</th>
@@ -619,10 +637,11 @@ const AddProduct = () => {
                           <Form.Control
                             type="number"
                             min="0"
-                            name="unitPrice"
+                            name="unitPrice1"
                             placeholder="Unit Price"
                             ref={productUnitPrice1}
-                            // value={}
+                            value={pValue.price}
+                            onChange={handleInput}
                           />
                           <Form.Control.Feedback type="invalid">
                             unit price is required
@@ -726,10 +745,9 @@ const AddProduct = () => {
                           <Form.Control
                             type="number"
                             min="0"
-                            name="unitPrice"
+                            name="unitPrice2"
                             placeholder="Unit Price"
                             ref={productUnitPrice2}
-                            // value={}
                           />
                           <Form.Control.Feedback type="invalid">
                             unit price is required
@@ -833,7 +851,7 @@ const AddProduct = () => {
                           <Form.Control
                             type="number"
                             min="0"
-                            name="unitPrice"
+                            name="unitPrice3"
                             placeholder="Unit Price"
                             ref={productUnitPrice3}
                             // value={}
@@ -940,7 +958,7 @@ const AddProduct = () => {
                           <Form.Control
                             type="number"
                             min="0"
-                            name="unitPrice"
+                            name="unitPrice4"
                             placeholder="Unit Price"
                             ref={productUnitPrice4}
                             // value={}
@@ -1047,7 +1065,7 @@ const AddProduct = () => {
                           <Form.Control
                             type="number"
                             min="0"
-                            name="unitPrice"
+                            name="unitPrice5"
                             placeholder="Unit Price"
                             ref={productUnitPrice5}
                             // value={}

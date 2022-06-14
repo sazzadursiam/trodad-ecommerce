@@ -37,6 +37,9 @@
 .bg_navy {
     background-color: #003153;
 }
+.bg_yellow {
+    background-color: yellow;
+}
 
 .bg_smooky {
     background-color: #26506d;
@@ -56,9 +59,16 @@
 .fs20{
     font-size: 20px !important;
 }
+.fs14{
+    font-size: 14px;
+}
 
 .cursor_pointer {
     cursor: pointer !important;
+}
+
+.border_bottom {
+    border-bottom: 1px solid;
 }
 
 

@@ -35,6 +35,7 @@ import Orders from "./Pages/User/UserContent/Dashboard/Orders/Orders";
 import OrderDetails from "./Pages/User/UserContent/Dashboard/Orders/OrderDetails";
 import UserRegForm from "./Pages/Registration&Login/UserRegForm";
 import UserLogin from "./Pages/Registration&Login/UserLogin";
+import AccDetails from "./Pages/User/UserContent/Dashboard/AccDetails/AccDetails";
 
 export const UserContext = createContext();
 
@@ -74,14 +75,21 @@ function App() {
             <Route path="products/edit/:id" element={<EditProduct />} />
           </Route>
 
-          {/* User Dashboard */}
+          {/*===================== User Dashboard ===========================*/}
           <Route path="my" element={<User />}>
             <Route index element={<Dashboard />} />
+
             <Route path="address" element={<Address />} />
             <Route path="edit-address" element={<EditAddress />} />
+
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:orderId" element={<OrderDetails />} />
+
+            <Route path="edit-account" element={<AccDetails />} />
+
           </Route>
+
+
         </Routes>
       </Router>
     </UserContext.Provider>

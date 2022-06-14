@@ -5,13 +5,47 @@ import { useParams } from 'react-router-dom';
 const OrderDetails = () => {
     const { orderId } = useParams();
     return (
-        <div>
-            <p>Order #{orderId} was placed on June 13, 2022 and is currently Processing.</p>
+        <div className='address'>
+            <p className='fs14'>Order # <span className='bg_yellow'>{orderId}</span> was placed on <span className='bg_yellow'>June 13, 2022</span> and is currently <span className='bg_yellow'>Processing.</span></p>
 
-            <h3>Order details</h3>
 
-            <div className="order_product_details">
 
+            <div className="order_details">
+                <h3>Order details</h3>
+                <div className='order_details_content my-4'>
+
+                    <div className="d-flex justify-content-between align-items-center border-bottom border-3">
+                        <p className='fw-bold fs14 my-2'>PRODUCT</p>
+                        <p className='fw-bold fs14 my-2'>TOTAL</p>
+                    </div>
+
+                    <div className="d-flex justify-content-between align-items-center border-bottom border-1">
+                        <p className='fs14 my-2'>Bag Cover ( SPECIAL EDITION ) × 3</p>
+                        <p className='fw-bold fs14 my-2'>1,200.00৳</p>
+                    </div>
+                    
+                    <div className="d-flex justify-content-between align-items-center border-bottom border-1">
+                        <p className='fw-bold fs14 my-2'>Subtotal:</p>
+                        <p className='fw-bold fs14 my-2'>1,200.00৳</p>
+                    </div>
+
+                    <div className="d-flex justify-content-between align-items-center border-bottom border-1">
+                        <p className='fw-bold fs14 my-2'>Shipping :</p>
+                        <p className='fw-bold fs14 my-2'>60.00৳</p>
+                    </div>
+
+                    <div className="d-flex justify-content-between align-items-center border-bottom border-1">
+                        <p className='fw-bold fs14 my-2'>Payment method :</p>
+                        <p className='text-muted fs14 my-2'>Cash on delivery</p>
+                    </div>
+
+                    <div className="d-flex justify-content-between align-items-center border-bottom border-1">
+                        <p className='fw-bold fs14 my-2'>Total :</p>
+                        <p className='fw-bold fs14 my-2'>1,260.00৳</p>
+                    </div>
+
+
+                </div>
             </div>
 
             <Row>
@@ -44,6 +78,9 @@ const OrderDetails = () => {
                     </address>
                 </Col>
             </Row>
+
+            {/* user gamil */}
+            <p className='g-mail fst-italic'>tanverme@gmail.com</p>
         </div>
     );
 };
