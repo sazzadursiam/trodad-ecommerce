@@ -33,6 +33,8 @@ import ShippingMethod from "./Pages/Admin/ShippingMethod";
 import SliderElement from "./Pages/Admin/SliderElement";
 import Orders from "./Pages/User/UserContent/Dashboard/Orders/Orders";
 import OrderDetails from "./Pages/User/UserContent/Dashboard/Orders/OrderDetails";
+import UserRegForm from "./Pages/Registration&Login/UserRegForm";
+import UserLogin from "./Pages/Registration&Login/UserLogin";
 
 export const UserContext = createContext();
 
@@ -45,7 +47,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/journals" element={<JournalDetails />} />
-
+          <Route path="/registration" element={<UserRegForm />} />
+          <Route path="/login" element={<UserLogin />} />
           {/* Products */}
           <Route
             path="/products/category/:productcategory"
@@ -64,24 +67,7 @@ function App() {
             <Route path="categories" element={<ProductCategories />} />
             <Route path="shipping-method" element={<ShippingMethod />} />
             <Route path="slider-element" element={<SliderElement />} />
-
-            <Route path="products" element={<AllProduct />} />
-            <Route path="products/add-new" element={<AddProduct />} />
-            <Route path="products/edit/:id" element={<EditProduct />} />
-          </Route>
-
-          {/* User Dashboard */}
-          <Route path="my" element={<User />}>
-            <Route index element={<Dashboard />} />
-            <Route path="address" element={<Address />} />
-            <Route path="edit-address" element={<EditAddress />} />
-          </Route>
-
-          {/* Admin Dashboard */}
-          <Route path="admin" element={<Admin />}>
-            <Route index element={<AdminDashboard />} />
-            <Route path="brands" element={<Brands />} />
-            <Route path="categories" element={<ProductCategories />} />
+            
 
             <Route path="products" element={<AllProduct />} />
             <Route path="products/add-new" element={<AddProduct />} />

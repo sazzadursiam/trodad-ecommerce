@@ -5,7 +5,7 @@ import "./footer.css";
 const Footer = (props) => {
   return (
     <>
-      <div className={`bg_grey footer_container mt_100 ${props.displayNone}`}>
+      <div className={`bg_grey footer_container mt_100 ${props.displayNone} ${props.middleSection}`}>
         {/* ====================== SHIPPING POLICY ========================= */}
         <div className="container ">
           <Row className="text-center d-flex justify-content-between">

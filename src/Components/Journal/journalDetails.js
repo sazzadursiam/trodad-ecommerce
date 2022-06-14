@@ -1,6 +1,7 @@
 import { Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 const CardStyles = styled.button`
@@ -10,7 +11,6 @@ const CardStyles = styled.button`
   &:hover {
     color: red;
   }
-
 `;
 
 const TextBox = styled.p`
@@ -23,9 +23,8 @@ const TextBox = styled.p`
 const JournalDetails = () => {
   return (
     <>
-     <Header />
-     <div className="container mt-5">
-      
+      <Header />
+      <div className="container mt-5">
         <Row>
           <Col
             xs={12}
@@ -35,10 +34,7 @@ const JournalDetails = () => {
             className="mb-3 d-flex justify-content-center "
           >
             <Card style={{ width: "18rem" }}>
-               <Link to=""
-                
-                className="text-decoration-none text-black"
-              >
+              <Link to="" className="text-decoration-none text-black">
                 <Card.Img
                   variant="top"
                   src={require("../../Assets/News/news-1.png")}
@@ -48,18 +44,15 @@ const JournalDetails = () => {
                     New Swedish study: snus has a minimal effect on the body
                   </Card.Title>
                   <TextBox>
-                   
-                      Nicotine in snus does not affect the body very much at
-                      all. This is shown by a new study from Linköping
-                      University.
-                    
+                    Nicotine in snus does not affect the body very much at all.
+                    This is shown by a new study from Linköping University.
                   </TextBox>
 
                   <CardStyles as="button" className="text-decoration-none">
                     News 2022-06-06
                   </CardStyles>
                 </Card.Body>
-               </Link>
+              </Link>
             </Card>
           </Col>
           <Col
@@ -70,10 +63,7 @@ const JournalDetails = () => {
             className="mb-3 d-flex justify-content-center "
           >
             <Card style={{ width: "18rem" }}>
-               <Link to=""
-               
-                className="text-decoration-none text-black"
-              >
+              <Link to="" className="text-decoration-none text-black">
                 <Card.Img
                   variant="top"
                   src={require("../../Assets/News/news-2.png")}
@@ -81,18 +71,16 @@ const JournalDetails = () => {
                 <Card.Body>
                   <Card.Title>World No Tobacco Day 2022</Card.Title>
                   <TextBox>
-                    
-                      May 31 is the annual World No Tobacco Day. For the year
-                      2022, the theme is "protecting the environment" - with the
-                      aim of raising the environmental impact of tobacco and
-                      giving smokers another reason to quit.
-                    
+                    May 31 is the annual World No Tobacco Day. For the year
+                    2022, the theme is "protecting the environment" - with the
+                    aim of raising the environmental impact of tobacco and
+                    giving smokers another reason to quit.
                   </TextBox>
                   <CardStyles as="button" className="text-decoration-none">
                     News 2022-05-31
                   </CardStyles>
                 </Card.Body>
-               </Link>
+              </Link>
             </Card>
           </Col>
           <Col
@@ -103,10 +91,7 @@ const JournalDetails = () => {
             className="mb-3 d-flex justify-content-center"
           >
             <Card style={{ width: "18rem" }}>
-               <Link to=""
-               
-                className="text-decoration-none text-black"
-              >
+              <Link to="" className="text-decoration-none text-black">
                 <Card.Img
                   variant="top"
                   src={require("../../Assets/News/news-3.png")}
@@ -116,17 +101,15 @@ const JournalDetails = () => {
                     Time for a zero vision for tobacco-related mortality
                   </Card.Title>
                   <TextBox>
-                   
-                      We want politics to primarily promote public health and
-                      protect our young people. Therefore, a realistic view of
-                      tobacco and nicotine products is needed.
-                   
+                    We want politics to primarily promote public health and
+                    protect our young people. Therefore, a realistic view of
+                    tobacco and nicotine products is needed.
                   </TextBox>
                   <CardStyles as="button" className="text-decoration-none">
                     Debate 2022-05-16
                   </CardStyles>
                 </Card.Body>
-               </Link>
+              </Link>
             </Card>
           </Col>
           <Col
@@ -137,10 +120,7 @@ const JournalDetails = () => {
             className="mb-3 d-flex justify-content-center "
           >
             <Card style={{ width: "18rem" }}>
-               <Link to=""
-               
-                className="text-decoration-none text-black"
-              >
+              <Link to="" className="text-decoration-none text-black">
                 <Card.Img
                   variant="top"
                   src={require("../../Assets/News/news-4.png")}
@@ -148,20 +128,18 @@ const JournalDetails = () => {
                 <Card.Body>
                   <Card.Title>To create a World Cup Snus</Card.Title>
                   <TextBox>
-                    
-                      Kurbits Snus AB is a new production partner for
-                      Snusbolaget's competition for home manufacturers of snus:
-                      Snus-VM. We will follow one of the owners, also a new jury
-                      member, who took the task of turning two of the winning
-                      snus into finished products in the most serious way. Read
-                      more here!
-                   
+                    Kurbits Snus AB is a new production partner for
+                    Snusbolaget's competition for home manufacturers of snus:
+                    Snus-VM. We will follow one of the owners, also a new jury
+                    member, who took the task of turning two of the winning snus
+                    into finished products in the most serious way. Read more
+                    here!
                   </TextBox>
                   <CardStyles as="button" className="text-decoration-none">
                     News 2022-05-11
                   </CardStyles>
                 </Card.Body>
-               </Link>
+              </Link>
             </Card>
           </Col>
           <Col
@@ -172,10 +150,7 @@ const JournalDetails = () => {
             className="mb-3 d-flex justify-content-center "
           >
             <Card style={{ width: "18rem" }}>
-               <Link to=""
-                
-                className="text-decoration-none text-black"
-              >
+              <Link to="" className="text-decoration-none text-black">
                 <Card.Img
                   variant="top"
                   src={require("../../Assets/News/news-1.png")}
@@ -185,18 +160,15 @@ const JournalDetails = () => {
                     New Swedish study: snus has a minimal effect on the body
                   </Card.Title>
                   <TextBox>
-                   
-                      Nicotine in snus does not affect the body very much at
-                      all. This is shown by a new study from Linköping
-                      University.
-                    
+                    Nicotine in snus does not affect the body very much at all.
+                    This is shown by a new study from Linköping University.
                   </TextBox>
 
                   <CardStyles as="button" className="text-decoration-none">
                     News 2022-06-06
                   </CardStyles>
                 </Card.Body>
-               </Link>
+              </Link>
             </Card>
           </Col>
           <Col
@@ -207,10 +179,7 @@ const JournalDetails = () => {
             className="mb-3 d-flex justify-content-center "
           >
             <Card style={{ width: "18rem" }}>
-               <Link to=""
-               
-                className="text-decoration-none text-black"
-              >
+              <Link to="" className="text-decoration-none text-black">
                 <Card.Img
                   variant="top"
                   src={require("../../Assets/News/news-2.png")}
@@ -218,18 +187,16 @@ const JournalDetails = () => {
                 <Card.Body>
                   <Card.Title>World No Tobacco Day 2022</Card.Title>
                   <TextBox>
-                    
-                      May 31 is the annual World No Tobacco Day. For the year
-                      2022, the theme is "protecting the environment" - with the
-                      aim of raising the environmental impact of tobacco and
-                      giving smokers another reason to quit.
-                    
+                    May 31 is the annual World No Tobacco Day. For the year
+                    2022, the theme is "protecting the environment" - with the
+                    aim of raising the environmental impact of tobacco and
+                    giving smokers another reason to quit.
                   </TextBox>
                   <CardStyles as="button" className="text-decoration-none">
                     News 2022-05-31
                   </CardStyles>
                 </Card.Body>
-               </Link>
+              </Link>
             </Card>
           </Col>
           <Col
@@ -240,10 +207,7 @@ const JournalDetails = () => {
             className="mb-3 d-flex justify-content-center"
           >
             <Card style={{ width: "18rem" }}>
-               <Link to=""
-               
-                className="text-decoration-none text-black"
-              >
+              <Link to="" className="text-decoration-none text-black">
                 <Card.Img
                   variant="top"
                   src={require("../../Assets/News/news-3.png")}
@@ -253,17 +217,15 @@ const JournalDetails = () => {
                     Time for a zero vision for tobacco-related mortality
                   </Card.Title>
                   <TextBox>
-                   
-                      We want politics to primarily promote public health and
-                      protect our young people. Therefore, a realistic view of
-                      tobacco and nicotine products is needed.
-                   
+                    We want politics to primarily promote public health and
+                    protect our young people. Therefore, a realistic view of
+                    tobacco and nicotine products is needed.
                   </TextBox>
                   <CardStyles as="button" className="text-decoration-none">
                     Debate 2022-05-16
                   </CardStyles>
                 </Card.Body>
-               </Link>
+              </Link>
             </Card>
           </Col>
           <Col
@@ -274,10 +236,7 @@ const JournalDetails = () => {
             className="mb-3 d-flex justify-content-center "
           >
             <Card style={{ width: "18rem" }}>
-               <Link to=""
-               
-                className="text-decoration-none text-black"
-              >
+              <Link to="" className="text-decoration-none text-black">
                 <Card.Img
                   variant="top"
                   src={require("../../Assets/News/news-4.png")}
@@ -285,20 +244,18 @@ const JournalDetails = () => {
                 <Card.Body>
                   <Card.Title>To create a World Cup Snus</Card.Title>
                   <TextBox>
-                    
-                      Kurbits Snus AB is a new production partner for
-                      Snusbolaget's competition for home manufacturers of snus:
-                      Snus-VM. We will follow one of the owners, also a new jury
-                      member, who took the task of turning two of the winning
-                      snus into finished products in the most serious way. Read
-                      more here!
-                   
+                    Kurbits Snus AB is a new production partner for
+                    Snusbolaget's competition for home manufacturers of snus:
+                    Snus-VM. We will follow one of the owners, also a new jury
+                    member, who took the task of turning two of the winning snus
+                    into finished products in the most serious way. Read more
+                    here!
                   </TextBox>
                   <CardStyles as="button" className="text-decoration-none">
                     News 2022-05-11
                   </CardStyles>
                 </Card.Body>
-               </Link>
+              </Link>
             </Card>
           </Col>
 
@@ -310,8 +267,9 @@ const JournalDetails = () => {
           </p>
         </Row>
       </div>
+      <Footer middleSection="d-none" />
     </>
-  )
-}
+  );
+};
 
 export default JournalDetails;

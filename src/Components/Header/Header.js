@@ -88,7 +88,7 @@ const Header = () => {
                 <Link to="/underconstruction">About Snusbolaget</Link>
               </span>
               <span className="d-flex align-items-center me-3 me-md-2 me-lg-3 me-xl-0">
-                <Link to="/underconstruction">
+                <Link to="/journals">
                   <FaIcons.FaCircleNotch className="me-2 cl_navy" />
                   The snus journal
                 </Link>

@@ -1,7 +1,4 @@
 import {
-  Checkbox,
-  FormControlLabel,
-  IconButton,
   InputLabel,
 } from "@mui/material";
 import axios from "axios";
