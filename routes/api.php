@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\Product\CategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
+use App\Http\Controllers\Frontend\CustomerAuth\CustomerAuthController;
 use App\Http\Controllers\Frontend\MasterController;
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
@@ -15,6 +16,13 @@ use Illuminate\Support\Facades\Route;
 | Frontend Routes
 |--------------------------------------------------------------------------
 */
+
+/* ===================== Customer Registration Start ===================== */
+
+Route::post('/customer/registration/store', [CustomerAuthController::class, 'registration']);
+Route::post('/customer/login/process', [CustomerAuthController::class, 'customerLogin']);
+
+/* ===================== Customer Registration End ===================== */
 
 // Brands 
 Route::get('/index-master-get', [MasterController::class, 'masterGet']);
@@ -35,6 +43,10 @@ Route::get('/all-product', [MasterController::class, 'getAllProduct']);
 Route::get('/products/single-details/{slug}', [MasterController::class, 'getSingleProductDetails']);
 
 
+//auth test route 
+Route::group(['middleware' => 'customer_auth'], function () {
+    Route::get('/user/dashboard', [TestController::class, 'authTest']);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -108,7 +120,9 @@ Route::group(['prefix' => '/admin'], function () {
 
 
 
+    //test route
     Route::post('/test', [TestController::class, 'index']);
+
 
 
     //
