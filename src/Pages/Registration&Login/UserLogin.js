@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { UserContext } from "../../App";
 import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
 import "./customerRegForm.css";
 
@@ -14,11 +16,20 @@ const UserLoginForm = () => {
     password: "",
   };
   const [userLoginInfo, setUserLoginInfo] = useState(initialValues);
-
+  const [formResponseData, setFormResponseData] = useState([])
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const { authUser, setAuthUser } = useContext(UserContext);
 
-  // const [records, setRecords] = useState([]);
+
+
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+
+  let from = location.state?.from?.pathname || "/";
+
 
   const [feedbackMsg, setFeedbackMsg] = useState("");
   console.log(feedbackMsg);
@@ -43,18 +54,28 @@ const UserLoginForm = () => {
       })
 
       .then((response) => {
-        setFeedbackMsg(response.data.status);
+
+
+        setAuthUser(response.data.loggedInUser);
+        setFormResponseData(response.data)
+
+
+
+
+        if (response.data.status === 1) {
+          navigate(from, { replace: true });
+        }
+
+
       });
     e.preventDefault();
 
-    // const newRecord = { ...userRegistration };
   };
 
-  // useEffect(() => {
-  //   console.log(formErrors);
-  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //   }
-  // }, [formErrors]);
+  useEffect(() => {
+    if (Object.keys(formErrors).length === 0 && isSubmit) {
+    }
+  }, [formErrors]);
 
   const validate = (values) => {
     const errors = {};
@@ -79,7 +100,13 @@ const UserLoginForm = () => {
     <div className="form_wrapper" style={{ backgroundColor: "#f9fafb" }}>
       <Container className="container">
         <Form id="form" className="form" onSubmit={handleSubmit}>
-          <h1>Log In</h1>
+
+          {/* <h1>Log In</h1> */}
+          <h1>
+            {
+              formResponseData.message?formResponseData.message:'Log In'
+            }
+          </h1>
 
           {/* ================== Email =================== */}
           <Form.Group className="form_group">
@@ -94,6 +121,7 @@ const UserLoginForm = () => {
               ref={Email}
               value={userLoginInfo.email}
               onChange={handleInput}
+              required
             />
             <small className="small_msg"></small>
           </Form.Group>
@@ -111,6 +139,7 @@ const UserLoginForm = () => {
               ref={Password}
               value={userLoginInfo.password}
               onChange={handleInput}
+              required
             />
             <small className="small_msg">{formErrors.password}</small>
           </Form.Group>
