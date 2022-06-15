@@ -33,62 +33,60 @@ import ShippingMethod from "./Pages/Admin/ShippingMethod";
 import SliderElement from "./Pages/Admin/SliderElement";
 import Orders from "./Pages/User/UserContent/Dashboard/Orders/Orders";
 import OrderDetails from "./Pages/User/UserContent/Dashboard/Orders/OrderDetails";
+import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
+
 import UserRegForm from "./Pages/Registration&Login/UserRegForm";
 import UserLogin from "./Pages/Registration&Login/UserLogin";
-import AccDetails from "./Pages/User/UserContent/Dashboard/AccDetails/AccDetails";
+import PrivateOutlet from "./Components/PrivateRoute/PrivateOutlet";
 
 export const UserContext = createContext();
 
 function App() {
   const [slugName, setSlugName] = useState("new");
+  const [authUser, setAuthUser] = useState(false);
 
   return (
-    <UserContext.Provider value={{ slugName, setSlugName }}>
+    <UserContext.Provider value={{ slugName, setSlugName, setAuthUser,authUser }}>
       <Router>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/journals" element={<JournalDetails />} />
-          <Route path="/registration" element={<UserRegForm />} />
-          <Route path="/login" element={<UserLogin />} />
+          <Route path="/journals" element={<JournalDetails />}/>
+          <Route path="/user/registration" element={<UserRegForm />} />
+          <Route path="/user/login" element={<UserLogin />} />
+
           {/* Products */}
           <Route
             path="/products/category/:productcategory"
             element={<ProductCategory />}
           />
-          <Route path="/products/details/:slug" element={<ProductDetails />} />
+          <Route path="/products" element={<ProductDetails />} />
 
           <Route path="/checkout" element={<Checkout />} />
 
           <Route path="/underconstruction" element={<Report />} />
 
           {/*===================== Admin Dashboard ===========================*/}
-          <Route path="admin" element={<Admin />}>
+          <Route path="admin" element={<PrivateRoute><Admin/> </PrivateRoute>}>
             <Route index element={<AdminDashboard />} />
             <Route path="brands" element={<Brands />} />
             <Route path="categories" element={<ProductCategories />} />
             <Route path="shipping-method" element={<ShippingMethod />} />
             <Route path="slider-element" element={<SliderElement />} />
-            
 
             <Route path="products" element={<AllProduct />} />
             <Route path="products/add-new" element={<AddProduct />} />
             <Route path="products/edit/:id" element={<EditProduct />} />
           </Route>
 
-          {/*===================== User Dashboard ===========================*/}
-          <Route path="my" element={<User />}>
-            <Route index element={<Dashboard />} />
 
+          {/* User Dashboard */}
+          <Route path="my" element={<PrivateRoute><User /></PrivateRoute>}>
+            <Route index element={<Dashboard />} />
             <Route path="address" element={<Address />} />
             <Route path="edit-address" element={<EditAddress />} />
-
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:orderId" element={<OrderDetails />} />
-
-            <Route path="edit-account" element={<AccDetails />} />
-
           </Route>
-
 
         </Routes>
       </Router>

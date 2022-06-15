@@ -68,7 +68,7 @@ const UserContent = () => {
                                             Addreases
                                         </li>
                                     </Link>
-                                    <Link to='' onClick={() =>ToggleClass(7)}>
+                                    <Link to='/user/login' onClick={() =>ToggleClass(7)}>
                                         <li className={`${clickState === 7 ? 'active' : ''}`}>
                                             Logout
                                         </li>
