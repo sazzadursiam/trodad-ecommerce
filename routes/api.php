@@ -120,6 +120,8 @@ Route::group(['prefix' => '/admin'], function () {
 
 
 
+    // get sub-category
+    Route::post('/get-sub-categories/{id}', [CategoryController::class, 'getSubCategories']);
     //test route
     Route::post('/test', [TestController::class, 'index']);
 

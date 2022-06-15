@@ -66,6 +66,12 @@ class ProductController extends Controller
 
             $product->price = $request->price;
 
+            $product->discount1 = $request->discount1;
+            $product->discount2 = $request->discount2;
+            $product->discount3 = $request->discount3;
+            $product->discount4 = $request->discount4;
+            $product->discount5 = $request->discount5;
+
             $product->packSize1 = $request->packSize1;
             $product->packSize2 = $request->packSize2;
             $product->packSize3 = $request->packSize3;
@@ -104,19 +110,6 @@ class ProductController extends Controller
 
 
 
-            // $product->isNew1 = $request->isNew1;
-            // $product->isNew2 = $request->isNew2;
-            // $product->isNew3 = $request->isNew3;
-            // $product->isNew4 = $request->isNew4;
-            // $product->isNew5 = $request->isNew5;
-
-            // $product->isNewPrice1 = $request->isNewPrice1;
-            // $product->isNewPrice2 = $request->isNewPrice2;
-            // $product->isNewPrice3 = $request->isNewPrice3;
-            // $product->isNewPrice4 = $request->isNewPrice4;
-            // $product->isNewPrice5 = $request->isNewPrice5;
-
-
             //image upload
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -151,11 +144,132 @@ class ProductController extends Controller
         ]);
     }
 
+    public function update(Request $request, $id)
+    {
+
+        //Validation
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]
+        );
+        // validation error
+        if ($validator->fails()) {
+
+            return response()->json([
+                'status' => '400',
+                'errors' => $validator->errors(),
+            ]);
+        }
+
+
+        //Insert data into database
+        $product =  Product::find($id);
+
+        $product->name = $request->name;
+
+        $slug = Str::slug($request->name);
+        //check slug
+        $checkSlug = Product::where('slug', $slug)->where('id', '!=', $id)->count();
+
+        if ($checkSlug > 0) {
+            $slug = time() . '-' . $slug;
+        }
+
+        $product->slug = $slug;
+
+        $product->brandId = $request->brandId;
+        $product->categoryId = $request->categoryId;
+        $product->subCategoryId = $request->subCategoryId;
+
+        $product->shortDescription = $request->shortDescription;
+        $product->description = $request->description;
+
+        $product->price = $request->price;
+
+        $product->discount1 = $request->discount1;
+        $product->discount2 = $request->discount2;
+        $product->discount3 = $request->discount3;
+        $product->discount4 = $request->discount4;
+        $product->discount5 = $request->discount5;
+
+        $product->packSize1 = $request->packSize1;
+        $product->packSize2 = $request->packSize2;
+        $product->packSize3 = $request->packSize3;
+        $product->packSize4 = $request->packSize4;
+        $product->packSize5 = $request->packSize5;
+
+
+        $product->unitPrice1 = $request->unitPrice1;
+        $product->unitPrice2 = $request->unitPrice2;
+        $product->unitPrice3 = $request->unitPrice3;
+        $product->unitPrice4 = $request->unitPrice4;
+        $product->unitPrice5 = $request->unitPrice5;
+
+        $product->variantPrice1 = $request->variantPrice1;
+        $product->variantPrice2 = $request->variantPrice2;
+        $product->variantPrice3 = $request->variantPrice3;
+        $product->variantPrice4 = $request->variantPrice4;
+        $product->variantPrice5 = $request->variantPrice5;
+
+        $product->oldPrice1 = $request->oldPrice1;
+        $product->oldPrice2 = $request->oldPrice2;
+        $product->oldPrice3 = $request->oldPrice3;
+        $product->oldPrice4 = $request->oldPrice4;
+        $product->oldPrice5 = $request->oldPrice5;
+
+        $product->flagText1 = $request->flagText1;
+        $product->flagText2 = $request->flagText2;
+        $product->flagText3 = $request->flagText3;
+        $product->flagText4 = $request->flagText4;
+        $product->flagText5 = $request->flagText5;
+
+        $product->isNew = $request->isNew;
+        $product->isNewPrice = $request->isNewPrice;
+
+        $product->sku = 'Art ' . time();
+
+
+
+        //image upload
+        if ($request->hasFile('image')) {
+
+            //remove old image form folder if new image comes
+            if ($product->image != null || $product->image != "") {
+                $image_file = public_path($product->image);
+                if (file_exists($image_file)) {
+                    unlink($image_file);
+                }
+            }
+            $image = $request->file('image');
+            $new_name = time() . '.' . $request->image->getClientOriginalExtension();
+            $path = '/Images/Products/';
+            $image->move(public_path($path), $new_name);
+            $product->image = $path . $new_name;
+        }
+        $product->save();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update Successful.',
+            'product' => $product,
+        ]);
+    }
+
     public function edit($id)
     {
+        $allMainCategory = Category::where('parrentCatId', 0)->get();
+        $allBrands = Brand::get();
         $editProduct = Product::find($id);
+        $parrentCatId = $editProduct->categoryId;
+        $subCategory = Category::where('parrentCatId', '!=', 0)->where('parrentCatId', $parrentCatId)->get();
         return response()->json([
-            'editProduct' => $editProduct
+            'editProduct' => $editProduct,
+            'allMainCategory' => $allMainCategory,
+            'subCategory' => $subCategory,
+            'allBrands' => $allBrands,
         ]);
     }
 

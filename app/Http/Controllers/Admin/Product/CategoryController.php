@@ -204,4 +204,12 @@ class CategoryController extends Controller
             'message' => 'Status Updated Successful',
         ]);
     }
+
+    public function getSubCategories($id)
+    {
+        $spesificSubCategories = Category::where('parrentCatId', $id)->orderBy('name', 'asc')->get();
+        return response()->json([
+            'spesificSubCategories' => $spesificSubCategories,
+        ]);
+    }
 }

@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class CustomerAuthMiddleware
+class AdminAuthMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,12 +16,7 @@ class CustomerAuthMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check()) {
-            return response()->json([
-                'status' => 0,
-                'messsage' => 'You are not loggedin',
-            ]);
-        }
+        
         return $next($request);
     }
 }
