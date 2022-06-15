@@ -20,6 +20,8 @@ const UserLoginForm = () => {
 
   // const [records, setRecords] = useState([]);
 
+  const [feedbackMsg, setFeedbackMsg] = useState("");
+  console.log(feedbackMsg);
   const handleInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -41,26 +43,18 @@ const UserLoginForm = () => {
       })
 
       .then((response) => {
-        if (response.data.status === 200) {
-          Swal.fire({
-            icon: "success",
-            text: response.data.message,
-            confirmButtonColor: "#5eba86",
-          });
-          setUserLoginInfo(initialValues);
-          e.target.reset();
-        }
+        setFeedbackMsg(response.data.status);
       });
     e.preventDefault();
 
     // const newRecord = { ...userRegistration };
   };
 
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-    }
-  }, [formErrors]);
+  // useEffect(() => {
+  //   console.log(formErrors);
+  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
+  //   }
+  // }, [formErrors]);
 
   const validate = (values) => {
     const errors = {};

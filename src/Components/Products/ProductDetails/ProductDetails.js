@@ -114,7 +114,7 @@ const ProductDetails = () => {
               <Col md={7}>
                 <div className="product_cart">
                   <div className="title">
-                    {Parser("" + productDetails.shortDescription)}
+                    {Parser("" + productDetails.description)}
                   </div>
 
                   <div className="check_box_border">
@@ -294,7 +294,7 @@ const ProductDetails = () => {
             <Row>
               {/* product_description content */}
               <Col md={6} className="product_description">
-                {Parser("" + productDetails.description)}
+                {Parser("" + productDetails.shortDescription)}
               </Col>
 
               {/* product review */}

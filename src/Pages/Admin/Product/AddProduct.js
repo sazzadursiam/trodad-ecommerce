@@ -38,6 +38,12 @@ const AddProduct = () => {
   const productVariantPrice4 = useRef();
   const productVariantPrice5 = useRef();
 
+  const productDiscountPrice1 = useRef();
+  const productDiscountPrice2 = useRef();
+  const productDiscountPrice3 = useRef();
+  const productDiscountPrice4 = useRef();
+  const productDiscountPrice5 = useRef();
+
   const productOldPrice1 = useRef();
   const productOldPrice2 = useRef();
   const productOldPrice3 = useRef();
@@ -74,7 +80,7 @@ const AddProduct = () => {
     }
   };
 
-  // =================== Fetch Brands Info ==========================
+  // =================== Fetch Brands , Category, Sub Category Info ==========================
   const [brandData, setBrandData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [subCategoryData, setSubCategoryData] = useState([]);
@@ -85,13 +91,22 @@ const AddProduct = () => {
         console.log(res.data);
         setBrandData(res.data.getBrands);
         setCategoryData(res.data.getCategories);
-        setSubCategoryData(res.data.getSubCategories);
       });
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleCategory = () => {
+    const categoryId = productCategoryId.current.value;
+
+    axios
+      .post(`${BACKEND_BASE_URL}/api/admin/get-sub-categories/${categoryId}`)
+      .then((res) => {
+        setSubCategoryData(res.data.spesificSubCategories);
+      });
+  };
 
   // ============================= form submit to backend ======================
 
@@ -106,9 +121,6 @@ const AddProduct = () => {
     // const IsNewPrice4 = isNewpricecheckboxChecked4;
     // const IsNew5 = isNewcheckboxChecked5;
     // const IsNewPrice5 = isNewpricecheckboxChecked5;
-
-    const newPrice =
-      productPrice.current.value === productUnitPrice1.current.value;
 
     const formdata = new FormData();
     formdata.append("name", productName.current.value);
@@ -131,6 +143,24 @@ const AddProduct = () => {
     formdata.append("unitPrice3", productUnitPrice3.current.value);
     formdata.append("unitPrice4", productUnitPrice4.current.value);
     formdata.append("unitPrice5", productUnitPrice5.current.value);
+
+    formdata.append("discount1", productDiscountPrice1.current.value);
+
+    productDiscountPrice2.current.value
+      ? formdata.append("discount2", productDiscountPrice2.current.value)
+      : formdata.append("discount2", 0);
+
+    productDiscountPrice3.current.value
+      ? formdata.append("discount3", productDiscountPrice3.current.value)
+      : formdata.append("discount3", 0);
+
+    productDiscountPrice4.current.value
+      ? formdata.append("discount4", productDiscountPrice4.current.value)
+      : formdata.append("discount4", 0);
+
+    productDiscountPrice5.current.value
+      ? formdata.append("discount5", productDiscountPrice5.current.value)
+      : formdata.append("discount5", 0);
 
     formdata.append("variantPrice1", productVariantPrice1.current.value);
     formdata.append("variantPrice2", productVariantPrice2.current.value);
@@ -161,53 +191,6 @@ const AddProduct = () => {
     } else {
       formdata.append("isNewPrice", 0);
     }
-
-    // if (IsNew2 === true) {
-    //   formdata.append("isNew2", 1);
-    // } else {
-    //   formdata.append("isNew2", 0);
-    // }
-
-    // if (IsNewPrice2 === true) {
-    //   formdata.append("isNewPrice2", 1);
-    // } else {
-    //   formdata.append("isNewPrice2", 0);
-    // }
-
-    // if (IsNew3 === true) {
-    //   formdata.append("isNew3", 1);
-    // } else {
-    //   formdata.append("isNew3", 0);
-    // }
-
-    // if (IsNewPrice3 === true) {
-    //   formdata.append("isNewPrice3", 1);
-    // } else {
-    //   formdata.append("isNewPrice3", 0);
-    // }
-
-    // if (IsNew4 === true) {
-    //   formdata.append("isNew4", 1);
-    // } else {
-    //   formdata.append("isNew4", 0);
-    // }
-
-    // if (IsNewPrice4 === true) {
-    //   formdata.append("isNewPrice4", 1);
-    // } else {
-    //   formdata.append("isNewPrice4", 0);
-    // }
-    // if (IsNew5 === true) {
-    //   formdata.append("isNew5", 1);
-    // } else {
-    //   formdata.append("isNew5", 0);
-    // }
-
-    // if (IsNewPrice5 === true) {
-    //   formdata.append("isNewPrice5", 1);
-    // } else {
-    //   formdata.append("isNewPrice5", 0);
-    // }
 
     axios
       .post(`${BACKEND_BASE_URL}/api/admin/products/store`, formdata, {
@@ -294,18 +277,6 @@ const AddProduct = () => {
   const [isNewcheckboxChecked, setCheckeboxChecked] = useState(false);
   const [isNewpricecheckboxChecked, setIsNewpricecheckboxChecked] =
     useState(false);
-  // const [isNewcheckboxChecked2, setCheckeboxChecked2] = useState(false);
-  // const [isNewpricecheckboxChecked2, setIsNewpricecheckboxChecked2] =
-  //   useState(false);
-  // const [isNewcheckboxChecked3, setCheckeboxChecked3] = useState(false);
-  // const [isNewpricecheckboxChecked3, setIsNewpricecheckboxChecked3] =
-  //   useState(false);
-  // const [isNewcheckboxChecked4, setCheckeboxChecked4] = useState(false);
-  // const [isNewpricecheckboxChecked4, setIsNewpricecheckboxChecked4] =
-  //   useState(false);
-  // const [isNewcheckboxChecked5, setCheckeboxChecked5] = useState(false);
-  // const [isNewpricecheckboxChecked5, setIsNewpricecheckboxChecked5] =
-  //   useState(false);
 
   const handleCheckbox = (e) => {
     setCheckeboxChecked(e.target.checked);
@@ -314,23 +285,7 @@ const AddProduct = () => {
     setIsNewpricecheckboxChecked(e.target.checked);
   };
 
-  // const handleCheckbox2 = (e) => {
-  //   setCheckeboxChecked2(e.target.checked);
-  //   setIsNewpricecheckboxChecked2(e.target.checked);
-  // };
-  // const handleCheckbox3 = (e) => {
-  //   setCheckeboxChecked3(e.target.checked);
-  //   setIsNewpricecheckboxChecked3(e.target.checked);
-  // };
-  // const handleCheckbox4 = (e) => {
-  //   setCheckeboxChecked4(e.target.checked);
-  //   setIsNewpricecheckboxChecked4(e.target.checked);
-  // };
-  // const handleCheckbox5 = (e) => {
-  //   setCheckeboxChecked5(e.target.checked);
-  //   setIsNewpricecheckboxChecked5(e.target.checked);
-  // };
-
+  // ================= price === unit price ========================
   const [pValue, setPValue] = useState({
     price: "",
     unitPrice1: "",
@@ -353,9 +308,100 @@ const AddProduct = () => {
         };
       }
     });
+    return value;
   };
 
-  
+  const [VariantPrice1, setVariantPrice1] = useState();
+  const [VariantPrice2, setVariantPrice2] = useState();
+  const [VariantPrice3, setVariantPrice3] = useState();
+  const [VariantPrice4, setVariantPrice4] = useState();
+  const [VariantPrice5, setVariantPrice5] = useState();
+
+  const SetVariantPrice1 = (e) => {
+    e.preventDefault();
+    const unitPriceVal1 = productUnitPrice1.current.value;
+
+    const PackSize1 = e.target.value;
+    const Variant1 = unitPriceVal1 * PackSize1;
+    setVariantPrice1(Variant1);
+  };
+
+  const SetVariantPrice2 = (e) => {
+    e.preventDefault();
+    const unitPriceVal2 = productUnitPrice2.current.value;
+
+    let PackSize2 = productPackSize2.current.value;
+    if (PackSize2 === "" || PackSize2 == null) {
+      PackSize2 = 1;
+    }
+    const Variant2 = Number(unitPriceVal2 * PackSize2).toFixed(2);
+    setVariantPrice2(Variant2);
+  };
+
+  const SetVariantPrice3 = (e) => {
+    e.preventDefault();
+    const unitPriceVal3 = productUnitPrice3.current.value;
+
+    let PackSize3 = productPackSize3.current.value;
+    if (PackSize3 === "" || PackSize3 == null) {
+      PackSize3 = 1;
+    }
+    const Variant3 = Number(unitPriceVal3 * PackSize3).toFixed(2);
+    setVariantPrice3(Variant3);
+  };
+
+  const SetVariantPrice4 = (e) => {
+    e.preventDefault();
+    const unitPriceVal4 = productUnitPrice4.current.value;
+
+    let PackSize4 = productPackSize4.current.value;
+    if (PackSize4 === "" || PackSize4 == null) {
+      PackSize4 = 1;
+    }
+    const Variant4 = Number(unitPriceVal4 * PackSize4).toFixed(2);
+    setVariantPrice4(Variant4);
+  };
+
+  const SetVariantPrice5 = (e) => {
+    e.preventDefault();
+    const unitPriceVal5 = productUnitPrice5.current.value;
+
+    let PackSize5 = productPackSize5.current.value;
+    if (PackSize5 === "" || PackSize5 == null) {
+      PackSize5 = 1;
+    }
+    const Variant5 = Number(unitPriceVal5 * PackSize5).toFixed(2);
+    setVariantPrice5(Variant5);
+  };
+
+  const [UnitPrice2, setUnitPrice2] = useState();
+  const [UnitPrice3, setUnitPrice3] = useState();
+  const [UnitPrice4, setUnitPrice4] = useState();
+  const [UnitPrice5, setUnitPrice5] = useState();
+
+  const changeUnitPrice2 = () => {
+    const discountVal2 = productDiscountPrice2.current.value;
+    const PriceVal = productPrice.current.value;
+    setUnitPrice2(PriceVal - (PriceVal * discountVal2) / 100);
+  };
+
+  const changeUnitPrice3 = () => {
+    const discountVal3 = productDiscountPrice3.current.value;
+    const PriceVal = productPrice.current.value;
+    setUnitPrice3(PriceVal - (PriceVal * discountVal3) / 100);
+  };
+
+  const changeUnitPrice4 = () => {
+    const discountVal4 = productDiscountPrice4.current.value;
+    const PriceVal = productPrice.current.value;
+    setUnitPrice4(PriceVal - (PriceVal * discountVal4) / 100);
+  };
+
+  const changeUnitPrice5 = () => {
+    const discountVal5 = productDiscountPrice5.current.value;
+    const PriceVal = productPrice.current.value;
+    setUnitPrice5(PriceVal - (PriceVal * discountVal5) / 100);
+  };
 
   return (
     <div className="main__container">
@@ -476,6 +522,9 @@ const AddProduct = () => {
                       aria-label="Default select example"
                       required
                       ref={productCategoryId}
+                      onChange={() => {
+                        handleCategory();
+                      }}
                     >
                       <option value="0">Select Category</option>
                       {categoryData.map((data, index) => {
@@ -503,7 +552,8 @@ const AddProduct = () => {
                       required
                       ref={productSubCategoryId}
                     >
-                      <option value="0">Select Sub-Category</option>
+                      <option value="0">Sub-Category</option>
+
                       {subCategoryData.map((data, index) => {
                         return (
                           <option key={index} value={data.id}>
@@ -605,8 +655,9 @@ const AddProduct = () => {
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th> Pack Size</th>
                       <th> Unit Price</th>
+                      <th>Discount (%)</th>
+                      <th> Pack Size</th>
                       <th>Varient Price</th>
                       <th> Old Price </th>
                       <th> Flag Text</th>
@@ -617,6 +668,41 @@ const AddProduct = () => {
                     <tr>
                       <td>1</td>
                       <td>
+                        {/*    Product Unit Price  */}
+                        <Form.Group controlId="validationCustom02">
+                          <Form.Control
+                            disabled
+                            type="number"
+                            min="0"
+                            name="unitPrice1"
+                            placeholder="Unit Price"
+                            ref={productUnitPrice1}
+                            value={pValue.price}
+                            // onChange={handleInput}
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            unit price is required
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </td>
+                      <td>
+                        {/* Discount Percentage */}
+                        <Form.Group controlId="validationCustom02">
+                          <Form.Control
+                            disabled
+                            type="number"
+                            min="0"
+                            name="discountPrice1"
+                            placeholder="Discount Percentage"
+                            ref={productDiscountPrice1}
+                            value="0"
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            unit price is required
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </td>
+                      <td>
                         {/*    Product PackSize  */}
                         <Form.Group controlId="validationCustom01">
                           <Form.Control
@@ -624,46 +710,33 @@ const AddProduct = () => {
                             name="packSize"
                             placeholder="Pack Size"
                             ref={productPackSize1}
-                            // value={}
+                            // value=""
+                            onChange={SetVariantPrice1}
                           />
                           <Form.Control.Feedback type="invalid">
                             pack size is required
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
-                      <td>
-                        {/*    Product Unit Price  */}
-                        <Form.Group controlId="validationCustom02">
-                          <Form.Control
-                            type="number"
-                            min="0"
-                            name="unitPrice1"
-                            placeholder="Unit Price"
-                            ref={productUnitPrice1}
-                            value={pValue.price}
-                            onChange={handleInput}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            unit price is required
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                      </td>
+
                       <td>
                         {/* Variant Price*/}
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
+                            disabled
                             type="number"
                             min="0"
                             name="variantPrice"
                             placeholder="variant price"
                             ref={productVariantPrice1}
-                            // value={}
+                            value={VariantPrice1}
                           />
                           <Form.Control.Feedback type="invalid">
                             unit price is required
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
+
                       <td>
                         {/* Product Old Price */}
                         <Form.Group controlId="validationCustom04">
@@ -696,34 +769,46 @@ const AddProduct = () => {
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
-                      <td>
-                        {/* Checkbox */}
-                        {/* <Form.Group controlId="validationCustom06">
-                          <div className="mt-2">
-                            <Form.Check
-                              type="checkbox"
-                              label="isNew"
-                              value="1"
-                              ref={isNew1}
-                              onChange={handleCheckbox1}
-                            />
-                          </div>
-
-                          <div className="mt-1">
-                            <Form.Check
-                              type="checkbox"
-                              label="isNewPrice"
-                              value="1"
-                              ref={isNewPrice1}
-                              onChange={handleCheckbox1}
-                            />
-                          </div>
-                        </Form.Group> */}
-                      </td>
                     </tr>
                     {/* ========================= ROW 2 ========================= */}
                     <tr>
                       <td>2</td>
+                      <td>
+                        {/*    Product Unit Price  */}
+                        <Form.Group controlId="validationCustom02">
+                          <Form.Control
+                            disabled
+                            type="number"
+                            min="0"
+                            name="unitPrice2"
+                            placeholder="Unit Price"
+                            ref={productUnitPrice2}
+                            defaultValue={
+                              UnitPrice2 == null ? pValue.price : UnitPrice2
+                            }
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            unit price is required
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </td>
+                      <td>
+                        {/* Discount Percentage */}
+                        <Form.Group controlId="validationCustom02">
+                          <Form.Control
+                            type="number"
+                            min="0"
+                            name="discountPrice2"
+                            placeholder="discount percentage"
+                            ref={productDiscountPrice2}
+                            // value={}
+                            onChange={changeUnitPrice2}
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            unit price is required
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </td>
                       <td>
                         {/*    Product PackSize  */}
                         <Form.Group controlId="validationCustom01">
@@ -733,43 +818,29 @@ const AddProduct = () => {
                             placeholder="Pack Size"
                             ref={productPackSize2}
                             // value={}
+                            onChange={SetVariantPrice2}
                           />
                           <Form.Control.Feedback type="invalid">
                             pack size is required
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
-                      <td>
-                        {/*    Product Unit Price  */}
-                        <Form.Group controlId="validationCustom02">
-                          <Form.Control
-                            type="number"
-                            min="0"
-                            name="unitPrice2"
-                            placeholder="Unit Price"
-                            ref={productUnitPrice2}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            unit price is required
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                      </td>
+
                       <td>
                         {/* Variant Price*/}
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
+                            disabled
                             type="number"
                             min="0"
-                            name="variantPrice"
+                            name="variantPrice2"
                             placeholder="variant price"
                             ref={productVariantPrice2}
-                            // value={}
+                            value={VariantPrice2}
                           />
-                          <Form.Control.Feedback type="invalid">
-                            unit price is required
-                          </Form.Control.Feedback>
                         </Form.Group>
                       </td>
+
                       <td>
                         {/* Product Old Price */}
                         <Form.Group controlId="validationCustom04">
@@ -802,34 +873,46 @@ const AddProduct = () => {
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
-                      <td>
-                        {/* Checkbox */}
-                        {/* <Form.Group controlId="validationCustom06">
-                          <div className="mt-2">
-                            <Form.Check
-                              type="checkbox"
-                              label="isNew"
-                              value="1"
-                              ref={isNew2}
-                              onChange={handleCheckbox2}
-                            />
-                          </div>
-
-                          <div className="mt-1">
-                            <Form.Check
-                              type="checkbox"
-                              label="isNewPrice"
-                              value="1"
-                              ref={isNewPrice2}
-                              onChange={handleCheckbox2}
-                            />
-                          </div>
-                        </Form.Group> */}
-                      </td>
                     </tr>
                     {/* ========================= ROW 3 ========================= */}
                     <tr>
                       <td>3</td>
+                      <td>
+                        {/*    Product Unit Price  */}
+                        <Form.Group controlId="validationCustom02">
+                          <Form.Control
+                            disabled
+                            type="number"
+                            min="0"
+                            name="unitPrice3"
+                            placeholder="Unit Price"
+                            ref={productUnitPrice3}
+                            defaultValue={
+                              UnitPrice3 == null ? pValue.price : UnitPrice3
+                            }
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            unit price is required
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </td>
+                      <td>
+                        {/* Discount Percentage */}
+                        <Form.Group controlId="validationCustom02">
+                          <Form.Control
+                            type="number"
+                            min="0"
+                            name="discountPrice3"
+                            placeholder="discount percentage"
+                            ref={productDiscountPrice3}
+                            // value={}
+                            onChange={changeUnitPrice3}
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            unit price is required
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </td>
                       <td>
                         {/*    Product PackSize  */}
                         <Form.Group controlId="validationCustom01">
@@ -839,44 +922,32 @@ const AddProduct = () => {
                             placeholder="Pack Size"
                             ref={productPackSize3}
                             // value={}
+                            onChange={SetVariantPrice3}
                           />
                           <Form.Control.Feedback type="invalid">
                             pack size is required
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
-                      <td>
-                        {/*    Product Unit Price  */}
-                        <Form.Group controlId="validationCustom02">
-                          <Form.Control
-                            type="number"
-                            min="0"
-                            name="unitPrice3"
-                            placeholder="Unit Price"
-                            ref={productUnitPrice3}
-                            // value={}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            unit price is required
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                      </td>
+
                       <td>
                         {/* Variant Price*/}
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
+                            disabled
                             type="number"
                             min="0"
-                            name="variantPrice"
+                            name="variantPrice3"
                             placeholder="variant price"
                             ref={productVariantPrice3}
-                            // value={}
+                            value={VariantPrice3}
                           />
                           <Form.Control.Feedback type="invalid">
                             unit price is required
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
+
                       <td>
                         {/* Product Old Price */}
                         <Form.Group controlId="validationCustom04">
@@ -909,34 +980,46 @@ const AddProduct = () => {
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
-                      <td>
-                        {/* Checkbox */}
-                        {/* <Form.Group controlId="validationCustom06">
-                          <div className="mt-2">
-                            <Form.Check
-                              type="checkbox"
-                              label="isNew"
-                              value="1"
-                              ref={isNew3}
-                              onChange={handleCheckbox3}
-                            />
-                          </div>
-
-                          <div className="mt-1">
-                            <Form.Check
-                              type="checkbox"
-                              label="isNewPrice"
-                              value="1"
-                              ref={isNewPrice3}
-                              onChange={handleCheckbox3}
-                            />
-                          </div>
-                        </Form.Group> */}
-                      </td>
                     </tr>
                     {/* ========================= ROW 4 ========================= */}
                     <tr>
                       <td>4</td>
+                      <td>
+                        {/*    Product Unit Price  */}
+                        <Form.Group controlId="validationCustom02">
+                          <Form.Control
+                            disabled
+                            type="number"
+                            min="0"
+                            name="unitPrice4"
+                            placeholder="Unit Price"
+                            ref={productUnitPrice4}
+                            defaultValue={
+                              UnitPrice4 == null ? pValue.price : UnitPrice4
+                            }
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            unit price is required
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </td>
+                      <td>
+                        {/* Discount Percentage */}
+                        <Form.Group controlId="validationCustom02">
+                          <Form.Control
+                            type="number"
+                            min="0"
+                            name="discountCount4"
+                            placeholder="discount percentage"
+                            ref={productDiscountPrice4}
+                            // value={}
+                            onChange={changeUnitPrice4}
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            unit price is required
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </td>
                       <td>
                         {/*    Product PackSize  */}
                         <Form.Group controlId="validationCustom01">
@@ -946,44 +1029,32 @@ const AddProduct = () => {
                             placeholder="Pack Size"
                             ref={productPackSize4}
                             // value={}
+                            onChange={SetVariantPrice4}
                           />
                           <Form.Control.Feedback type="invalid">
                             pack size is required
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
-                      <td>
-                        {/*    Product Unit Price  */}
-                        <Form.Group controlId="validationCustom02">
-                          <Form.Control
-                            type="number"
-                            min="0"
-                            name="unitPrice4"
-                            placeholder="Unit Price"
-                            ref={productUnitPrice4}
-                            // value={}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            unit price is required
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                      </td>
+
                       <td>
                         {/* Variant Price*/}
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
+                            disabled
                             type="number"
                             min="0"
-                            name="variantPrice"
+                            name="variantPrice4"
                             placeholder="variant price"
                             ref={productVariantPrice4}
-                            // value={}
+                            value={VariantPrice4}
                           />
                           <Form.Control.Feedback type="invalid">
                             unit price is required
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
+
                       <td>
                         {/* Product Old Price */}
                         <Form.Group controlId="validationCustom04">
@@ -1016,34 +1087,45 @@ const AddProduct = () => {
                           </Form.Control.Feedback>
                         </Form.Group>
                       </td>
-                      <td>
-                        {/* Checkbox */}
-                        {/* <Form.Group controlId="validationCustom06">
-                          <div className="mt-2">
-                            <Form.Check
-                              type="checkbox"
-                              label="isNew"
-                              value="1"
-                              ref={isNew4}
-                              onChange={handleCheckbox4}
-                            />
-                          </div>
-
-                          <div className="mt-1">
-                            <Form.Check
-                              type="checkbox"
-                              label="isNewPrice"
-                              value="1"
-                              ref={isNewPrice4}
-                              onChange={handleCheckbox4}
-                            />
-                          </div>
-                        </Form.Group> */}
-                      </td>
                     </tr>
                     {/* ========================= ROW 5 ========================= */}
                     <tr>
                       <td>5</td>
+                      <td>
+                        {/*    Product Unit Price  */}
+                        <Form.Group controlId="validationCustom02">
+                          <Form.Control
+                            disabled
+                            type="number"
+                            min="0"
+                            name="unitPrice5"
+                            placeholder="Unit Price"
+                            ref={productUnitPrice5}
+                            defaultValue={
+                              UnitPrice5 == null ? pValue.price : UnitPrice5
+                            }
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            unit price is required
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </td>
+                      <td>
+                        {/* Discount Percentage */}
+                        <Form.Group controlId="validationCustom02">
+                          <Form.Control
+                            type="number"
+                            min="0"
+                            name="discountCount5"
+                            placeholder="discount percentage"
+                            ref={productDiscountPrice5}
+                            onChange={changeUnitPrice5}
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            unit price is required
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </td>
                       <td>
                         {/*    Product PackSize  */}
                         <Form.Group controlId="validationCustom01">
@@ -1053,6 +1135,7 @@ const AddProduct = () => {
                             placeholder="Pack Size"
                             ref={productPackSize5}
                             // value={}
+                            onChange={SetVariantPrice5}
                           />
                           <Form.Control.Feedback type="invalid">
                             pack size is required
@@ -1060,31 +1143,16 @@ const AddProduct = () => {
                         </Form.Group>
                       </td>
                       <td>
-                        {/*    Product Unit Price  */}
-                        <Form.Group controlId="validationCustom02">
-                          <Form.Control
-                            type="number"
-                            min="0"
-                            name="unitPrice5"
-                            placeholder="Unit Price"
-                            ref={productUnitPrice5}
-                            // value={}
-                          />
-                          <Form.Control.Feedback type="invalid">
-                            unit price is required
-                          </Form.Control.Feedback>
-                        </Form.Group>
-                      </td>
-                      <td>
                         {/* Variant Price*/}
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
+                            disabled
                             type="number"
                             min="0"
-                            name="variantPrice"
+                            name="variantPrice5"
                             placeholder="variant price"
                             ref={productVariantPrice5}
-                            // value={}
+                            value={VariantPrice5}
                           />
                           <Form.Control.Feedback type="invalid">
                             unit price is required
@@ -1123,30 +1191,6 @@ const AddProduct = () => {
                             Title is required
                           </Form.Control.Feedback>
                         </Form.Group>
-                      </td>
-                      <td>
-                        {/* Checkbox */}
-                        {/* <Form.Group controlId="validationCustom06">
-                          <div className="mt-2">
-                            <Form.Check
-                              type="checkbox"
-                              label="isNew"
-                              value="1"
-                              ref={isNew5}
-                              onChange={handleCheckbox5}
-                            />
-                          </div>
-
-                          <div className="mt-1">
-                            <Form.Check
-                              type="checkbox"
-                              label="isNewPrice"
-                              value="1"
-                              ref={isNewPrice5}
-                              onChange={handleCheckbox5}
-                            />
-                          </div>
-                        </Form.Group> */}
                       </td>
                     </tr>
                   </tbody>

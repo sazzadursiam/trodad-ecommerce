@@ -48,8 +48,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/journals" element={<JournalDetails />} />
-          <Route path="/registration" element={<UserRegForm />} />
-          <Route path="/login" element={<UserLogin />} />
+          <Route path="/user/registration" element={<UserRegForm />} />
+          <Route path="/user/login" element={<UserLogin />} />
           {/* Products */}
           <Route
             path="/products/category/:productcategory"
@@ -78,13 +78,10 @@ function App() {
           {/*===================== User Dashboard ===========================*/}
           <Route path="my" element={<User />}>
             <Route index element={<Dashboard />} />
-
             <Route path="address" element={<Address />} />
             <Route path="edit-address" element={<EditAddress />} />
-
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:orderId" element={<OrderDetails />} />
-
             <Route path="edit-account" element={<AccDetails />} />
 
           </Route>
