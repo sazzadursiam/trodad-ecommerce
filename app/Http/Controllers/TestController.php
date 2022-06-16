@@ -15,4 +15,8 @@ class TestController extends Controller
             'type' => $type,
         ]);
     }
+    public function adminAuthTest()
+    {
+        echo 'hi';
+    }
 }

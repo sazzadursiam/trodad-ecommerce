@@ -68,12 +68,12 @@ class BrandController extends Controller
             if ($model->save()) {
                 return response()->json([
                     'status' => 200,
-                    'message' => 'Client Inserted Successful.'
+                    'message' => 'Inserted Successful.'
                 ]);
             } else {
                 return response()->json([
                     'status' => 400,
-                    'message' => 'Client Inserted Failed.'
+                    'message' => 'Inserted Failed.'
                 ]);
             }
         }

@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\Product\CategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
+use App\Http\Controllers\Frontend\AddToCartController;
 use App\Http\Controllers\Frontend\CustomerAuth\CustomerAuthController;
 use App\Http\Controllers\Frontend\MasterController;
 use App\Http\Controllers\TestController;
@@ -17,12 +19,13 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-/* ===================== Customer Registration Start ===================== */
+/* ===================== Auth Start ===================== */
 
 Route::post('/customer/registration/store', [CustomerAuthController::class, 'registration']);
 Route::post('/customer/login/process', [CustomerAuthController::class, 'customerLogin']);
+Route::post('/admin/login/process', [AdminAuthController::class, 'adminLogin']);
 
-/* ===================== Customer Registration End ===================== */
+/* ===================== Auth End ===================== */
 
 // Brands 
 Route::get('/index-master-get', [MasterController::class, 'masterGet']);
@@ -42,10 +45,21 @@ Route::get('/all-product', [MasterController::class, 'getAllProduct']);
 
 Route::get('/products/single-details/{slug}', [MasterController::class, 'getSingleProductDetails']);
 
+/*
+|--------------------------------------------------------------------------
+| Cart
+|--------------------------------------------------------------------------
+*/
+Route::post('/add-to-cart/save', [AddToCartController::class, 'addToCartStore']);
+
+
 
 //auth test route 
 Route::group(['middleware' => 'customer_auth'], function () {
     Route::get('/user/dashboard', [TestController::class, 'authTest']);
+});
+Route::group(['middleware' => 'admin_auth'], function () {
+    Route::get('/admin/dashboard', [TestController::class, 'adminAuthTest']);
 });
 
 /*
