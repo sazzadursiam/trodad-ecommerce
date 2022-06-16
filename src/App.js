@@ -45,7 +45,13 @@ export const UserContext = createContext();
 
 function App() {
   const [slugName, setSlugName] = useState("new");
-  const [authUser, setAuthUser] = useState(false);
+  const [authUser, setAuthUser] = useState([]);
+
+  // const data = localStorage.getItem(dataKey) || "{}";
+  // setAuthUser(data)
+  
+
+
 
   return (
     <UserContext.Provider value={{ slugName, setSlugName, setAuthUser,authUser }}>
@@ -61,7 +67,7 @@ function App() {
             path="/products/category/:productcategory"
             element={<ProductCategory />}
           />
-          <Route path="/products" element={<ProductDetails />} />
+          <Route path="/products/details/:slug" element={<ProductDetails />} />
 
           <Route path="/checkout" element={<Checkout />} />
 

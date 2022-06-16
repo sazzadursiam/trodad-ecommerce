@@ -19,8 +19,6 @@ const UserLoginForm = () => {
   const [formResponseData, setFormResponseData] = useState([])
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const { authUser, setAuthUser } = useContext(UserContext);
-
 
 
 
@@ -31,8 +29,6 @@ const UserLoginForm = () => {
   let from = location.state?.from?.pathname || "/";
 
 
-  const [feedbackMsg, setFeedbackMsg] = useState("");
-  console.log(feedbackMsg);
   const handleInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -56,13 +52,11 @@ const UserLoginForm = () => {
       .then((response) => {
 
 
-        setAuthUser(response.data.loggedInUser);
         setFormResponseData(response.data)
 
 
-
-
         if (response.data.status === 1) {
+          localStorage.setItem('email' , response.data?.loggedInUser?.email );
           navigate(from, { replace: true });
         }
 
