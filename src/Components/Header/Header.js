@@ -21,8 +21,7 @@ import { Link_Path_URL } from "../../Utils/LinkPath";
 import { UserContext } from "../../App";
 
 const Header = () => {
-  const { slugName, setSlugName, cartTotal, cartProductQuantity } =
-    useContext(UserContext);
+  const { slugName, setSlugName } = useContext(UserContext);
   const [navData, setNavData] = useState([]);
   const [navDataBrand, setNavDataBrand] = useState([]);
 
@@ -131,10 +130,10 @@ const Header = () => {
                       <div className="d-flex align-items-center w-100 ">
                         <div className="d-flex align-items-center me-3 w-25">
                           <FaIcons.FaShoppingCart className="me-2" />
-                          {cartProductQuantity}
+                          {localStorage.getItem("cartProductQuantity")}
                         </div>
                         <div className="d-flex align-items-center w-75 justify-content-end">
-                          {cartTotal} kr
+                          {localStorage.getItem("cartTotal")} kr
                           <FaIcons.FaChevronCircleRight className="ms-3" />
                         </div>
                       </div>

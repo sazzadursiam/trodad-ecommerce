@@ -47,8 +47,6 @@ function App() {
 
   // const data = localStorage.getItem(dataKey) || "{}";
   // setAuthUser(data)
-  const [cartProductQuantity, setCartProductQuantity] = useState(0);
-  const [cartTotal, setcartTotal] = useState(0);
 
   return (
     <UserContext.Provider
@@ -57,10 +55,6 @@ function App() {
         setSlugName,
         authUser,
         setAuthUser,
-        cartProductQuantity,
-        setCartProductQuantity,
-        cartTotal,
-        setcartTotal,
       }}
     >
       <Router>

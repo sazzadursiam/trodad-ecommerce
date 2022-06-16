@@ -12,13 +12,7 @@ import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
 import "./products.css";
 
 const Product = () => {
-  const {
-    slugName,
-    cartProductQuantity,
-    setCartProductQuantity,
-    cartTotal,
-    setcartTotal,
-  } = useContext(UserContext);
+  const { slugName } = useContext(UserContext);
   const sendCol = useRef();
 
   // =============== Fetch Products =============================
@@ -122,8 +116,12 @@ const Product = () => {
       })
 
       .then((response) => {
-        setCartProductQuantity(response.data.cartProductQuantity);
-        setcartTotal(response.data.cartTotal);
+        localStorage.setItem(
+          "cartProductQuantity",
+          response.data.cartProductQuantity
+        );
+        localStorage.setItem("cartTotal", response.data.cartTotal);
+
         if (response.data.status === 200) {
           Swal.fire({
             icon: "success",
