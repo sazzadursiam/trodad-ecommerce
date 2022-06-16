@@ -1,16 +1,25 @@
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import * as BsIcons from "react-icons/bs";
 import * as FaIcons from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { v4 as uuid } from "uuid";
 import { UserContext } from "../../App";
 import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
 
 import "./products.css";
 
 const Product = () => {
-  const { slugName } = useContext(UserContext);
+  const {
+    slugName,
+    cartProductQuantity,
+    setCartProductQuantity,
+    cartTotal,
+    setcartTotal,
+  } = useContext(UserContext);
+  const sendCol = useRef();
 
   // =============== Fetch Products =============================
   const [newProducts, setNewProducts] = useState([]);
@@ -67,9 +76,62 @@ const Product = () => {
     setisOnChanged("Changed");
   };
 
-
   const addToCart = (productId) => {
-    console.log(productId);
+    // console.log(productId);
+    // console.log("LOGGED_IN_USER_ID", localStorage.getItem("LOGGED_IN_USER_ID"));
+
+    let USER_ID;
+    let USER_TEMP_ID;
+    let USER_TYPE;
+    // CHECK IF USER IS LOGGED IN OR NOT
+    if (!localStorage.getItem("LOGGED_IN_USER_ID")) {
+      // Guest
+      USER_TYPE = "Not-Reg";
+      if (!localStorage.getItem("USER_TEMP_ID")) {
+        // First Time
+        USER_TEMP_ID = uuid();
+        // set into local storage
+        localStorage.setItem("USER_TEMP_ID", USER_TEMP_ID);
+        USER_ID = USER_TEMP_ID;
+      } else {
+        USER_ID = localStorage.getItem("USER_TEMP_ID");
+        console.log(" Not First Time", localStorage.getItem("USER_TEMP_ID"));
+      }
+      // console.log("guest");
+    } else {
+      USER_TYPE = "Reg";
+      USER_ID = localStorage.getItem("LOGGED_IN_USER_ID");
+
+      console.log("Logged in user");
+    }
+    // sent data to backend
+    console.log("Final user id", USER_ID);
+    console.log("Final user Type", USER_TYPE);
+
+    const formdata = new FormData();
+    // formdata.append("selectedPackSize", productPackSize.current.value);
+    formdata.append("selectedPackSize", sendCol.current.value);
+    formdata.append("qty", 1);
+    formdata.append("productId", productId);
+    formdata.append("userId", USER_ID);
+    formdata.append("userType", USER_TYPE);
+
+    axios
+      .post(`${BACKEND_BASE_URL}/api/add-to-cart/save`, formdata, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+
+      .then((response) => {
+        setCartProductQuantity(response.data.cartProductQuantity);
+        setcartTotal(response.data.cartTotal);
+        if (response.data.status === 200) {
+          Swal.fire({
+            icon: "success",
+            text: response.data.message,
+            confirmButtonColor: "#5eba86",
+          });
+        }
+      });
   };
 
   return (
@@ -236,6 +298,7 @@ const Product = () => {
                     {/* Tab Products */}
                     <div className="d-flex mt-1">
                       <Form.Select
+                        ref={sendCol}
                         className="w-100 product-variant-select"
                         onChange={(e) => {
                           e.preventDefault();
@@ -440,6 +503,7 @@ const Product = () => {
                     {/* New Products */}
                     <div className="d-flex mt-1">
                       <Form.Select
+                        ref={sendCol}
                         className="w-100 product-variant-select"
                         onChange={(e) => {
                           e.preventDefault();

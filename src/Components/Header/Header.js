@@ -21,7 +21,8 @@ import { Link_Path_URL } from "../../Utils/LinkPath";
 import { UserContext } from "../../App";
 
 const Header = () => {
-  const { slugName, setSlugName } = useContext(UserContext);
+  const { slugName, setSlugName, cartTotal, cartProductQuantity } =
+    useContext(UserContext);
   const [navData, setNavData] = useState([]);
   const [navDataBrand, setNavDataBrand] = useState([]);
 
@@ -129,10 +130,11 @@ const Header = () => {
                     <Card.Body>
                       <div className="d-flex align-items-center w-100 ">
                         <div className="d-flex align-items-center me-3 w-25">
-                          <FaIcons.FaShoppingCart className="me-2" />1
+                          <FaIcons.FaShoppingCart className="me-2" />
+                          {cartProductQuantity}
                         </div>
                         <div className="d-flex align-items-center w-75 justify-content-end">
-                          12,000 kr
+                          {cartTotal} kr
                           <FaIcons.FaChevronCircleRight className="ms-3" />
                         </div>
                       </div>
@@ -296,7 +298,7 @@ const Header = () => {
                     </NavDropdown.Item>
                   </NavDropdown>
                   <NavDropdown
-                    title="Make Your Own Snus"
+                    title="Göra Eget Snus"
                     id="offcanvasNavbarDropdown-expand-false"
                   >
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
@@ -314,7 +316,7 @@ const Header = () => {
                   <Nav.Link href="#action2">Subscribe</Nav.Link>
 
                   <NavDropdown
-                    title="Brand"
+                    title="Varumärken"
                     id="offcanvasNavbarDropdown-expand-false"
                   >
                     <NavDropdown.Item href="#action3">Action</NavDropdown.Item>

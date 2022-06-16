@@ -43,13 +43,12 @@ export const UserContext = createContext();
 
 function App() {
   const [slugName, setSlugName] = useState("new");
-  const [authUser, setAuthUser] = useState(false);
+  const [authUser, setAuthUser] = useState([]);
 
-  // const [editedVariantPrice1, setEditedVariantPrice1] = useState("");
-  // const [editedVariantPrice2, setEditedVariantPrice2] = useState("");
-  // const [editedVariantPrice3, setEditedVariantPrice3] = useState("");
-  // const [editedVariantPrice4, setEditedVariantPrice4] = useState("");
-  // const [editedVariantPrice5, setEditedVariantPrice5] = useState("");
+  // const data = localStorage.getItem(dataKey) || "{}";
+  // setAuthUser(data)
+  const [cartProductQuantity, setCartProductQuantity] = useState(0);
+  const [cartTotal, setcartTotal] = useState(0);
 
   return (
     <UserContext.Provider
@@ -58,16 +57,10 @@ function App() {
         setSlugName,
         authUser,
         setAuthUser,
-        // editedVariantPrice1,
-        // editedVariantPrice2,
-        // editedVariantPrice3,
-        // editedVariantPrice4,
-        // editedVariantPrice5,
-        // setEditedVariantPrice1,
-        // setEditedVariantPrice2,
-        // setEditedVariantPrice3,
-        // setEditedVariantPrice4,
-        // setEditedVariantPrice5,
+        cartProductQuantity,
+        setCartProductQuantity,
+        cartTotal,
+        setcartTotal,
       }}
     >
       <Router>

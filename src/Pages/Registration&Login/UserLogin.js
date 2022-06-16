@@ -19,8 +19,6 @@ const UserLoginForm = () => {
   const [formResponseData, setFormResponseData] = useState([])
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const { authUser, setAuthUser } = useContext(UserContext);
-
 
 
 
@@ -50,13 +48,12 @@ const UserLoginForm = () => {
       .then((response) => {
 
 
-        setAuthUser(response.data.loggedInUser);
         setFormResponseData(response.data)
 
 
-
-
         if (response.data.status === 1) {
+          localStorage.setItem('email' , response.data?.loggedInUser?.email );
+          localStorage.setItem('LOGGED_IN_USER_ID', response.data?.loggedInUser?.id );
           navigate(from, { replace: true });
         }
 
