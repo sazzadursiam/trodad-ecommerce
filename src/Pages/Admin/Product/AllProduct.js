@@ -49,7 +49,7 @@ const AllProduct = () => {
     axios
       .get(`${BACKEND_BASE_URL}/api/admin/products/view/${id}`)
       .then((res) => {
-        setModalSize("sm");
+        setModalSize("lg");
         setModalData(modalValue);
         setSingleProductInfo(res.data.viewProduct);
         setModalShow(true);
@@ -220,12 +220,12 @@ const AllProduct = () => {
                 <>
                   <h4>{singleProductInfo.name}</h4>
                   <img
-                    className="img-thumbnail"
+                    className="img-fluid d-flex m-auto"
                     src={`${BACKEND_BASE_URL}/${singleProductInfo.image}`}
                     alt=""
                   />
-                  <p>{Parse(`${singleProductInfo.shortDescription}`)}</p>
-                  <p>{Parse(`${singleProductInfo.description}`)}</p>
+                  {Parse(`${singleProductInfo.shortDescription}`)}
+                  {Parse(`${singleProductInfo.description}`)}
                 </>
               )}
             </Modal.Body>

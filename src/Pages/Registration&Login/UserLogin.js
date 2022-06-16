@@ -33,13 +33,7 @@ const UserLoginForm = () => {
 
   const [feedbackMsg, setFeedbackMsg] = useState("");
   console.log(feedbackMsg);
-  const handleInput = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    setUserLoginInfo({ ...userLoginInfo, [name]: value });
-  };
-
+  
   const handleSubmit = (e) => {
     setFormErrors(validate(userLoginInfo));
     setIsSubmit(true);
@@ -119,8 +113,8 @@ const UserLoginForm = () => {
               placeholder="Enter email"
               name="email"
               ref={Email}
-              value={userLoginInfo.email}
-              onChange={handleInput}
+              defaultValue={userLoginInfo.email}
+              
               required
             />
             <small className="small_msg"></small>
@@ -137,8 +131,8 @@ const UserLoginForm = () => {
               placeholder="Enter password"
               name="password"
               ref={Password}
-              value={userLoginInfo.password}
-              onChange={handleInput}
+              defaultValue={userLoginInfo.password}
+             
               required
             />
             <small className="small_msg">{formErrors.password}</small>

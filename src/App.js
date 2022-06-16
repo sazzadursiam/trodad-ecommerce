@@ -39,20 +39,41 @@ import UserRegForm from "./Pages/Registration&Login/UserRegForm";
 import UserLogin from "./Pages/Registration&Login/UserLogin";
 import PrivateOutlet from "./Components/PrivateRoute/PrivateOutlet";
 
-
-
 export const UserContext = createContext();
 
 function App() {
   const [slugName, setSlugName] = useState("new");
   const [authUser, setAuthUser] = useState(false);
 
+  // const [editedVariantPrice1, setEditedVariantPrice1] = useState("");
+  // const [editedVariantPrice2, setEditedVariantPrice2] = useState("");
+  // const [editedVariantPrice3, setEditedVariantPrice3] = useState("");
+  // const [editedVariantPrice4, setEditedVariantPrice4] = useState("");
+  // const [editedVariantPrice5, setEditedVariantPrice5] = useState("");
+
   return (
-    <UserContext.Provider value={{ slugName, setSlugName, setAuthUser,authUser }}>
+    <UserContext.Provider
+      value={{
+        slugName,
+        setSlugName,
+        authUser,
+        setAuthUser,
+        // editedVariantPrice1,
+        // editedVariantPrice2,
+        // editedVariantPrice3,
+        // editedVariantPrice4,
+        // editedVariantPrice5,
+        // setEditedVariantPrice1,
+        // setEditedVariantPrice2,
+        // setEditedVariantPrice3,
+        // setEditedVariantPrice4,
+        // setEditedVariantPrice5,
+      }}
+    >
       <Router>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/journals" element={<JournalDetails />}/>
+          <Route path="/journals" element={<JournalDetails />} />
           <Route path="/user/registration" element={<UserRegForm />} />
           <Route path="/user/login" element={<UserLogin />} />
 
@@ -61,14 +82,21 @@ function App() {
             path="/products/category/:productcategory"
             element={<ProductCategory />}
           />
-          <Route path="/products" element={<ProductDetails />} />
+          <Route path="/products/details/:slug" element={<ProductDetails />} />
 
           <Route path="/checkout" element={<Checkout />} />
 
           <Route path="/underconstruction" element={<Report />} />
 
           {/*===================== Admin Dashboard ===========================*/}
-          <Route path="admin" element={<PrivateRoute><Admin/> </PrivateRoute>}>
+          <Route
+            path="admin"
+            element={
+              <PrivateRoute>
+                <Admin />{" "}
+              </PrivateRoute>
+            }
+          >
             <Route index element={<AdminDashboard />} />
             <Route path="brands" element={<Brands />} />
             <Route path="categories" element={<ProductCategories />} />
@@ -80,18 +108,22 @@ function App() {
             <Route path="products/edit/:id" element={<EditProduct />} />
           </Route>
 
-
           {/* User Dashboard */}
-          <Route path="my" element={<PrivateRoute><User /></PrivateRoute>}>
+          <Route
+            path="my"
+            element={
+              <PrivateRoute>
+                <User />
+              </PrivateRoute>
+            }
+          >
             <Route index element={<Dashboard />} />
             <Route path="address" element={<Address />} />
             <Route path="edit-address" element={<EditAddress />} />
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:orderId" element={<OrderDetails />} />
             {/* <Route path="edit-account" element={<AccDetails />} /> */}
-
           </Route>
-
         </Routes>
       </Router>
     </UserContext.Provider>

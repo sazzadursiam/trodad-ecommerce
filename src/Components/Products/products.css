@@ -96,6 +96,12 @@
 
 }
 
+.product-variant-select option {
+    margin-right: 5px !important;
+    justify-content: space-between !important;
+}
+
+
 .add-to-cart-btn {
     border-radius: 0 6px 6px 0 !important;
 

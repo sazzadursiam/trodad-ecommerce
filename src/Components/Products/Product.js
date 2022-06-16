@@ -21,6 +21,7 @@ const Product = () => {
         .get(`${BACKEND_BASE_URL}/api/product/${slugName}`)
         .then((res) => {
           setNewProducts(res.data.products);
+          // console.log(res.data.products);
         });
     } catch (error) {
       console.log(error);
@@ -45,7 +46,7 @@ const Product = () => {
       console.log(error);
     }
   };
-
+  console.log(newProducts);
   useEffect(() => {
     renderAllTabs();
   }, []);
@@ -53,7 +54,7 @@ const Product = () => {
   const getTabItems = (id) => {
     axios.get(`${BACKEND_BASE_URL}/api/product/tab/${id}`).then((res) => {
       setFilterTab(res.data.tabProducts);
-      console.log(res.data.tabProducts);
+      // console.log(res.data.tabProducts);
     });
   };
 
@@ -99,8 +100,13 @@ const Product = () => {
                             className="img-fluid"
                           />
                         </Link>
-                        <div className="product-flag-container">
-                          <span className="product-flag">{data.flagText1}</span>
+
+                        <div className="product-flag-container ">
+                          {data.flagText1 != null && data.flagText != "" && (
+                            <span className="product-flag">
+                              {data.flagText1}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </Card.Title>
@@ -142,10 +148,52 @@ const Product = () => {
                       </div>
                     </div>
                     <div className="d-flex mt-1">
-                      <Form.Select className="w-75 product-variant-select">
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <Form.Select className="w-100 product-variant-select">
+                        {data.packSize1 && (
+                          <option
+                            value="1"
+                            className="d-flex justify-content-between"
+                          >
+                            <span>{data.packSize1} dose</span>
+                            <span>{data.variantPrice1} kr</span>
+                          </option>
+                        )}
+                        {data.packSize2 && (
+                          <option
+                            value="2"
+                            className="d-flex justify-content-between"
+                          >
+                            <span>{data.packSize2} dose</span>
+                            <span>{data.variantPrice2} kr</span>
+                          </option>
+                        )}
+                        {data.packSize3 && (
+                          <option
+                            value="3"
+                            className="d-flex justify-content-between"
+                          >
+                            <span>{data.packSize3} dose</span>
+                            <span>{data.variantPrice3} kr</span>
+                          </option>
+                        )}
+                        {data.packSize4 && (
+                          <option
+                            value="4"
+                            className="d-flex justify-content-between"
+                          >
+                            <span>{data.packSize4} dose</span>
+                            <span>{data.variantPrice4} kr</span>
+                          </option>
+                        )}
+                        {data.packSize5 && (
+                          <option
+                            value="5"
+                            className="d-flex justify-content-between"
+                          >
+                            <span>{data.packSize5} dose</span>
+                            <span>{data.variantPrice5} kr</span>
+                          </option>
+                        )}
                       </Form.Select>
                       <button
                         className="btn-danger w-50 border-0 add-to-cart-btn"
@@ -179,7 +227,11 @@ const Product = () => {
                           />
                         </Link>
                         <div className="product-flag-container">
-                          <span className="product-flag">{data.flagText1}</span>
+                          {data.flagText1 != null && data.flagText != "" && (
+                            <span className="product-flag">
+                              {data.flagText1}
+                            </span>
+                          )}
                         </div>
                       </div>
                     </Card.Title>
@@ -222,10 +274,52 @@ const Product = () => {
                       </div>
                     </div>
                     <div className="d-flex mt-1">
-                      <Form.Select className="w-75 product-variant-select">
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                      <Form.Select className="w-100 product-variant-select">
+                        {data.packSize1 && (
+                          <option
+                            value="1"
+                            className="d-flex justify-content-between"
+                          >
+                            <span>{data.packSize1} dose</span>
+                            <span>{data.variantPrice1} kr</span>
+                          </option>
+                        )}
+                        {data.packSize2 && (
+                          <option
+                            value="2"
+                            className="d-flex justify-content-between"
+                          >
+                            <span>{data.packSize2} dose</span>
+                            <span>{data.variantPrice2} kr</span>
+                          </option>
+                        )}
+                        {data.packSize3 && (
+                          <option
+                            value="3"
+                            className="d-flex justify-content-between"
+                          >
+                            <span>{data.packSize3} dose</span>
+                            <span>{data.variantPrice3} kr</span>
+                          </option>
+                        )}
+                        {data.packSize4 && (
+                          <option
+                            value="4"
+                            className="d-flex justify-content-between"
+                          >
+                            <span>{data.packSize4} dose</span>
+                            <span>{data.variantPrice4} kr</span>
+                          </option>
+                        )}
+                        {data.packSize5 && (
+                          <option
+                            value="5"
+                            className="d-flex justify-content-between"
+                          >
+                            <span>{data.packSize5} dose</span>
+                            <span>{data.variantPrice5} kr</span>
+                          </option>
+                        )}
                       </Form.Select>
                       <button
                         className="btn-danger w-50 border-0 add-to-cart-btn"

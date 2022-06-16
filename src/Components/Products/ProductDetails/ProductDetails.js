@@ -22,7 +22,7 @@ import Parser from "html-react-parser";
 const ProductDetails = () => {
   const { slug } = useParams();
 
-  //=================================== Fetch Table Data ===================================
+  //=================================== Fetch Product Details ===================================
 
   const [productDetails, setProductDetails] = useState([]);
 
