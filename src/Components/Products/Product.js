@@ -35,7 +35,7 @@ const Product = () => {
   // =============== Fetch Tabs =============================
   const [tabItems, setTabItems] = useState([]);
 
-  const [filterTab, setFilterTab] = useState([]);
+  const [filterTabProduct, setFilterTabProduct] = useState([]);
 
   const renderAllTabs = async () => {
     try {
@@ -46,16 +46,30 @@ const Product = () => {
       console.log(error);
     }
   };
-  console.log(newProducts);
+
   useEffect(() => {
     renderAllTabs();
   }, []);
 
   const getTabItems = (id) => {
     axios.get(`${BACKEND_BASE_URL}/api/product/tab/${id}`).then((res) => {
-      setFilterTab(res.data.tabProducts);
+      setFilterTabProduct(res.data.tabProducts);
       // console.log(res.data.tabProducts);
     });
+  };
+
+  const [isOnChanged, setisOnChanged] = useState("");
+  const [selectedValue, setSelectedValue] = useState([]);
+  const [selectedProductId, setSelectedProductId] = useState("");
+  const selectedPriceShow = (id, e) => {
+    setSelectedValue(e.target.value);
+    setSelectedProductId(id);
+    setisOnChanged("Changed");
+  };
+
+
+  const addToCart = (productId) => {
+    console.log(productId);
   };
 
   return (
@@ -79,8 +93,8 @@ const Product = () => {
       </Row>
 
       <Row className="mb-5">
-        {filterTab.length != 0
-          ? filterTab.map((data, index) => (
+        {filterTabProduct.length != 0
+          ? filterTabProduct.map((data, index) => (
               <Col
                 xs={12}
                 md={6}
@@ -139,22 +153,101 @@ const Product = () => {
                         />
                         <span className="ps-1 ">(5)</span>
                       </div>
+
                       <div className="product-price d-flex flex-column align-items-center">
-                        <span>({data.unitPrice1}/st)</span>
-                        <span>{data.price} kr</span>
-                        <span className="text-decoration-line-through">
-                          {data.oldPrice1} kr
-                        </span>
+                        {isOnChanged == "" || isOnChanged == null ? (
+                          <>
+                            <span>({data.unitPrice1}/st)</span>
+                            <span>{data.variantPrice1} kr</span>
+                            {data.oldPrice1 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice1} kr
+                              </span>
+                            )}
+                          </>
+                        ) : selectedValue == 1 &&
+                          selectedProductId == data.id ? (
+                          <>
+                            <span>({data.unitPrice1}/st)</span>
+                            <span>{data.variantPrice1} kr</span>
+                            {data.oldPrice1 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice1} kr
+                              </span>
+                            )}
+                          </>
+                        ) : selectedValue == 2 &&
+                          selectedProductId == data.id ? (
+                          <>
+                            <span>({data.unitPrice2}/st)</span>
+                            <span>{data.variantPrice2} kr</span>
+                            {data.oldPrice2 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice2} kr
+                              </span>
+                            )}
+                          </>
+                        ) : selectedValue == 3 &&
+                          selectedProductId == data.id ? (
+                          <>
+                            <span>({data.unitPrice3}/st)</span>
+                            <span>{data.variantPrice3} kr</span>
+                            {data.oldPrice3 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice3} kr
+                              </span>
+                            )}
+                          </>
+                        ) : selectedValue == 4 &&
+                          selectedProductId == data.id ? (
+                          <>
+                            <span>({data.unitPrice4}/st)</span>
+                            <span>{data.variantPrice4} kr</span>
+                            {data.oldPrice4 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice4} kr
+                              </span>
+                            )}
+                          </>
+                        ) : selectedValue == 5 &&
+                          selectedProductId == data.id ? (
+                          <>
+                            <span>({data.unitPrice5}/st)</span>
+                            <span>{data.variantPrice5} kr</span>
+                            {data.oldPrice5 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice5} kr
+                              </span>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <span>({data.unitPrice1}/st)</span>
+                            <span>{data.variantPrice1} kr</span>
+                            {data.oldPrice1 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice1} kr
+                              </span>
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
+                    {/* Tab Products */}
                     <div className="d-flex mt-1">
-                      <Form.Select className="w-100 product-variant-select">
+                      <Form.Select
+                        className="w-100 product-variant-select"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          selectedPriceShow(data.id, e);
+                        }}
+                      >
                         {data.packSize1 && (
                           <option
                             value="1"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize1} dose</span>
+                            <span>{data.packSize1} dose</span>-
                             <span>{data.variantPrice1} kr</span>
                           </option>
                         )}
@@ -163,7 +256,7 @@ const Product = () => {
                             value="2"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize2} dose</span>
+                            <span>{data.packSize2} dose</span>-
                             <span>{data.variantPrice2} kr</span>
                           </option>
                         )}
@@ -172,7 +265,7 @@ const Product = () => {
                             value="3"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize3} dose</span>
+                            <span>{data.packSize3} dose</span>-
                             <span>{data.variantPrice3} kr</span>
                           </option>
                         )}
@@ -181,7 +274,7 @@ const Product = () => {
                             value="4"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize4} dose</span>
+                            <span>{data.packSize4} dose</span>-
                             <span>{data.variantPrice4} kr</span>
                           </option>
                         )}
@@ -190,14 +283,14 @@ const Product = () => {
                             value="5"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize5} dose</span>
+                            <span>{data.packSize5} dose</span>-
                             <span>{data.variantPrice5} kr</span>
                           </option>
                         )}
                       </Form.Select>
                       <button
                         className="btn-danger w-50 border-0 add-to-cart-btn"
-                        // onClick={() => handleClick("/products/7")}
+                        onClick={() => addToCart(data.id)}
                       >
                         <FaIcons.FaCartPlus size="1em" /> <span> aKöp</span>
                       </button>
@@ -266,21 +359,99 @@ const Product = () => {
                         <span className="ps-1 ">(5)</span>
                       </div>
                       <div className="product-price d-flex flex-column align-items-center">
-                        <span>({data.unitPrice1}/st)</span>
-                        <span>{data.price} kr</span>
-                        <span className="text-decoration-line-through">
-                          {data.oldPrice1} kr
-                        </span>
+                        {isOnChanged == "" || isOnChanged == null ? (
+                          <>
+                            <span>({data.unitPrice1}/st)</span>
+                            <span>{data.variantPrice1} kr</span>
+                            {data.oldPrice1 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice1} kr
+                              </span>
+                            )}
+                          </>
+                        ) : selectedValue == 1 &&
+                          selectedProductId == data.id ? (
+                          <>
+                            <span>({data.unitPrice1}/st)</span>
+                            <span>{data.variantPrice1} kr</span>
+                            {data.oldPrice1 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice1} kr
+                              </span>
+                            )}
+                          </>
+                        ) : selectedValue == 2 &&
+                          selectedProductId == data.id ? (
+                          <>
+                            <span>({data.unitPrice2}/st)</span>
+                            <span>{data.variantPrice2} kr</span>
+                            {data.oldPrice2 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice2} kr
+                              </span>
+                            )}
+                          </>
+                        ) : selectedValue == 3 &&
+                          selectedProductId == data.id ? (
+                          <>
+                            <span>({data.unitPrice3}/st)</span>
+                            <span>{data.variantPrice3} kr</span>
+                            {data.oldPrice3 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice3} kr
+                              </span>
+                            )}
+                          </>
+                        ) : selectedValue == 4 &&
+                          selectedProductId == data.id ? (
+                          <>
+                            <span>({data.unitPrice4}/st)</span>
+                            <span>{data.variantPrice4} kr</span>
+                            {data.oldPrice4 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice4} kr
+                              </span>
+                            )}
+                          </>
+                        ) : selectedValue == 5 &&
+                          selectedProductId == data.id ? (
+                          <>
+                            <span>({data.unitPrice5}/st)</span>
+                            <span>{data.variantPrice5} kr</span>
+                            {data.oldPrice5 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice5} kr
+                              </span>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <span>({data.unitPrice1}/st)</span>
+                            <span>{data.variantPrice1} kr</span>
+                            {data.oldPrice1 && (
+                              <span className="text-decoration-line-through">
+                                {data.oldPrice1} kr
+                              </span>
+                            )}
+                          </>
+                        )}
                       </div>
                     </div>
+                    {/* New Products */}
                     <div className="d-flex mt-1">
-                      <Form.Select className="w-100 product-variant-select">
+                      <Form.Select
+                        className="w-100 product-variant-select"
+                        onChange={(e) => {
+                          e.preventDefault();
+                          selectedPriceShow(data.id, e);
+                        }}
+                      >
                         {data.packSize1 && (
                           <option
                             value="1"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize1} dose</span>
+                            <span>{data.packSize1} dose</span>-
                             <span>{data.variantPrice1} kr</span>
                           </option>
                         )}
@@ -289,7 +460,7 @@ const Product = () => {
                             value="2"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize2} dose</span>
+                            <span>{data.packSize2} dose</span>-
                             <span>{data.variantPrice2} kr</span>
                           </option>
                         )}
@@ -298,7 +469,7 @@ const Product = () => {
                             value="3"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize3} dose</span>
+                            <span>{data.packSize3} dose</span>-
                             <span>{data.variantPrice3} kr</span>
                           </option>
                         )}
@@ -307,7 +478,7 @@ const Product = () => {
                             value="4"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize4} dose</span>
+                            <span>{data.packSize4} dose</span>-
                             <span>{data.variantPrice4} kr</span>
                           </option>
                         )}
@@ -316,14 +487,14 @@ const Product = () => {
                             value="5"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize5} dose</span>
+                            <span>{data.packSize5} dose</span>-
                             <span>{data.variantPrice5} kr</span>
                           </option>
                         )}
                       </Form.Select>
                       <button
                         className="btn-danger w-50 border-0 add-to-cart-btn"
-                        // onClick={() => handleClick("/products/7")}
+                        onClick={() => addToCart(data.id)}
                       >
                         <FaIcons.FaCartPlus size="1em" /> <span> aKöp</span>
                       </button>
