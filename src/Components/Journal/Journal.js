@@ -74,8 +74,8 @@ const Journal = () => {
             </div>
           </Col>
         </Row>
-        <HrStyle></HrStyle>
-        <Row>
+        {/* <HrStyle></HrStyle> */}
+        <Row className='d-none'>
           <Col
             xs={12}
             sm={6}

@@ -1,5 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Breadcrumb,
   Button,
@@ -19,6 +25,7 @@ import { BACKEND_BASE_URL } from "../../../Components/GlobalVariables";
 import Parse from "html-react-parser";
 import Swal from "sweetalert2";
 import JoditEditor from "jodit-react";
+// import { UserContext } from "../../../App";
 
 const EditProduct = () => {
   const productName = useRef();
@@ -839,7 +846,11 @@ const EditProduct = () => {
                               name="variantPrice"
                               placeholder="variant price"
                               ref={productVariantPrice1}
-                              defaultValue={VariantPrice1}
+                              defaultValue={
+                                VariantPrice1 == null
+                                  ? editedVariantPrice1
+                                  : VariantPrice1
+                              }
                             />
                             <Form.Control.Feedback type="invalid">
                               unit price is required
@@ -948,7 +959,11 @@ const EditProduct = () => {
                               name="variantPrice2"
                               placeholder="variant price"
                               ref={productVariantPrice2}
-                              defaultValue={VariantPrice2}
+                              defaultValue={
+                                VariantPrice2 == null
+                                  ? editedVariantPrice2
+                                  : VariantPrice2
+                              }
                             />
                           </Form.Group>
                         </td>
@@ -1054,7 +1069,11 @@ const EditProduct = () => {
                               name="variantPrice3"
                               placeholder="variant price"
                               ref={productVariantPrice3}
-                              defaultValue={VariantPrice3}
+                              defaultValue={
+                                VariantPrice3 == null
+                                  ? editedVariantPrice3
+                                  : VariantPrice3
+                              }
                             />
                             <Form.Control.Feedback type="invalid">
                               unit price is required
@@ -1163,7 +1182,11 @@ const EditProduct = () => {
                               name="variantPrice4"
                               placeholder="variant price"
                               ref={productVariantPrice4}
-                              defaultValue={VariantPrice4}
+                              defaultValue={
+                                VariantPrice4 == null
+                                  ? editedVariantPrice4
+                                  : VariantPrice4
+                              }
                             />
                             <Form.Control.Feedback type="invalid">
                               unit price is required

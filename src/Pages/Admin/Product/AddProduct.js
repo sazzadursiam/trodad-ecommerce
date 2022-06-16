@@ -57,17 +57,8 @@ const AddProduct = () => {
   const flagText5 = useRef();
 
   const isNew = useRef();
-  // const isNew2 = useRef();
-  // const isNew3 = useRef();
-  // const isNew4 = useRef();
-  // const isNew5 = useRef();
-
   const isNewPrice = useRef();
-  // const isNewPrice2 = useRef();
-  // const isNewPrice3 = useRef();
-  // const isNewPrice4 = useRef();
-  // const isNewPrice5 = useRef();
-
+ 
   // Image Preview
   const [files, setFile] = useState([]);
   const handleImgPreview = (e) => {

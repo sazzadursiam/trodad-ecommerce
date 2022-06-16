@@ -7,7 +7,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
 
-import Product from "./Components/Products/Product";
 
 import Index from "./Pages/Index/Index";
 import ProductDetails from "./Components/Products/ProductDetails/ProductDetails";
@@ -39,26 +38,26 @@ import UserRegForm from "./Pages/Registration&Login/UserRegForm";
 import UserLogin from "./Pages/Registration&Login/UserLogin";
 import PrivateOutlet from "./Components/PrivateRoute/PrivateOutlet";
 
-
-
 export const UserContext = createContext();
 
 function App() {
   const [slugName, setSlugName] = useState("new");
   const [authUser, setAuthUser] = useState([]);
 
-  // const data = localStorage.getItem(dataKey) || "{}";
-  // setAuthUser(data)
-  
-
-
 
   return (
-    <UserContext.Provider value={{ slugName, setSlugName, setAuthUser,authUser }}>
+    <UserContext.Provider
+      value={{
+        slugName,
+        setSlugName,
+        authUser,
+        setAuthUser,
+      }}
+    >
       <Router>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/journals" element={<JournalDetails />}/>
+          <Route path="/journals" element={<JournalDetails />} />
           <Route path="/user/registration" element={<UserRegForm />} />
           <Route path="/user/login" element={<UserLogin />} />
 
@@ -73,8 +72,16 @@ function App() {
 
           <Route path="/underconstruction" element={<Report />} />
 
+
           {/*===================== Admin Dashboard ===========================*/}
-          <Route path="admin" element={<PrivateRoute><Admin/> </PrivateRoute>}>
+          <Route
+            path="admin"
+            element={
+              <PrivateRoute>
+                <Admin />{" "}
+              </PrivateRoute>
+            }
+          >
             <Route index element={<AdminDashboard />} />
             <Route path="brands" element={<Brands />} />
             <Route path="categories" element={<ProductCategories />} />
@@ -86,18 +93,22 @@ function App() {
             <Route path="products/edit/:id" element={<EditProduct />} />
           </Route>
 
-
           {/* User Dashboard */}
-          <Route path="my" element={<PrivateRoute><User /></PrivateRoute>}>
+          <Route
+            path="my"
+            element={
+              <PrivateRoute>
+                <User />
+              </PrivateRoute>
+            }
+          >
             <Route index element={<Dashboard />} />
             <Route path="address" element={<Address />} />
             <Route path="edit-address" element={<EditAddress />} />
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:orderId" element={<OrderDetails />} />
             {/* <Route path="edit-account" element={<AccDetails />} /> */}
-
           </Route>
-
         </Routes>
       </Router>
     </UserContext.Provider>
