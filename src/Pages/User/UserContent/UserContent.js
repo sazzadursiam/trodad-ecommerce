@@ -10,6 +10,10 @@ const UserContent = () => {
     const ToggleClass = (index) => {
         setClickState(index);
     };
+    const logoutUser = () => {
+        localStorage.removeItem('email');
+        localStorage.removeItem('LOGGED_IN_USER_ID');
+      }
 
     return (
 
@@ -68,7 +72,7 @@ const UserContent = () => {
                                             Addreases
                                         </li>
                                     </Link>
-                                    <Link to='/user/login' onClick={() =>ToggleClass(7)}>
+                                    <Link to='/' onClick={logoutUser}>
                                         <li className={`${clickState === 7 ? 'active' : ''}`}>
                                             Logout
                                         </li>

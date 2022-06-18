@@ -12,10 +12,19 @@ import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
 import "./products.css";
 
 const Product = () => {
-  const { slugName } = useContext(UserContext);
+  const { slugName, setCartQuantity, setCartTotal } = useContext(UserContext);
   const sendCol = useRef();
 
-  console.log(localStorage.getItem("cartTotal"));
+
+
+
+  const cartFunction = () =>{
+    const cartQuantitycheck =    localStorage.getItem("cartProductQuantity");
+    const cartTotalcheck =    localStorage.getItem("cartTotal");
+    setCartQuantity(cartQuantitycheck);
+    setCartTotal(cartTotalcheck);
+  }
+  
 
   // =============== Fetch Products =============================
   const [newProducts, setNewProducts] = useState([]);
@@ -48,7 +57,7 @@ const Product = () => {
         setTabItems(res.data.tabs);
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -123,6 +132,8 @@ const Product = () => {
           response.data.cartProductQuantity
         );
         localStorage.setItem("cartTotal", response.data.cartTotal);
+        cartFunction();
+         
 
         if (response.data.status === 200) {
           Swal.fire({

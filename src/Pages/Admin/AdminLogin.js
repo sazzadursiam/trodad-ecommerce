@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
 // import "../Registration&Login/customRefForm.css";
@@ -12,6 +13,11 @@ const AdminLoginForm = () => {
   const [message, setMessage] = useState("");
   const [adminEmailError, setAdminEmailError] = useState("");
   const [adminPassError, setAdminPassError] = useState("");
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  let from = location.state?.from?.pathname || "/";
 
   const handleSubmit = (e) => {
     const formdata = new FormData();
@@ -35,6 +41,14 @@ const AdminLoginForm = () => {
           setMessage(message);
         }
         if (response.data.status === 1) {
+
+          localStorage.setItem("adminemail", response.data?.loggedInAdmin?.email);
+          localStorage.setItem(
+            "LOGGED_IN_ADMIN_ID",
+            response.data?.loggedInAdmin?.id
+          );
+          navigate(from, { replace: true });
+
           Swal.fire({
             icon: "success",
             text: response.data.message,

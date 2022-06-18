@@ -21,7 +21,7 @@ import { Link_Path_URL } from "../../Utils/LinkPath";
 import { UserContext } from "../../App";
 
 const Header = () => {
-  const { slugName, setSlugName } = useContext(UserContext);
+  const { cartQuantity, cartTotal,setCartQuantity,setCartTotal } = useContext(UserContext);
   const [navData, setNavData] = useState([]);
   const [navDataBrand, setNavDataBrand] = useState([]);
 
@@ -38,6 +38,14 @@ const Header = () => {
   ];
   const today = daylist[day];
   // console.log("Today is : " + daylist[day] + ".");
+
+
+  const cartQuantityget = localStorage.getItem("cartProductQuantity");
+  const cartTotalget = localStorage.getItem("cartTotal");
+  setCartQuantity(cartQuantityget);
+  setCartTotal(cartTotalget);
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -130,10 +138,13 @@ const Header = () => {
                       <div className="d-flex align-items-center w-100 ">
                         <div className="d-flex align-items-center me-3 w-25">
                           <FaIcons.FaShoppingCart className="me-2" />
-                          {localStorage.getItem("cartProductQuantity")}
+                          {/* {localStorage.getItem("cartProductQuantity")} */}
+                          {cartQuantity}
+
                         </div>
                         <div className="d-flex align-items-center w-75 justify-content-end">
-                          {localStorage.getItem("cartTotal")} kr
+                          {/* {localStorage.getItem("cartTotal")} kr */}
+                          {cartTotal} kr
                           <FaIcons.FaChevronCircleRight className="ms-3" />
                         </div>
                       </div>
@@ -335,18 +346,18 @@ const Header = () => {
 
                   <Nav.Link href="#action2">Subscribe</Nav.Link>
 
-
-                  <NavDropdown title="Brand">
-                    {navDataBrand.map((dropdownItem, i) => (
-                      <NavDropdown.Item  as={Link} to={'/products/category/' + dropdownItem.brandName} key={i}>
-                        <p
-                          className="m-0"
-                          style={{ color: "#005ea1", fontSize: "14px" }}
-                        >
-                          {dropdownItem.brandName}
-                        </p>
-                      </NavDropdown.Item>
-                    ))}
+                  <NavDropdown
+                    title="Varumärken"
+                    id="offcanvasNavbarDropdown-expand-false"
+                  >
+                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
+                    <NavDropdown.Item href="#action4">
+                      Another action
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="#action5">
+                      Something else here
+                    </NavDropdown.Item>
                   </NavDropdown>
 
                   <hr />
@@ -362,7 +373,7 @@ const Header = () => {
             </Navbar.Offcanvas>
           </Container>
         </Navbar>
-        {/* ))} */}
+
       </div>
     </div >
   );
