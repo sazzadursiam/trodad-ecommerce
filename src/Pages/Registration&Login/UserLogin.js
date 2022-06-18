@@ -35,7 +35,7 @@ const UserLoginForm = () => {
       })
 
       .then((response) => {
-        if (response.data.status == 400) {
+        if (response.data.status === "400") {
           const { email, password } = response.data.errors;
           setUserEmailError(email);
           setUserPassError(password);

@@ -25,7 +25,7 @@ const AdminLoginForm = () => {
 
       .then((response) => {
         console.log(response.data);
-        if (response.data.status == 400) {
+        if (response.data.status === "400") {
           if (response.data.errors) {
             const { email, password } = response.data.errors;
             setAdminEmailError(email);
