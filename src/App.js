@@ -44,6 +44,14 @@ function App() {
   const [slugName, setSlugName] = useState("new");
   const [authUser, setAuthUser] = useState([]);
 
+  const [cartQuantity, setCartQuantity] = useState();
+  const [cartTotal, setCartTotal] = useState();
+
+
+
+
+
+
 
   return (
     <UserContext.Provider
@@ -52,6 +60,8 @@ function App() {
         setSlugName,
         authUser,
         setAuthUser,
+        cartQuantity, setCartQuantity,
+        cartTotal, setCartTotal
       }}
     >
       <Router>

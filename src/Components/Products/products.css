@@ -96,9 +96,9 @@
 
 }
 
-.product-variant-select option {
-    margin-right: 5px !important;
-    justify-content: space-between !important;
+option > span {
+    background-color: #003153 !important;
+   
 }
 
 

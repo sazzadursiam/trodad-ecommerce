@@ -82,6 +82,16 @@ const ProductDetails = () => {
       },
     ],
   };
+
+  const [isOnChanged, setisOnChanged] = useState("");
+  const [selectedValue, setSelectedValue] = useState([]);
+
+  const selectedPriceShow = (e) => {
+    e.preventDefault();
+    setSelectedValue(e.target.value);
+    setisOnChanged("Changed");
+  };
+
   return (
     <div>
       <Header />
@@ -128,6 +138,8 @@ const ProductDetails = () => {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault1"
+                                value="1"
+                                onChange={selectedPriceShow}
                               />
                               <label
                                 className="form-check-label"
@@ -149,7 +161,9 @@ const ProductDetails = () => {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault2"
-                                defaultChecked={true}
+                                // defaultChecked={true}
+                                value="2"
+                                onChange={selectedPriceShow}
                               />
                               <label
                                 className="form-check-label "
@@ -174,6 +188,8 @@ const ProductDetails = () => {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault3"
+                                value="3"
+                                onChange={selectedPriceShow}
                               />
                               <label
                                 className="form-check-label"
@@ -198,6 +214,8 @@ const ProductDetails = () => {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault4"
+                                value="4"
+                                onChange={selectedPriceShow}
                               />
                               <label
                                 className="form-check-label "
@@ -222,6 +240,8 @@ const ProductDetails = () => {
                                 type="radio"
                                 name="flexRadioDefault"
                                 id="flexRadioDefault5"
+                                value="5"
+                                onChange={selectedPriceShow}
                               />
                               <label
                                 className="form-check-label "
@@ -239,31 +259,188 @@ const ProductDetails = () => {
                           </div>
                         )}
                       </div>
+                      {isOnChanged == "" || isOnChanged == null ? (
+                        <>
+                          <div className="checbox_active_value mb-3">
+                            <div className="d-flex justify-content-between align-items-center ms-4">
+                              <div>
+                                <span className="cl_light_grey">
+                                  {productDetails.sku}
+                                </span>
+                              </div>
 
-                      <div className="checbox_active_value mb-3">
-                        <div className="d-flex justify-content-between align-items-center ms-4">
-                          <div>
-                            <span className="cl_light_grey">
-                              {productDetails.sku}
-                            </span>
-                          </div>
-                          <div className="d-flex align-items-center  text-end">
-                            <div className="me-2">
-                              <p className="m-0 fw-bold">New Price</p>
+                              <div className="d-flex align-items-center  text-end">
+                                <div className="me-2">
+                                  <p className="m-0 fw-bold">New Price</p>
+                                </div>
+
+                                <div className="d-flex flex-column">
+                                  <span className="discount_price">
+                                    {productDetails.variantPrice1} kr
+                                  </span>
+                                  {productDetails.oldPrice1 && (
+                                    <span className="text-decoration-line-through cl_light_grey">
+                                      {productDetails.oldPrice1} kr
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
                             </div>
+                          </div>
+                        </>
+                      ) : selectedValue == 1 ? (
+                        <>
+                          {" "}
+                          <div className="checbox_active_value mb-3">
+                            <div className="d-flex justify-content-between align-items-center ms-4">
+                              <div>
+                                <span className="cl_light_grey">
+                                  {productDetails.sku}
+                                </span>
+                              </div>
 
-                            <div className="d-flex flex-column">
-                              <span className="discount_price">
-                                {productDetails.price} kr
-                              </span>
-                              <span className="text-decoration-line-through cl_light_grey">
-                                {productDetails.oldPrice1} kr
-                              </span>
+                              <div className="d-flex align-items-center  text-end">
+                                <div className="me-2">
+                                  <p className="m-0 fw-bold">New Price</p>
+                                </div>
+
+                                <div className="d-flex flex-column">
+                                  <span className="discount_price">
+                                    {productDetails.variantPrice1} kr
+                                  </span>
+                                  {productDetails.oldPrice1 && (
+                                    <span className="text-decoration-line-through cl_light_grey">
+                                      {productDetails.oldPrice1} kr
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
+                        </>
+                      ) : selectedValue == 2 ? (
+                        <>
+                          {" "}
+                          <div className="checbox_active_value mb-3">
+                            <div className="d-flex justify-content-between align-items-center ms-4">
+                              <div>
+                                <span className="cl_light_grey">
+                                  {productDetails.sku}
+                                </span>
+                              </div>
 
+                              <div className="d-flex align-items-center  text-end">
+                                <div className="me-2">
+                                  <p className="m-0 fw-bold">New Price</p>
+                                </div>
+
+                                <div className="d-flex flex-column">
+                                  <span className="discount_price">
+                                    {productDetails.variantPrice2} kr
+                                  </span>
+                                  {productDetails.oldPrice2 && (
+                                    <span className="text-decoration-line-through cl_light_grey">
+                                      {productDetails.oldPrice2} kr
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : selectedValue == 3 ? (
+                        <>
+                          {" "}
+                          <div className="checbox_active_value mb-3">
+                            <div className="d-flex justify-content-between align-items-center ms-4">
+                              <div>
+                                <span className="cl_light_grey">
+                                  {productDetails.sku}
+                                </span>
+                              </div>
+
+                              <div className="d-flex align-items-center  text-end">
+                                <div className="me-2">
+                                  <p className="m-0 fw-bold">New Price</p>
+                                </div>
+
+                                <div className="d-flex flex-column">
+                                  <span className="discount_price">
+                                    {productDetails.variantPrice3} kr
+                                  </span>
+                                  {productDetails.oldPrice3 && (
+                                    <span className="text-decoration-line-through cl_light_grey">
+                                      {productDetails.oldPrice3} kr
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : selectedValue == 4 ? (
+                        <>
+                          {" "}
+                          <div className="checbox_active_value mb-3">
+                            <div className="d-flex justify-content-between align-items-center ms-4">
+                              <div>
+                                <span className="cl_light_grey">
+                                  {productDetails.sku}
+                                </span>
+                              </div>
+
+                              <div className="d-flex align-items-center  text-end">
+                                <div className="me-2">
+                                  <p className="m-0 fw-bold">New Price</p>
+                                </div>
+
+                                <div className="d-flex flex-column">
+                                  <span className="discount_price">
+                                    {productDetails.variantPrice4} kr
+                                  </span>
+                                  {productDetails.oldPrice4 && (
+                                    <span className="text-decoration-line-through cl_light_grey">
+                                      {productDetails.oldPrice4} kr
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : selectedValue == 5 ? (
+                        <>
+                          {" "}
+                          <div className="checbox_active_value mb-3">
+                            <div className="d-flex justify-content-between align-items-center ms-4">
+                              <div>
+                                <span className="cl_light_grey">
+                                  {productDetails.sku}
+                                </span>
+                              </div>
+
+                              <div className="d-flex align-items-center  text-end">
+                                <div className="me-2">
+                                  <p className="m-0 fw-bold">New Price</p>
+                                </div>
+
+                                <div className="d-flex flex-column">
+                                  <span className="discount_price">
+                                    {productDetails.variantPrice5} kr
+                                  </span>
+                                  {productDetails.oldPrice5 && (
+                                    <span className="text-decoration-line-through cl_light_grey">
+                                      {productDetails.oldPrice5} kr
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        ""
+                      )}
                       <div className="checkbox_addCart">
                         <div className="d-flex justify-content-between align-items-center ms-4">
                           <Button

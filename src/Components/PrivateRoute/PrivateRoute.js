@@ -9,7 +9,7 @@ export default function PrivateRoute({ children }) {
     const {authUser, setAuthUser} = useContext(UserContext);
     const user = localStorage.getItem('email');
     setAuthUser(user);
-    console.log(user);
+    // console.log(user);
     const location = useLocation();
 
     // return authUser.email ? children : <Navigate to="/user/login" replace state={{from: location}}/>;

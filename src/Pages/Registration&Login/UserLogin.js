@@ -29,6 +29,8 @@ const UserLoginForm = () => {
   let from = location.state?.from?.pathname || "/";
 
 
+  const [feedbackMsg, setFeedbackMsg] = useState("");
+  console.log(feedbackMsg);
   
   const handleSubmit = (e) => {
     setFormErrors(validate(userLoginInfo));
@@ -51,6 +53,7 @@ const UserLoginForm = () => {
 
         if (response.data.status === 1) {
           localStorage.setItem('email' , response.data?.loggedInUser?.email );
+          localStorage.setItem('LOGGED_IN_USER_ID', response.data?.loggedInUser?.id );
           navigate(from, { replace: true });
         }
 
