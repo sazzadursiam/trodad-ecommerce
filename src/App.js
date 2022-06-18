@@ -36,7 +36,9 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 
 import UserRegForm from "./Pages/Registration&Login/UserRegForm";
 import UserLogin from "./Pages/Registration&Login/UserLogin";
-import PrivateOutlet from "./Components/PrivateRoute/PrivateOutlet";
+import PrivateOutlet from "./Components/PrivateRoute/AdminPrivateRoute";
+import AdminLoginForm from "./Pages/Admin/AdminLogin";
+import AdminPrivateRoute from "./Components/PrivateRoute/AdminPrivateRoute";
 
 export const UserContext = createContext();
 
@@ -46,11 +48,6 @@ function App() {
 
   const [cartQuantity, setCartQuantity] = useState();
   const [cartTotal, setCartTotal] = useState();
-
-
-
-
-
 
 
   return (
@@ -70,6 +67,7 @@ function App() {
           <Route path="/journals" element={<JournalDetails />} />
           <Route path="/user/registration" element={<UserRegForm />} />
           <Route path="/user/login" element={<UserLogin />} />
+          <Route path="/admin/login" element={<AdminLoginForm />} />
 
           {/* Products */}
           <Route
@@ -87,9 +85,9 @@ function App() {
           <Route
             path="admin"
             element={
-              <PrivateRoute>
+              <AdminPrivateRoute>
                 <Admin />{" "}
-              </PrivateRoute>
+              </AdminPrivateRoute>
             }
           >
             <Route index element={<AdminDashboard />} />

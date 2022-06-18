@@ -10,6 +10,7 @@ const UserRegForm = () => {
   const Email = useRef();
   const Password = useRef();
   const ContactNo = useRef();
+  const ConfirmPassword = useRef();
 
   const initialValues = {
     userName: "",
@@ -18,22 +19,26 @@ const UserRegForm = () => {
     password: "",
     confirmPassword: "",
   };
-  const [userRegInfo, setUserRegInfo] = useState(initialValues);
+  // const [userRegInfo, setUserRegInfo] = useState(initialValues);
 
-  const [formErrors, setFormErrors] = useState({});
+  const [userNameError, setUserNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passError, setPassError] = useState("");
+  const [confirmPassError, setConfirmPassError] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
 
+ 
   // const [records, setRecords] = useState([]);
 
-  const handleInput = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
+  // const handleInput = (e) => {
+  //   const name = e.target.name;
+  //   const value = e.target.value;
 
-    setUserRegInfo({ ...userRegInfo, [name]: value });
-  };
+  //   setUserRegInfo({ ...userRegInfo, [name]: value });
+  // };
 
   const handleSubmit = (e) => {
-    setFormErrors(validate(userRegInfo));
+    // setFormErrors(validate(userRegInfo));
     setIsSubmit(true);
 
     const formdata = new FormData();
@@ -41,6 +46,7 @@ const UserRegForm = () => {
     formdata.append("email", Email.current.value);
     formdata.append("phone", ContactNo.current.value);
     formdata.append("password", Password.current.value);
+    formdata.append("confirm_password", ConfirmPassword.current.value);
 
     axios
       .post(`${BACKEND_BASE_URL}/api/customer/registration/store`, formdata, {
@@ -48,53 +54,66 @@ const UserRegForm = () => {
       })
 
       .then((response) => {
+        if (response.data.status == 400) {
+          console.log(response.data);
+          const { name, email, password, confirm_password } =
+            response.data.errors;
+          setUserNameError(name);
+          setEmailError(email);
+          setPassError(password);
+          setConfirmPassError(confirm_password);
+        }
+
         if (response.data.status === 200) {
           Swal.fire({
             icon: "success",
             text: response.data.message,
             confirmButtonColor: "#5eba86",
           });
-          setUserRegInfo(initialValues);
+          setUserNameError("");
+          setEmailError("");
+          setPassError("");
+          setConfirmPassError("");
           e.target.reset();
         }
       });
     e.preventDefault();
 
     // const newRecord = { ...userRegistration };
-    console.log(userRegInfo);
+    // console.log(userRegInfo);
   };
 
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(userRegInfo);
-    }
-  }, [formErrors]);
+  // useEffect(() => {
+  //   console.log(formErrors);
+  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
+  //     // console.log(userRegInfo);
+  //   }
+  // }, [formErrors]);
 
-  const validate = (values) => {
-    const errors = {};
-    const regex = /\S+@\S+\.\S+/;
-    if (!values.userName) {
-      errors.userName = "Name is required";
-    }
-    if (!values.email) {
-      errors.email = "Email is required";
-    } else if (!regex.test(values.email)) {
-      errors.email = "Email address is not valid";
-    }
-    if (!values.password) {
-      errors.password = "Password is required";
-    } else if (values.password.length < 4) {
-      errors.password = "Password must be more than 4 characters";
-    } else if (values.password.length > 12) {
-      errors.password = "Password cannot exceed more than 12 characters";
-    }
+  // const validate = (values) => {
+  //   const errors = {};
+  //   const regex = /\S+@\S+\.\S+/;
+  //   if (!values.userName) {
+  //     errors.userName = "Name is required";
+  //   }
+  //   if (!values.email) {
+  //     errors.email = "Email is required";
+  //   } else if (!regex.test(values.email)) {
+  //     errors.email = "Email address is not valid";
+  //   }
+  //   if (!values.password) {
+  //     errors.password = "Password is required";
+  //   } else if (values.password.length < 4) {
+  //     errors.password = "Password must be more than 4 characters";
+  //   } else if (values.password.length > 12) {
+  //     errors.password = "Password cannot exceed more than 12 characters";
+  //   }
 
-    if (values.password !== values.confirmPassword) {
-      errors.confirmPassword = "Password is not matched";
-    }
-    return errors;
-  };
+  //   if (values.password !== values.confirmPassword) {
+  //     errors.confirmPassword = "Password is not matched";
+  //   }
+  //   return errors;
+  // };
 
   return (
     <div className="form_wrapper" style={{ backgroundColor: "#f9fafb" }}>
@@ -112,10 +131,10 @@ const UserRegForm = () => {
               placeholder="Enter username"
               name="userName"
               ref={Name}
-              value={userRegInfo.userName}
-              onChange={handleInput}
+              // value={userRegInfo.userName}
+              // onChange={handleInput}
             />
-            <small className="small_msg">{formErrors.userName}</small>
+            <small className="small_msg">{userNameError}</small>
           </Form.Group>
           {/* ================== Email =================== */}
           <Form.Group className="form_group">
@@ -129,10 +148,10 @@ const UserRegForm = () => {
               placeholder="Enter email"
               name="email"
               ref={Email}
-              value={userRegInfo.email}
-              onChange={handleInput}
+              // value={userRegInfo.email}
+              // onChange={handleInput}
             />
-            <small className="small_msg"></small>
+            <small className="small_msg">{emailError}</small>
           </Form.Group>
           {/* ============== Phone No ===================== */}
           <Form.Group className="form_group">
@@ -143,8 +162,8 @@ const UserRegForm = () => {
               placeholder="Enter contact number"
               name="phoneNo"
               ref={ContactNo}
-              value={userRegInfo.phoneNo}
-              onChange={handleInput}
+              // value={userRegInfo.phoneNo}
+              // onChange={handleInput}
             />
             <small className="small_msg"></small>
           </Form.Group>
@@ -154,15 +173,16 @@ const UserRegForm = () => {
               Password <span className="text-danger">*</span>
             </Form.Label>
             <Form.Control
+              required
               type="password"
               id="password"
               placeholder="Enter password"
               name="password"
               ref={Password}
-              value={userRegInfo.password}
-              onChange={handleInput}
+              // value={userRegInfo.password}
+              // onChange={handleInput}
             />
-            <small className="small_msg">{formErrors.password}</small>
+            <small className="small_msg">{passError}</small>
           </Form.Group>
           {/* ================= Confirm Password ========== */}
           <Form.Group className="form_group">
@@ -170,14 +190,16 @@ const UserRegForm = () => {
               Confirm Password <span className="text-danger">*</span>
             </Form.Label>
             <Form.Control
+              required
               type="password"
               id="retype-password"
               placeholder="Retype password"
               name="confirmPassword"
-              value={userRegInfo.confirmPassword}
-              onChange={handleInput}
+              ref={ConfirmPassword}
+              // value={userRegInfo.confirmPassword}
+              // onChange={handleInput}
             />
-            <small className="small_msg">{formErrors.confirmPassword}</small>
+            <small className="small_msg">{confirmPassError}</small>
           </Form.Group>
           <Button type="submit">Submit</Button>
         </Form>

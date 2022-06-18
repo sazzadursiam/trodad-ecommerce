@@ -15,6 +15,10 @@ import AdminFooter from "./AdminFooter";
 
 const Test = () => {
   const [toggleNav, setToggleNav] = useState(false);
+  const logoutAdmin = () => {
+    localStorage.removeItem('adminemail');
+    localStorage.removeItem('LOGGED_IN_ADMIN_ID');
+  }
   return (
     <div className="d-flex test">
       <nav className={`sidebar  ${toggleNav ? "close" : ""}`}>
@@ -98,7 +102,7 @@ const Test = () => {
                 </Link>
               </li>
               <li className="nav-link">
-                <Link to="">
+                <Link to="" onClick={logoutAdmin}>
                   <ImIcons.ImExit className="icon" />
                   <span className="text nav-text">Logout</span>
                 </Link>
