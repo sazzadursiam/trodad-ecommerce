@@ -165,17 +165,17 @@ const Header = () => {
 
               {navData.map((data, i) =>
                 (data.sub_category.length) ?
-                  <li class="navbar-dropdown" key={i}>
+                  <li className="navbar-dropdown" key={i}>
                     <Link className="title" to='/'>{data.name} <FaIcons.FaAngleDown className="ms-1" /></Link>
-                    <div class="dropdown">
+                    <div className="dropdown">
                       <Row className="w-50">
                         <Col md={12}>
                           <span className='fw-bold'>Kategori</span> -  <Link to={'/products/category/' + data.name}>{data.name}</Link>
                         </Col>
-                        {data.sub_category.map((category, j) => (
+                        {data.sub_category.map((category, i) => (
 
 
-                          <Col md={6} className='my-1'>
+                          <Col md={6} className='my-1'key={i}>
                             <Link to={'/products/category/' + category.name}> {category.name}</Link>
                           </Col>
 
@@ -186,7 +186,7 @@ const Header = () => {
                   </li>
                   :
 
-                  <li class="navbar-dropdown" key={i}>
+                  <li className="navbar-dropdown" key={i}>
                     <Link className="title" to={'/products/category/' + data.name}>{data.name}</Link>
                   </li>
 
@@ -198,9 +198,9 @@ const Header = () => {
                 Subscribe
               </Nav.Link>
 
-              <li class="navbar-dropdown">
+              <li className="navbar-dropdown">
                 <Link className="title" to='/'>Brand <FaIcons.FaAngleDown className="ms-1" /></Link>
-                <div class="dropdown">
+                <div className="dropdown">
                   <Row className="w-50">
                     <Col md={12}>
                       <span className='fw-bold'>Brand</span> -  <Link to='/products/category/Brand'>Brand</Link>

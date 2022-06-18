@@ -1,6 +1,6 @@
 import { Rating } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Badge,
   Button,
@@ -18,14 +18,27 @@ import Header from "../../Header/Header";
 import { Link_Path_URL } from "../../../Utils/LinkPath";
 import "./ProductDetails.css";
 import Parser from "html-react-parser";
+import { BACKEND_BASE_URL } from "../../GlobalVariables";
+import Swal from "sweetalert2";
+import { useRef } from "react";
+import { v4 as uuid } from "uuid";
+import { UserContext } from "../../../App";
 
 const ProductDetails = () => {
   const { slug } = useParams();
+  const { setCartQuantity, setCartTotal } = useContext(UserContext);
 
+
+  const cartFunction = () => {
+    const cartQuantitycheck = localStorage.getItem("cartProductQuantity");
+    const cartTotalcheck = localStorage.getItem("cartTotal");
+    setCartQuantity(cartQuantitycheck);
+    setCartTotal(cartTotalcheck);
+  };
   //=================================== Fetch Product Details ===================================
 
   const [productDetails, setProductDetails] = useState([]);
-
+  console.log("productDetails", productDetails);
   const AllProductDetails = async () => {
     try {
       await axios
@@ -85,11 +98,76 @@ const ProductDetails = () => {
 
   const [isOnChanged, setisOnChanged] = useState("");
   const [selectedValue, setSelectedValue] = useState([]);
+  const [selectedPackSize, setSelectedPackSize] = useState("1");
 
   const selectedPriceShow = (e) => {
     e.preventDefault();
     setSelectedValue(e.target.value);
+    setSelectedPackSize(e.target.value);
     setisOnChanged("Changed");
+  };
+
+  const addToCart = (productId) => {
+    // console.log(productId);
+    // console.log("LOGGED_IN_USER_ID", localStorage.getItem("LOGGED_IN_USER_ID"));
+
+    let USER_ID;
+    let USER_TEMP_ID;
+    let USER_TYPE;
+    // CHECK IF USER IS LOGGED IN OR NOT
+    if (!localStorage.getItem("LOGGED_IN_USER_ID")) {
+      // Guest
+      USER_TYPE = "Not-Reg";
+      if (!localStorage.getItem("USER_TEMP_ID")) {
+        // First Time
+        USER_TEMP_ID = uuid();
+        // set into local storage
+        localStorage.setItem("USER_TEMP_ID", USER_TEMP_ID);
+        USER_ID = USER_TEMP_ID;
+      } else {
+        USER_ID = localStorage.getItem("USER_TEMP_ID");
+        console.log(" Not First Time", localStorage.getItem("USER_TEMP_ID"));
+      }
+      // console.log("guest");
+    } else {
+      USER_TYPE = "Reg";
+      USER_ID = localStorage.getItem("LOGGED_IN_USER_ID");
+
+      console.log("Logged in user");
+    }
+    // sent data to backend
+    console.log("Final user id", USER_ID);
+    console.log("Final user Type", USER_TYPE);
+
+    const formdata = new FormData();
+    
+    formdata.append("selectedPackSize",selectedPackSize);
+    formdata.append("qty", 1);
+    formdata.append("productId", productId);
+    formdata.append("userId", USER_ID);
+    formdata.append("userType", USER_TYPE);
+
+    axios
+      .post(`${BACKEND_BASE_URL}/api/add-to-cart/save`, formdata, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+
+      .then((response) => {
+        localStorage.setItem(
+          "cartProductQuantity",
+          response.data.cartProductQuantity
+        );
+        localStorage.setItem("cartTotal", response.data.cartTotal);
+        cartFunction();
+
+        if (response.data.status === 200) {
+          Swal.fire({
+            icon: "success",
+            text: response.data.message,
+            confirmButtonColor: "#5eba86",
+          });
+        }
+      });
   };
 
   return (
@@ -128,7 +206,7 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="check_box_border">
-                    <div className="check_box_content">
+                    <div className="check_box_content" >
                       <div className="check_box">
                         {productDetails.packSize1 && (
                           <div className="form-check_border mb-3">
@@ -140,6 +218,7 @@ const ProductDetails = () => {
                                 id="flexRadioDefault1"
                                 value="1"
                                 onChange={selectedPriceShow}
+
                               />
                               <label
                                 className="form-check-label"
@@ -447,6 +526,7 @@ const ProductDetails = () => {
                             className="w_45 border-0"
                             variant="danger"
                             size="lg"
+                            // onClick={() => addToCart(productDetails.id)}
                           >
                             Danger
                           </Button>
@@ -454,8 +534,9 @@ const ProductDetails = () => {
                             className="w_45 border-0"
                             variant="success"
                             size="lg"
+                            onClick={() => addToCart(productDetails.id)}
                           >
-                            Success
+                            Add To Cart
                           </Button>
                         </div>
                       </div>
