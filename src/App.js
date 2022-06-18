@@ -7,7 +7,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
 
-import Product from "./Components/Products/Product";
 
 import Index from "./Pages/Index/Index";
 import ProductDetails from "./Components/Products/ProductDetails/ProductDetails";
@@ -38,6 +37,7 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import UserRegForm from "./Pages/Registration&Login/UserRegForm";
 import UserLogin from "./Pages/Registration&Login/UserLogin";
 import PrivateOutlet from "./Components/PrivateRoute/PrivateOutlet";
+import AdminLoginForm from "./Pages/Admin/AdminLogin";
 
 export const UserContext = createContext();
 
@@ -45,8 +45,6 @@ function App() {
   const [slugName, setSlugName] = useState("new");
   const [authUser, setAuthUser] = useState([]);
 
-  // const data = localStorage.getItem(dataKey) || "{}";
-  // setAuthUser(data)
 
   return (
     <UserContext.Provider
@@ -63,6 +61,7 @@ function App() {
           <Route path="/journals" element={<JournalDetails />} />
           <Route path="/user/registration" element={<UserRegForm />} />
           <Route path="/user/login" element={<UserLogin />} />
+          <Route path="/admin/login" element={<AdminLoginForm />} />
 
           {/* Products */}
           <Route
@@ -74,6 +73,7 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
 
           <Route path="/underconstruction" element={<Report />} />
+
 
           {/*===================== Admin Dashboard ===========================*/}
           <Route

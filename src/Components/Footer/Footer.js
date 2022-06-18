@@ -108,7 +108,7 @@ const Footer = (props) => {
       </div>
 
       {/* ========================== FOOTER TOP ========================= */}
-      <div className={`container ${props.displayNone}`}>
+      <div className={` container ${props.displayNone}`}>
         <div className="footer__body">
           <Row className="pt_50">
             <Col xs={12} sm={6} md={4} className="mb_30">
@@ -243,7 +243,7 @@ const Footer = (props) => {
 
       
       {/* ============================ FOOTER BOTTOM ============================ */}
-      <div className="footer_nav p-4 bg_grey">
+      <div className="footer_nav p-4 bg_grey ">
         <div className="container d-md-flex justify-content-md-between align-items-center">
           <Row>
             <Col md={12} lg={6} className="d-none d-sm-block">

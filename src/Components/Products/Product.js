@@ -15,6 +15,8 @@ const Product = () => {
   const { slugName } = useContext(UserContext);
   const sendCol = useRef();
 
+  console.log(localStorage.getItem("cartTotal"));
+
   // =============== Fetch Products =============================
   const [newProducts, setNewProducts] = useState([]);
 
@@ -156,10 +158,11 @@ const Product = () => {
         {filterTabProduct.length != 0
           ? filterTabProduct.map((data, index) => (
               <Col
-                xs={12}
-                md={6}
-                lg={4}
-                xl={3}
+              sm={6}
+              md={4}
+              lg={4}
+              xl={3}
+              xxl={3}
                 className="products-cards"
                 key={index}
               >
@@ -362,10 +365,11 @@ const Product = () => {
             ))
           : newProducts.map((data, index) => (
               <Col
-                xs={12}
-                md={6}
-                lg={4}
-                xl={3}
+              sm={6}
+              md={4}
+              lg={4}
+              xl={3}
+              xxl={3}
                 className="products-cards"
                 key={index}
               >

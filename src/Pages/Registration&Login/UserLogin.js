@@ -15,27 +15,16 @@ const UserLoginForm = () => {
     email: "",
     password: "",
   };
-  const [userLoginInfo, setUserLoginInfo] = useState(initialValues);
-  const [formResponseData, setFormResponseData] = useState([])
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
 
-
+  const [userEmailError, setUserEmailError] = useState("");
+  const [userPassError, setUserPassError] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
 
-
   let from = location.state?.from?.pathname || "/";
 
-
-  const [feedbackMsg, setFeedbackMsg] = useState("");
-  console.log(feedbackMsg);
-  
   const handleSubmit = (e) => {
-    setFormErrors(validate(userLoginInfo));
-    setIsSubmit(true);
-
     const formdata = new FormData();
     formdata.append("email", Email.current.value);
     formdata.append("password", Password.current.value);
@@ -46,58 +35,30 @@ const UserLoginForm = () => {
       })
 
       .then((response) => {
-
-
-        setFormResponseData(response.data)
-
-
-        if (response.data.status === 1) {
-          localStorage.setItem('email' , response.data?.loggedInUser?.email );
-          localStorage.setItem('LOGGED_IN_USER_ID', response.data?.loggedInUser?.id );
-          navigate(from, { replace: true });
+        if (response.data.status == 400) {
+          const { email, password } = response.data.errors;
+          setUserEmailError(email);
+          setUserPassError(password);
         }
 
-
+        if (response.data.status === 1) {
+          localStorage.setItem("email", response.data?.loggedInUser?.email);
+          localStorage.setItem(
+            "LOGGED_IN_USER_ID",
+            response.data?.loggedInUser?.id
+          );
+          navigate(from, { replace: true });
+        }
       });
     e.preventDefault();
-
-  };
-
-  useEffect(() => {
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-    }
-  }, [formErrors]);
-
-  const validate = (values) => {
-    const errors = {};
-    const regex = /\S+@\S+\.\S+/;
-    if (!values.email) {
-      errors.email = "Email is required";
-    } else if (!regex.test(values.email)) {
-      errors.email = "Email address is not valid";
-    }
-    if (!values.password) {
-      errors.password = "Password is required";
-    } else if (values.password.length < 4) {
-      errors.password = "Password must be more than 4 characters";
-    } else if (values.password.length > 12) {
-      errors.password = "Password cannot exceed more than 12 characters";
-    }
-
-    return errors;
   };
 
   return (
     <div className="form_wrapper" style={{ backgroundColor: "#f9fafb" }}>
       <Container className="container">
         <Form id="form" className="form" onSubmit={handleSubmit}>
-
           {/* <h1>Log In</h1> */}
-          <h1>
-            {
-              formResponseData.message?formResponseData.message:'Log In'
-            }
-          </h1>
+          <h1>Log In</h1>
 
           {/* ================== Email =================== */}
           <Form.Group className="form_group">
@@ -110,11 +71,9 @@ const UserLoginForm = () => {
               placeholder="Enter email"
               name="email"
               ref={Email}
-              defaultValue={userLoginInfo.email}
-              
               required
             />
-            <small className="small_msg"></small>
+            <small className="small_msg">{userEmailError}</small>
           </Form.Group>
 
           {/* ============== Password ===================== */}
@@ -128,11 +87,9 @@ const UserLoginForm = () => {
               placeholder="Enter password"
               name="password"
               ref={Password}
-              defaultValue={userLoginInfo.password}
-             
               required
             />
-            <small className="small_msg">{formErrors.password}</small>
+            <small className="small_msg">{userPassError}</small>
           </Form.Group>
 
           <Button type="submit">Submit</Button>

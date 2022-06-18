@@ -152,65 +152,67 @@ const Header = () => {
                 <FaIcons.FaHome className="text-white " />
               </Nav.Link>
 
-              <Nav.Link
-                as={Link}
-                to="/products/category/new-price"
-                onClick={() => setSlugName("new-price")}
-                className="py-3"
-              >
-                New Prices
-              </Nav.Link>
-              <Nav.Link
-                as={Link}
-                to="/products/category/new"
-                onClick={() => setSlugName("new")}
-              >
-                New
-              </Nav.Link>
-
               {navData.map((data, i) =>
-                data.sub_category.length ? (
-                  <NavDropdown title={data.name} key={i}>
-                    {data.sub_category.map((category, j) => (
-                      <NavDropdown.Item key={j} as={Link} to="/products">
-                        <p
-                          className="m-0"
-                          style={{ color: "#005ea1", fontSize: "14px" }}
-                        >
-                          {category.name}
-                        </p>
-                      </NavDropdown.Item>
-                    ))}
-                  </NavDropdown>
-                ) : (
-                  <Nav.Link as={Link} to="/products" className=" py-3" key={i}>
-                    {data.name}
-                  </Nav.Link>
-                )
+                (data.sub_category.length) ?
+                  <li class="navbar-dropdown" key={i}>
+                    <Link className="title" to='/'>{data.name} <FaIcons.FaAngleDown className="ms-1" /></Link>
+                    <div class="dropdown">
+                      <Row className="w-50">
+                        <Col md={12}>
+                          <span className='fw-bold'>Kategori</span> -  <Link to={'/products/category/' + data.name}>{data.name}</Link>
+                        </Col>
+                        {data.sub_category.map((category, j) => (
+
+
+                          <Col md={6} className='my-1'>
+                            <Link to={'/products/category/' + category.name}> {category.name}</Link>
+                          </Col>
+
+                        ))}
+                      </Row>
+                    </div>
+
+                  </li>
+                  :
+
+                  <li class="navbar-dropdown" key={i}>
+                    <Link className="title" to={'/products/category/' + data.name}>{data.name}</Link>
+                  </li>
+
               )}
 
-              <Nav.Link as={Link} to="/products" className=" py-3">
-                Election manifesto 2022
-              </Nav.Link>
-              <Nav.Link as={Link} to="/products" className=" py-3 bg-danger">
+
+
+              < Nav.Link as={Link} to="/products" className=" py-3 bg-danger">
                 Subscribe
               </Nav.Link>
 
-              <NavDropdown title="Brand">
-                {navDataBrand.map((dropdownItem, i) => (
-                  <NavDropdown.Item as={Link} to="/products" key={i}>
-                    <p
-                      className="m-0"
-                      style={{ color: "#005ea1", fontSize: "14px" }}
-                    >
-                      {dropdownItem.brandName}
-                    </p>
-                  </NavDropdown.Item>
-                ))}
-              </NavDropdown>
+              <li class="navbar-dropdown">
+                <Link className="title" to='/'>Brand <FaIcons.FaAngleDown className="ms-1" /></Link>
+                <div class="dropdown">
+                  <Row className="w-50">
+                    <Col md={12}>
+                      <span className='fw-bold'>Brand</span> -  <Link to='/products/category/Brand'>Brand</Link>
+                    </Col>
+                    {navDataBrand.map((dropdownItem, i) => (
+
+
+                      <Col md={6} className='my-1' key={i}>
+                        <Link to={'/products/category/' + dropdownItem.brandName} > {dropdownItem.brandName}</Link>
+                      </Col>
+
+                    ))}
+                  </Row>
+                </div>
+
+              </li>
+
             </Nav>
           </Container>
+
         </div>
+
+
         <div className="bottom_header_2 bg_light_grey ">
           <Container>
             <div className="d-flex justify-content-center ">
@@ -267,8 +269,6 @@ const Header = () => {
 
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#action1">New Prices</Nav.Link>
-                  <Nav.Link href="#action2">News</Nav.Link>
 
                   <NavDropdown
                     title="Snuff"
@@ -310,22 +310,43 @@ const Header = () => {
                     </NavDropdown.Item>
                   </NavDropdown>
 
-                  <Nav.Link href="#action2">Mixpack</Nav.Link>
-                  <Nav.Link href="#action2">Election manifesto 2022</Nav.Link>
+                  {navData.map((data, i) =>
+                    data.sub_category.length ? (
+                      <NavDropdown title={data.name} key={i}>
+                        {data.sub_category.map((category, j) => (
+                          <NavDropdown.Item key={j} as={Link} to={'/products/category/' + category.name}>
+                            <p
+                              className="m-0"
+                              style={{ color: "#005ea1", fontSize: "14px" }}
+                            >
+                              {category.name}
+                            </p>
+                          </NavDropdown.Item>
+                        ))}
+                      </NavDropdown>
+                    ) : (
+                      <Nav.Link as={Link} to={'/products/category/' + data.name} className=" py-3" key={i}>
+                        {data.name}
+                      </Nav.Link>
+                    )
+                  )}
+
+
+
                   <Nav.Link href="#action2">Subscribe</Nav.Link>
 
-                  <NavDropdown
-                    title="Varumärken"
-                    id="offcanvasNavbarDropdown-expand-false"
-                  >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
+
+                  <NavDropdown title="Brand">
+                    {navDataBrand.map((dropdownItem, i) => (
+                      <NavDropdown.Item  as={Link} to={'/products/category/' + dropdownItem.brandName} key={i}>
+                        <p
+                          className="m-0"
+                          style={{ color: "#005ea1", fontSize: "14px" }}
+                        >
+                          {dropdownItem.brandName}
+                        </p>
+                      </NavDropdown.Item>
+                    ))}
                   </NavDropdown>
 
                   <hr />
@@ -343,7 +364,7 @@ const Header = () => {
         </Navbar>
         {/* ))} */}
       </div>
-    </div>
+    </div >
   );
 };
 

@@ -67,10 +67,10 @@ const Index = () => {
                     if (index < 4) {
                       return (
                         <Col
-                          md={2}
+                        sm={6}
+                          md={4}
                           lg={4}
                           xl={3}
-                          xxl={3}
                           className="mb-3"
                           key={index}
                         >
