@@ -16,7 +16,7 @@ const Address = () => {
                 <Col lg={3}>
                     <h3>Billing address</h3>
 
-                    <Link to='/my/edit-address'
+                    <Link to='billing-address'
                     state = {link}>
                         Edit
                     </Link>
@@ -35,7 +35,8 @@ const Address = () => {
                 <Col lg={3}>
                     <h3>Shipping address</h3>
 
-                    <Link to='/my/edit-address'>
+                    
+                    <Link to='billing-address'>
                         Edit
                     </Link>
                     <address>

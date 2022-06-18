@@ -26,7 +26,7 @@ import EditProduct from "./Pages/Admin/Product/EditProduct";
 import ProductCategory from "./Pages/ProductCategory/ProductCategory";
 import Report from "./Pages/Report/Report";
 import Address from "./Pages/User/UserContent/Dashboard/Address/Address";
-import EditAddress from "./Pages/User/UserContent/Dashboard/EditAddress/EditAddress";
+import BillingAddress from "./Pages/User/UserContent/Dashboard/BillingAddress/BillingAddress";
 import JournalDetails from "./Components/Journal/journalDetails";
 import ShippingMethod from "./Pages/Admin/ShippingMethod";
 import SliderElement from "./Pages/Admin/SliderElement";
@@ -39,6 +39,7 @@ import UserLogin from "./Pages/Registration&Login/UserLogin";
 import PrivateOutlet from "./Components/PrivateRoute/AdminPrivateRoute";
 import AdminLoginForm from "./Pages/Admin/AdminLogin";
 import AdminPrivateRoute from "./Components/PrivateRoute/AdminPrivateRoute";
+import AccDetails from "./Pages/User/UserContent/Dashboard/AccDetails/AccDetails";
 
 export const UserContext = createContext();
 
@@ -103,7 +104,7 @@ function App() {
 
           {/* User Dashboard */}
           <Route
-            path="my"
+            path="my-account"
             element={
               <PrivateRoute>
                 <User />
@@ -112,10 +113,10 @@ function App() {
           >
             <Route index element={<Dashboard />} />
             <Route path="address" element={<Address />} />
-            <Route path="edit-address" element={<EditAddress />} />
+            <Route path="address/billing-address" element={<BillingAddress />} />
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:orderId" element={<OrderDetails />} />
-            {/* <Route path="edit-account" element={<AccDetails />} /> */}
+            <Route path="edit-account" element={<AccDetails />} />
           </Route>
         </Routes>
       </Router>

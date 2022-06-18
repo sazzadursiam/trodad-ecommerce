@@ -22,7 +22,7 @@ const UserContent = () => {
             {/* pageTitle */}
             <div className="pageTitle mb-4">
                 <Container className="inner">
-                    <h1 className="text-uppercase">MY ACCOUNT</h1>
+                    <h2 className="text-uppercase">MY ACCOUNT</h2>
                     <small className="text-uppercase">DASHBOARD</small>
                 </Container>
             </div>

@@ -15,9 +15,11 @@ const UserLoginForm = () => {
     email: "",
     password: "",
   };
-
+  const [message, setMessage] = useState();
   const [userEmailError, setUserEmailError] = useState("");
   const [userPassError, setUserPassError] = useState("");
+
+  console.log(message);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,10 +38,15 @@ const UserLoginForm = () => {
 
       .then((response) => {
         if (response.data.status == 400) {
+          if (response.data.errors) {
           const { email, password } = response.data.errors;
           setUserEmailError(email);
           setUserPassError(password);
+          // setMessage(response);
+          }
         }
+        const { message } = response.data;
+          setMessage(message);
 
         if (response.data.status === 1) {
           localStorage.setItem("email", response.data?.loggedInUser?.email);
@@ -58,7 +65,7 @@ const UserLoginForm = () => {
       <Container className="container">
         <Form id="form" className="form" onSubmit={handleSubmit}>
           {/* <h1>Log In</h1> */}
-          <h1>Log In</h1>
+          <h1> {message ? message : "Log In"}</h1>
 
           {/* ================== Email =================== */}
           <Form.Group className="form_group">

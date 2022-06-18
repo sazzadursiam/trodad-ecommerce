@@ -206,6 +206,7 @@ const Checkout = () => {
                             </div>
                         </div>
                     </div>
+                    
                 </Container>
             </div>
             <Footer displayNone="d-none" />
