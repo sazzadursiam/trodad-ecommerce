@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Frontend\AddToCartController;
 use App\Http\Controllers\Frontend\CustomerAuth\CustomerAuthController;
 use App\Http\Controllers\Frontend\MasterController;
+use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -51,7 +52,17 @@ Route::get('/products/single-details/{slug}', [MasterController::class, 'getSing
 |--------------------------------------------------------------------------
 */
 Route::post('/add-to-cart/save', [AddToCartController::class, 'addToCartStore']);
+Route::get('/add-to-cart/view/{userID}', [AddToCartController::class, 'addToCartView']);
+Route::get('/add-to-cart/user/update/{userID}/{tempUserId}', [AddToCartController::class, 'addToCartUpdateId']);
+Route::get('/add-to-cart/qty/update/{id}/{qty}', [AddToCartController::class, 'addToCartUpdateQty']);
+Route::delete('/add-to-cart/qty/delete/{id}', [AddToCartController::class, 'addToCartDeleteQty']);
 
+/*
+|--------------------------------------------------------------------------
+| Orders
+|--------------------------------------------------------------------------
+*/
+Route::post('/users/orders/store', [OrderController::class, 'storeOrders']);
 
 
 //auth test route 

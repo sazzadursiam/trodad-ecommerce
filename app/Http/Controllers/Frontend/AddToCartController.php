@@ -53,4 +53,53 @@ class AddToCartController extends Controller
             'cartTotal' => $cartTotal,
         ]);
     }
+
+    public function addToCartView($userId)
+    {
+        $cartData = AddToCart::with('Products')->where('userId', $userId)->get();
+        $cartOrderTotal = $cartData->sum('price');
+        return response()->json([
+            'cartData' => $cartData,
+            'cartOrderTotal' => $cartOrderTotal,
+        ]);
+    }
+
+    public function addToCartUpdateId($userID, $tempUserId)
+    {
+        $model = AddToCart::where('userID', $tempUserId)->first();
+        $model->userId = $userID;
+        $model->userType = 'Reg';
+        $model->save();
+
+        $products = AddToCart::where('userId', $userID)->get();
+        $cartProductQuantity = $products->count();
+        $cartTotal = $products->sum('price');
+
+        return response()->json([
+            'message' => 'user id update successful',
+            'cartProductQuantity' => $cartProductQuantity,
+            'cartTotal' => $cartTotal,
+        ]);
+    }
+
+    public function addToCartUpdateQty($id, $qty)
+    {
+        $model = AddToCart::find($id);
+        $unitPrice = $model->unitPrice;
+        $price = $unitPrice * $qty;
+        $model->qty = $qty;
+        $model->price = $price;
+        $model->save();
+        return response()->json([
+            'message' => 'Qty update successful',
+        ]);
+    }
+    public function addToCartDeleteQty($id)
+    {
+        $model = AddToCart::find($id);
+        $model->delete();
+        return response()->json([
+            'message' => 'Qty Remove successful',
+        ]);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\CustomerAuth;
 
 use App\Http\Controllers\Controller;
+use App\Models\AddToCart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,10 +87,16 @@ class CustomerAuthController extends Controller
                 if ($check_pass) {
 
                     if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+                        $products = AddToCart::where('userId', Auth::user()->id)->get();
+                        $cartProductQuantity = $products->count();
+                        $cartTotal = $products->sum('price');
+
                         return response()->json([
                             'status' => 1,
                             'message' => 'Login Successful',
                             'loggedInUser' => Auth::user(),
+                            'cartProductQuantity' => $cartProductQuantity,
+                            'cartTotal' => $cartTotal,
                         ]);
                     } else {
                         return response()->json([
