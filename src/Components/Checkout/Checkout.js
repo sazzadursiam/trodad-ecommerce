@@ -96,13 +96,16 @@ const Checkout = () => {
       })
 
       .then((response) => {
+        localStorage.removeItem("cartTotal");
+        localStorage.removeItem("cartProductQuantity");
         if (response.data.message) {
           Swal.fire({
             icon: "success",
             text: response.data.message,
             confirmButtonColor: "#5eba86",
           });
-        //   e.target.reset();
+            e.target.reset();
+          CartDetails();
         }
       });
 
