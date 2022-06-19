@@ -4,20 +4,20 @@ import { Button, Container, Form } from "react-bootstrap";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { UserContext } from "../../App";
-import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
+import { Link_Path_URL } from "../../Utils/LinkPath";
+
 import "./customerRegForm.css";
 
 const UserLoginForm = () => {
   const Email = useRef();
   const Password = useRef();
 
-  const initialValues = {
-    email: "",
-    password: "",
-  };
-
+  
+  const [message, setMessage] = useState();
   const [userEmailError, setUserEmailError] = useState("");
   const [userPassError, setUserPassError] = useState("");
+
+  // console.log(message);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,18 +30,44 @@ const UserLoginForm = () => {
     formdata.append("password", Password.current.value);
 
     axios
-      .post(`${BACKEND_BASE_URL}/api/customer/login/process`, formdata, {
+      .post(`${Link_Path_URL}api/customer/login/process`, formdata, {
         headers: { "Content-Type": "multipart/form-data" },
       })
 
       .then((response) => {
-        if (response.data.status === "400") {
-          const { email, password } = response.data.errors;
-          setUserEmailError(email);
-          setUserPassError(password);
+        if (response.data.status == 400) {
+          if (response.data.errors) {
+            const { email, password } = response.data.errors;
+            setUserEmailError(email);
+            setUserPassError(password);
+          }
         }
+        const { message } = response.data;
+        setMessage(message);
 
         if (response.data.status === 1) {
+          localStorage.setItem(
+            "cartProductQuantity",
+            response.data.cartProductQuantity
+          );
+          localStorage.setItem("cartTotal", response.data.cartTotal);
+          if (localStorage.getItem("USER_TEMP_ID")) {
+            axios
+              .get(
+                `${Link_Path_URL}api/add-to-cart/user/update/${
+                  response.data?.loggedInUser?.id
+                }/${localStorage.getItem("USER_TEMP_ID")}`
+              )
+              .then((res) => {
+                localStorage.removeItem("USER_TEMP_ID");
+                console.log(res.data);
+                localStorage.setItem(
+                  "cartProductQuantity",
+                  res.data.cartProductQuantity
+                );
+                localStorage.setItem("cartTotal", res.data.cartTotal);
+              });
+          }
           localStorage.setItem("email", response.data?.loggedInUser?.email);
           localStorage.setItem(
             "LOGGED_IN_USER_ID",
@@ -58,7 +84,7 @@ const UserLoginForm = () => {
       <Container className="container">
         <Form id="form" className="form" onSubmit={handleSubmit}>
           {/* <h1>Log In</h1> */}
-          <h1>Log In</h1>
+          <h1> {message ? message : "Log In"}</h1>
 
           {/* ================== Email =================== */}
           <Form.Group className="form_group">

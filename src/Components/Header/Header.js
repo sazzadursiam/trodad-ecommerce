@@ -102,7 +102,7 @@ const Header = () => {
                 </Link>
               </span>
               <span className="d-flex align-items-center me-3 me-md-2 me-lg-3 me-xl-0">
-                <Link to="/my">
+                <Link to="/my-account">
                   My page
                   <FaIcons.FaUser className="ms-2" />
                 </Link>

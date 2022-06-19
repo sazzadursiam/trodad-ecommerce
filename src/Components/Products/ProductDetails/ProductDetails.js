@@ -18,9 +18,7 @@ import Header from "../../Header/Header";
 import { Link_Path_URL } from "../../../Utils/LinkPath";
 import "./ProductDetails.css";
 import Parser from "html-react-parser";
-import { BACKEND_BASE_URL } from "../../GlobalVariables";
 import Swal from "sweetalert2";
-import { useRef } from "react";
 import { v4 as uuid } from "uuid";
 import { UserContext } from "../../../App";
 
@@ -118,6 +116,7 @@ const ProductDetails = () => {
     if (!localStorage.getItem("LOGGED_IN_USER_ID")) {
       // Guest
       USER_TYPE = "Not-Reg";
+
       if (!localStorage.getItem("USER_TEMP_ID")) {
         // First Time
         USER_TEMP_ID = uuid();
@@ -128,7 +127,7 @@ const ProductDetails = () => {
         USER_ID = localStorage.getItem("USER_TEMP_ID");
         console.log(" Not First Time", localStorage.getItem("USER_TEMP_ID"));
       }
-      // console.log("guest");
+      
     } else {
       USER_TYPE = "Reg";
       USER_ID = localStorage.getItem("LOGGED_IN_USER_ID");
@@ -148,7 +147,7 @@ const ProductDetails = () => {
     formdata.append("userType", USER_TYPE);
 
     axios
-      .post(`${BACKEND_BASE_URL}/api/add-to-cart/save`, formdata, {
+      .post(`${Link_Path_URL}api/add-to-cart/save`, formdata, {
         headers: { "Content-Type": "multipart/form-data" },
       })
 

@@ -7,7 +7,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
 
-
 import Index from "./Pages/Index/Index";
 import ProductDetails from "./Components/Products/ProductDetails/ProductDetails";
 
@@ -26,7 +25,7 @@ import EditProduct from "./Pages/Admin/Product/EditProduct";
 import ProductCategory from "./Pages/ProductCategory/ProductCategory";
 import Report from "./Pages/Report/Report";
 import Address from "./Pages/User/UserContent/Dashboard/Address/Address";
-import EditAddress from "./Pages/User/UserContent/Dashboard/EditAddress/EditAddress";
+import BillingAddress from "./Pages/User/UserContent/Dashboard/BillingAddress/BillingAddress";
 import JournalDetails from "./Components/Journal/journalDetails";
 import ShippingMethod from "./Pages/Admin/ShippingMethod";
 import SliderElement from "./Pages/Admin/SliderElement";
@@ -39,6 +38,7 @@ import UserLogin from "./Pages/Registration&Login/UserLogin";
 import PrivateOutlet from "./Components/PrivateRoute/AdminPrivateRoute";
 import AdminLoginForm from "./Pages/Admin/AdminLogin";
 import AdminPrivateRoute from "./Components/PrivateRoute/AdminPrivateRoute";
+import AccDetails from "./Pages/User/UserContent/Dashboard/AccDetails/AccDetails";
 
 export const UserContext = createContext();
 
@@ -49,7 +49,6 @@ function App() {
   const [cartQuantity, setCartQuantity] = useState();
   const [cartTotal, setCartTotal] = useState();
 
-
   return (
     <UserContext.Provider
       value={{
@@ -57,8 +56,10 @@ function App() {
         setSlugName,
         authUser,
         setAuthUser,
-        cartQuantity, setCartQuantity,
-        cartTotal, setCartTotal
+        cartQuantity,
+        setCartQuantity,
+        cartTotal,
+        setCartTotal,
       }}
     >
       <Router>
@@ -76,10 +77,16 @@ function App() {
           />
           <Route path="/products/details/:slug" element={<ProductDetails />} />
 
-          <Route path="/checkout" element={<Checkout />} />
+          <Route
+            path="/checkout"
+            element={
+              <PrivateRoute>
+                <Checkout />
+              </PrivateRoute>
+            }
+          />
 
           <Route path="/underconstruction" element={<Report />} />
-
 
           {/*===================== Admin Dashboard ===========================*/}
           <Route
@@ -103,7 +110,7 @@ function App() {
 
           {/* User Dashboard */}
           <Route
-            path="my"
+            path="my-account"
             element={
               <PrivateRoute>
                 <User />
@@ -112,10 +119,13 @@ function App() {
           >
             <Route index element={<Dashboard />} />
             <Route path="address" element={<Address />} />
-            <Route path="edit-address" element={<EditAddress />} />
+            <Route
+              path="address/billing-address"
+              element={<BillingAddress />}
+            />
             <Route path="orders" element={<Orders />} />
             <Route path="orders/:orderId" element={<OrderDetails />} />
-            {/* <Route path="edit-account" element={<AccDetails />} /> */}
+            <Route path="edit-account" element={<AccDetails />} />
           </Route>
         </Routes>
       </Router>

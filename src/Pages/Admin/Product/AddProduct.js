@@ -58,7 +58,7 @@ const AddProduct = () => {
 
   const isNew = useRef();
   const isNewPrice = useRef();
- 
+
   // Image Preview
   const [files, setFile] = useState([]);
   const handleImgPreview = (e) => {
@@ -129,11 +129,26 @@ const AddProduct = () => {
     formdata.append("packSize4", productPackSize4.current.value);
     formdata.append("packSize5", productPackSize5.current.value);
 
-    formdata.append("unitPrice1", productUnitPrice1.current.value);
-    formdata.append("unitPrice2", productUnitPrice2.current.value);
-    formdata.append("unitPrice3", productUnitPrice3.current.value);
-    formdata.append("unitPrice4", productUnitPrice4.current.value);
-    formdata.append("unitPrice5", productUnitPrice5.current.value);
+    formdata.append(
+      "unitPrice1",
+      Number(productUnitPrice1.current.value).toFixed(2)
+    );
+    formdata.append(
+      "unitPrice2",
+      Number(productUnitPrice2.current.value).toFixed(2)
+    );
+    formdata.append(
+      "unitPrice3",
+      Number(productUnitPrice3.current.value).toFixed(2)
+    );
+    formdata.append(
+      "unitPrice4",
+      Number(productUnitPrice4.current.value).toFixed(2)
+    );
+    formdata.append(
+      "unitPrice5",
+      Number(productUnitPrice5.current.value).toFixed(2)
+    );
 
     formdata.append("discount1", productDiscountPrice1.current.value);
 
