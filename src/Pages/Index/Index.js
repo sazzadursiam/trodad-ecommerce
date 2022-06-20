@@ -33,7 +33,7 @@ const Index = () => {
             {/* left banner */}
             <Col xxl={2} className="side_banner gx-0">
               <div className="bannerAdd">
-                <img src={require("../../Assets/left_add.jpg")} alt="" />
+                <img src={require("../../Assets/Banner1.jpg")} alt="" />
               </div>
             </Col>
 
@@ -67,7 +67,7 @@ const Index = () => {
                     if (index < 4) {
                       return (
                         <Col
-                        sm={6}
+                          sm={6}
                           md={4}
                           lg={4}
                           xl={3}
@@ -84,13 +84,15 @@ const Index = () => {
                             </div>
                             <Card.Body className="text-center">
                               <Card.Title>{data.name}</Card.Title>
-                              <Card.Text>{data.price} KR / {data.packSize1}-PACK</Card.Text>
+                              <Card.Text>
+                                {data.price} KR / {data.packSize1}-PACK
+                              </Card.Text>
                               <Button
                                 as={Link}
                                 to={`/products/details/${data.slug}`}
                                 variant="danger"
                               >
-                                Go somewhere
+                                Buy Here
                               </Button>
                             </Card.Body>
                           </Card>
@@ -98,57 +100,6 @@ const Index = () => {
                       );
                     }
                   })}
-
-                  {/* <Col md={2} lg={4} xl={3} xxl={3} className="mb-3">
-                    <Card className="border-0">
-                      <Card.Img
-                        variant="top"
-                        src={require("../../Assets/card_test.jpg")}
-                        style={{ maxHeight: "390px" }}
-                      />
-                      <Card.Body className="text-center">
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>192,45 KR / 6-PACK</Card.Text>
-                        <Button as={Link} to="/products/2" variant="danger">
-                          Go somewhere
-                        </Button>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-
-                  <Col md={2} lg={4} xl={3} xxl={3} className="mb-3">
-                    <Card className="border-0">
-                      <Card.Img
-                        variant="top"
-                        src={require("../../Assets/card_test.jpg")}
-                        style={{ maxHeight: "390px" }}
-                      />
-                      <Card.Body className="text-center">
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>192,45 KR / 6-PACK</Card.Text>
-                        <Button as={Link} to="/products/3" variant="danger">
-                          Go somewhere
-                        </Button>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-
-                  <Col md={2} lg={4} xl={3} xxl={3} className="mb-3">
-                    <Card className="border-0">
-                      <Card.Img
-                        variant="top"
-                        src={require("../../Assets/card_test.jpg")}
-                        style={{ maxHeight: "390px" }}
-                      />
-                      <Card.Body className="text-center">
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Text>192,45 KR / 6-PACK</Card.Text>
-                        <Button as={Link} to="/products/4" variant="danger">
-                          Go somewhere
-                        </Button>
-                      </Card.Body>
-                    </Card>
-                  </Col> */}
                 </Row>
               </div>
 
@@ -171,7 +122,7 @@ const Index = () => {
             {/* right banner */}
             <Col xxl={2} className="side_banner gx-0">
               <div className="bannerAdd">
-                <img src={require("../../Assets/right_add.jpg")} alt="" />
+                <img src={require("../../Assets/Banner2.jpg")} alt="" />
               </div>
             </Col>
           </Row>

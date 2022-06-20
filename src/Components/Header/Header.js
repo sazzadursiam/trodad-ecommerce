@@ -21,7 +21,8 @@ import { Link_Path_URL } from "../../Utils/LinkPath";
 import { UserContext } from "../../App";
 
 const Header = () => {
-  const { cartQuantity, cartTotal,setCartQuantity,setCartTotal } = useContext(UserContext);
+  const { cartQuantity, cartTotal, setCartQuantity, setCartTotal } =
+    useContext(UserContext);
   const [navData, setNavData] = useState([]);
   const [navDataBrand, setNavDataBrand] = useState([]);
 
@@ -39,13 +40,10 @@ const Header = () => {
   const today = daylist[day];
   // console.log("Today is : " + daylist[day] + ".");
 
-
   const cartQuantityget = localStorage.getItem("cartProductQuantity");
   const cartTotalget = localStorage.getItem("cartTotal");
   setCartQuantity(cartQuantityget);
   setCartTotal(cartTotalget);
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -132,25 +130,26 @@ const Header = () => {
                 </Form>
               </div>
               <div>
-                <Link to="/checkout">
-                  <Card className=" text-white cart_design">
-                    <Card.Body>
-                      <div className="d-flex align-items-center w-100 ">
-                        <div className="d-flex align-items-center me-3 w-25">
-                          <FaIcons.FaShoppingCart className="me-2" />
-                          {/* {localStorage.getItem("cartProductQuantity")} */}
-                          {cartQuantity}
-
+                {cartQuantity && (
+                  <Link to="/checkout">
+                    <Card className=" text-white cart_design">
+                      <Card.Body>
+                        <div className="d-flex align-items-center w-100 ">
+                          <div className="d-flex align-items-center me-3 w-25">
+                            <FaIcons.FaShoppingCart className="me-2" />
+                            {/* {localStorage.getItem("cartProductQuantity")} */}
+                            {cartQuantity}
+                          </div>
+                          <div className="d-flex align-items-center w-75 justify-content-end">
+                            {/* {localStorage.getItem("cartTotal")} kr */}
+                            {cartTotal} kr
+                            <FaIcons.FaChevronCircleRight className="ms-3" />
+                          </div>
                         </div>
-                        <div className="d-flex align-items-center w-75 justify-content-end">
-                          {/* {localStorage.getItem("cartTotal")} kr */}
-                          {cartTotal} kr
-                          <FaIcons.FaChevronCircleRight className="ms-3" />
-                        </div>
-                      </div>
-                    </Card.Body>
-                  </Card>
-                </Link>
+                      </Card.Body>
+                    </Card>
+                  </Link>
+                )}
               </div>
             </div>
           </Container>
@@ -164,65 +163,72 @@ const Header = () => {
               </Nav.Link>
 
               {navData.map((data, i) =>
-                (data.sub_category.length) ?
+                data.sub_category.length ? (
                   <li className="navbar-dropdown" key={i}>
-                    <Link className="title" to='/'>{data.name} <FaIcons.FaAngleDown className="ms-1" /></Link>
+                    <Link className="title" to="/">
+                      {data.name} <FaIcons.FaAngleDown className="ms-1" />
+                    </Link>
                     <div className="dropdown">
                       <Row className="w-50">
                         <Col md={12}>
-                          <span className='fw-bold'>Kategori</span> -  <Link to={'/products/category/' + data.name}>{data.name}</Link>
+                          <span className="fw-bold">Kategori</span> -{" "}
+                          <Link to={"/products/category/" + data.name}>
+                            {data.name}
+                          </Link>
                         </Col>
                         {data.sub_category.map((category, i) => (
-
-
-                          <Col md={6} className='my-1'key={i}>
-                            <Link to={'/products/category/' + category.name}> {category.name}</Link>
+                          <Col md={6} className="my-1" key={i}>
+                            <Link to={"/products/category/" + category.name}>
+                              {" "}
+                              {category.name}
+                            </Link>
                           </Col>
-
                         ))}
                       </Row>
                     </div>
-
                   </li>
-                  :
-
+                ) : (
                   <li className="navbar-dropdown" key={i}>
-                    <Link className="title" to={'/products/category/' + data.name}>{data.name}</Link>
+                    <Link
+                      className="title"
+                      to={"/products/category/" + data.name}
+                    >
+                      {data.name}
+                    </Link>
                   </li>
-
+                )
               )}
 
-
-
-              < Nav.Link as={Link} to="/products" className=" py-3 bg-danger">
+              <Nav.Link as={Link} to="/products" className=" py-3 bg-danger">
                 Subscribe
               </Nav.Link>
 
               <li className="navbar-dropdown">
-                <Link className="title" to='/'>Brand <FaIcons.FaAngleDown className="ms-1" /></Link>
+                <Link className="title" to="/">
+                  Brand <FaIcons.FaAngleDown className="ms-1" />
+                </Link>
                 <div className="dropdown">
                   <Row className="w-50">
                     <Col md={12}>
-                      <span className='fw-bold'>Brand</span> -  <Link to='/products/category/Brand'>Brand</Link>
+                      <span className="fw-bold">Brand</span> -{" "}
+                      <Link to="/products/category/Brand">Brand</Link>
                     </Col>
                     {navDataBrand.map((dropdownItem, i) => (
-
-
-                      <Col md={6} className='my-1' key={i}>
-                        <Link to={'/products/category/' + dropdownItem.brandName} > {dropdownItem.brandName}</Link>
+                      <Col md={6} className="my-1" key={i}>
+                        <Link
+                          to={"/products/category/" + dropdownItem.brandName}
+                        >
+                          {" "}
+                          {dropdownItem.brandName}
+                        </Link>
                       </Col>
-
                     ))}
                   </Row>
                 </div>
-
               </li>
-
             </Nav>
           </Container>
-
         </div>
-
 
         <div className="bottom_header_2 bg_light_grey ">
           <Container>
@@ -280,7 +286,6 @@ const Header = () => {
 
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-
                   <NavDropdown
                     title="Snuff"
                     id="offcanvasNavbarDropdown-expand-false"
@@ -325,7 +330,11 @@ const Header = () => {
                     data.sub_category.length ? (
                       <NavDropdown title={data.name} key={i}>
                         {data.sub_category.map((category, j) => (
-                          <NavDropdown.Item key={j} as={Link} to={'/products/category/' + category.name}>
+                          <NavDropdown.Item
+                            key={j}
+                            as={Link}
+                            to={"/products/category/" + category.name}
+                          >
                             <p
                               className="m-0"
                               style={{ color: "#005ea1", fontSize: "14px" }}
@@ -336,13 +345,16 @@ const Header = () => {
                         ))}
                       </NavDropdown>
                     ) : (
-                      <Nav.Link as={Link} to={'/products/category/' + data.name} className=" py-3" key={i}>
+                      <Nav.Link
+                        as={Link}
+                        to={"/products/category/" + data.name}
+                        className=" py-3"
+                        key={i}
+                      >
                         {data.name}
                       </Nav.Link>
                     )
                   )}
-
-
 
                   <Nav.Link href="#action2">Subscribe</Nav.Link>
 
@@ -373,9 +385,8 @@ const Header = () => {
             </Navbar.Offcanvas>
           </Container>
         </Navbar>
-
       </div>
-    </div >
+    </div>
   );
 };
 

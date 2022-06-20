@@ -35,7 +35,6 @@ import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 
 import UserRegForm from "./Pages/Registration&Login/UserRegForm";
 import UserLogin from "./Pages/Registration&Login/UserLogin";
-import PrivateOutlet from "./Components/PrivateRoute/AdminPrivateRoute";
 import AdminLoginForm from "./Pages/Admin/AdminLogin";
 import AdminPrivateRoute from "./Components/PrivateRoute/AdminPrivateRoute";
 import AccDetails from "./Pages/User/UserContent/Dashboard/AccDetails/AccDetails";

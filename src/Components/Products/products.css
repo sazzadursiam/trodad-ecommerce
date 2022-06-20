@@ -41,6 +41,15 @@
     min-height: 220px;
 }
 
+.products-cards img {
+    transition: .2s linear !important;
+}
+
+.products-cards:hover img {
+    transform: scale(1.07);
+
+}
+
 .product-flag {
     display: inline-block;
     position: absolute;
@@ -96,9 +105,9 @@
 
 }
 
-option > span {
+option>span {
     background-color: #003153 !important;
-   
+
 }
 
 

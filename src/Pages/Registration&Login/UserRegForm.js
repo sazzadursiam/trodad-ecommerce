@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
 import "./customerRegForm.css";
@@ -27,7 +28,6 @@ const UserRegForm = () => {
   const [confirmPassError, setConfirmPassError] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
 
- 
   // const [records, setRecords] = useState([]);
 
   // const handleInput = (e) => {
@@ -83,37 +83,6 @@ const UserRegForm = () => {
     // console.log(userRegInfo);
   };
 
-  // useEffect(() => {
-  //   console.log(formErrors);
-  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //     // console.log(userRegInfo);
-  //   }
-  // }, [formErrors]);
-
-  // const validate = (values) => {
-  //   const errors = {};
-  //   const regex = /\S+@\S+\.\S+/;
-  //   if (!values.userName) {
-  //     errors.userName = "Name is required";
-  //   }
-  //   if (!values.email) {
-  //     errors.email = "Email is required";
-  //   } else if (!regex.test(values.email)) {
-  //     errors.email = "Email address is not valid";
-  //   }
-  //   if (!values.password) {
-  //     errors.password = "Password is required";
-  //   } else if (values.password.length < 4) {
-  //     errors.password = "Password must be more than 4 characters";
-  //   } else if (values.password.length > 12) {
-  //     errors.password = "Password cannot exceed more than 12 characters";
-  //   }
-
-  //   if (values.password !== values.confirmPassword) {
-  //     errors.confirmPassword = "Password is not matched";
-  //   }
-  //   return errors;
-  // };
 
   return (
     <div className="form_wrapper" style={{ backgroundColor: "#f9fafb" }}>
@@ -203,6 +172,12 @@ const UserRegForm = () => {
           </Form.Group>
           <Button type="submit">Submit</Button>
         </Form>
+        <p>
+          Already have an account.{" "}
+          <Link to="/user/login" className="text-danger">
+            Click Here
+          </Link>
+        </p>
       </Container>
     </div>
   );
