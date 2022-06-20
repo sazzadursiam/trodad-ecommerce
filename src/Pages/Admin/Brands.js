@@ -105,7 +105,7 @@ const Brands = () => {
     setModalSize("");
     axios.get(`${BACKEND_BASE_URL}/api/admin/brands/view/${id}`).then((res) => {
       // console.log(res.data);
-      setModalSize("sm");
+      setModalSize("lg");
       setModalData(modalValue);
       setSingleBrandInfo(res.data.viewBrand);
       // console.log(res.data.viewHappyClientInfo);
@@ -559,6 +559,7 @@ const Brands = () => {
 
                               {files.length == 0 && (
                                 <img
+                                  className="img-thumbnail mt-1"
                                   width={80}
                                   height={50}
                                   src={`${BACKEND_BASE_URL}${editedBrandImage}`}
@@ -610,11 +611,13 @@ const Brands = () => {
                 {modalData === "View" && (
                   <>
                     <h4>{singleBrandInfo.brandName}</h4>
-                    <img
-                      className="img-thumbnail"
-                      src={`${BACKEND_BASE_URL}/${singleBrandInfo.brandImage}`}
-                      alt=""
-                    />
+                    <div className="text-center">
+                      <img
+                        className="img-fluid"
+                        src={`${BACKEND_BASE_URL}/${singleBrandInfo.brandImage}`}
+                        alt=""
+                      />
+                    </div>
                     <div className="mt-2">
                       {Parse(`${singleBrandInfo.shortDesc}`)}
                     </div>

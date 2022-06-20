@@ -38,6 +38,8 @@ import UserLogin from "./Pages/Registration&Login/UserLogin";
 import AdminLoginForm from "./Pages/Admin/AdminLogin";
 import AdminPrivateRoute from "./Components/PrivateRoute/AdminPrivateRoute";
 import AccDetails from "./Pages/User/UserContent/Dashboard/AccDetails/AccDetails";
+import CategorizedProduct from "./Components/Products/CategorizedProduct";
+import SubCategorizedProduct from "./Components/Products/SubCategorizedProduct";
 
 export const UserContext = createContext();
 
@@ -75,7 +77,14 @@ function App() {
             element={<ProductCategory />}
           />
           <Route path="/products/details/:slug" element={<ProductDetails />} />
-
+          <Route
+            path="/products/category/:id/:slug"
+            element={<CategorizedProduct />}
+          />
+          <Route
+            path="/products/category/:categotyId/:categorySlug/:subCategoryId/:subCategorySlug"
+            element={<SubCategorizedProduct />}
+          />
           <Route
             path="/checkout"
             element={

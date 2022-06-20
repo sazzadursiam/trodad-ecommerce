@@ -5,8 +5,6 @@ import Product from "../../Components/Products/Product";
 import { Container } from "react-bootstrap";
 
 const ProductCategory = () => {
-    
-
 
   return (
     <div>

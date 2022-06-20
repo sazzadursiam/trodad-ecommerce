@@ -56,8 +56,8 @@ const AddProduct = () => {
   const flagText4 = useRef();
   const flagText5 = useRef();
 
-  const isNew = useRef();
-  const isNewPrice = useRef();
+  // const isNew = useRef();
+  // const isNewPrice = useRef();
 
   // Image Preview
   const [files, setFile] = useState([]);
@@ -388,25 +388,41 @@ const AddProduct = () => {
   const changeUnitPrice2 = () => {
     const discountVal2 = productDiscountPrice2.current.value;
     const PriceVal = productPrice.current.value;
-    setUnitPrice2(PriceVal - (PriceVal * discountVal2) / 100);
+    const unitPrice2 = PriceVal - (PriceVal * discountVal2) / 100;
+    setUnitPrice2(Number(unitPrice2).toFixed(2));
+    setVariantPrice2(
+      Number(unitPrice2 * productPackSize2.current.value).toFixed(2)
+    );
   };
 
   const changeUnitPrice3 = () => {
     const discountVal3 = productDiscountPrice3.current.value;
     const PriceVal = productPrice.current.value;
-    setUnitPrice3(PriceVal - (PriceVal * discountVal3) / 100);
+    const unitPrice3 = PriceVal - (PriceVal * discountVal3) / 100;
+    setUnitPrice3(Number(unitPrice3).toFixed(2));
+    setVariantPrice3(
+      Number(unitPrice3 * productPackSize3.current.value).toFixed(2)
+    );
   };
 
   const changeUnitPrice4 = () => {
     const discountVal4 = productDiscountPrice4.current.value;
     const PriceVal = productPrice.current.value;
-    setUnitPrice4(PriceVal - (PriceVal * discountVal4) / 100);
+    const unitPrice4 = PriceVal - (PriceVal * discountVal4) / 100;
+    setUnitPrice4(Number(unitPrice4).toFixed(2));
+    setVariantPrice4(
+      Number(unitPrice4 * productPackSize4.current.value).toFixed(2)
+    );
   };
 
   const changeUnitPrice5 = () => {
     const discountVal5 = productDiscountPrice5.current.value;
     const PriceVal = productPrice.current.value;
-    setUnitPrice5(PriceVal - (PriceVal * discountVal5) / 100);
+    const unitPrice5 = PriceVal - (PriceVal * discountVal5) / 100;
+    setUnitPrice5(Number(unitPrice5).toFixed(2));
+    setVariantPrice5(
+      Number(unitPrice5 * productPackSize5.current.value).toFixed(2)
+    );
   };
 
   return (
@@ -571,7 +587,7 @@ const AddProduct = () => {
                   </Form.Group>
 
                   {/* Checkbox */}
-                  <Form.Group
+                  {/* <Form.Group
                     as={Col}
                     md="6"
                     className="mb-3"
@@ -596,6 +612,46 @@ const AddProduct = () => {
                         onChange={handleCheckbox1}
                       />
                     </div>
+                  </Form.Group> */}
+
+                  {/* Product Price */}
+                  <Form.Group
+                    as={Col}
+                    md="6"
+                    className="mb-3"
+                    controlId="validationCustom03"
+                  >
+                    <Form.Label className="label fw-bold">Price</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Price"
+                      name="price"
+                      ref={productPrice}
+                      onChange={handleInput}
+                      value={pValue.price}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Title is required
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  {/* Product Short Description */}
+                  <Form.Group
+                    as={Col}
+                    md="6"
+                    controlId="validationCustom02"
+                    className="mb-3"
+                  >
+                    <Form.Label className="label fw-bold">
+                      Short Description
+                    </Form.Label>
+                    <JoditEditor
+                      ref={productShortDesc}
+                      config={config}
+                      tabIndex={1}
+                      value={shortDesc}
+                    />
                   </Form.Group>
 
                   {/* Product Description */}
@@ -615,47 +671,6 @@ const AddProduct = () => {
                       value={descValue}
                     />
                   </Form.Group>
-
-                  {/* Product Short Description */}
-                  <Form.Group
-                    as={Col}
-                    md="6"
-                    controlId="validationCustom02"
-                    className="mb-3"
-                  >
-                    <Form.Label className="label fw-bold">
-                      Description
-                    </Form.Label>
-                    <JoditEditor
-                      ref={productShortDesc}
-                      config={config}
-                      tabIndex={1}
-                      value={shortDesc}
-                    />
-                  </Form.Group>
-
-                  {/* Product Price */}
-                  <Form.Group
-                    as={Col}
-                    md="12"
-                    className="mb-3"
-                    controlId="validationCustom03"
-                  >
-                    <Form.Label className="label fw-bold">Price</Form.Label>
-                    <Form.Control
-                      required
-                      type="number"
-                      min="0"
-                      placeholder="Price"
-                      name="price"
-                      ref={productPrice}
-                      onChange={handleInput}
-                      value={pValue.price}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      Title is required
-                    </Form.Control.Feedback>
-                  </Form.Group>
                 </Row>
                 <Table responsive>
                   <thead>
@@ -664,7 +679,7 @@ const AddProduct = () => {
                       <th> Unit Price</th>
                       <th>Discount (%)</th>
                       <th> Pack Size</th>
-                      <th>Varient Price</th>
+                      <th>Variant Price</th>
                       <th> Old Price </th>
                       <th> Flag Text</th>
                     </tr>
@@ -678,7 +693,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="unitPrice1"
                             placeholder="Unit Price"
@@ -696,7 +711,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="discountPrice1"
                             placeholder="Discount Percentage"
@@ -712,7 +727,7 @@ const AddProduct = () => {
                         {/*    Product PackSize  */}
                         <Form.Group controlId="validationCustom01">
                           <Form.Control
-                            type="number"
+                            type="text"
                             name="packSize"
                             placeholder="Pack Size"
                             ref={productPackSize1}
@@ -730,7 +745,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="variantPrice"
                             placeholder="variant price"
@@ -747,7 +762,7 @@ const AddProduct = () => {
                         {/* Product Old Price */}
                         <Form.Group controlId="validationCustom04">
                           <Form.Control
-                            type="number"
+                            type="text"
                             min="0"
                             name="oldPrice"
                             placeholder="Old Price"
@@ -784,7 +799,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="unitPrice2"
                             placeholder="Unit Price"
@@ -802,7 +817,7 @@ const AddProduct = () => {
                         {/* Discount Percentage */}
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
-                            type="number"
+                            type="text"
                             min="0"
                             name="discountPrice2"
                             placeholder="discount percentage"
@@ -819,7 +834,7 @@ const AddProduct = () => {
                         {/*    Product PackSize  */}
                         <Form.Group controlId="validationCustom01">
                           <Form.Control
-                            type="number"
+                            type="text"
                             name="packSize"
                             placeholder="Pack Size"
                             ref={productPackSize2}
@@ -837,7 +852,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="variantPrice2"
                             placeholder="variant price"
@@ -851,7 +866,7 @@ const AddProduct = () => {
                         {/* Product Old Price */}
                         <Form.Group controlId="validationCustom04">
                           <Form.Control
-                            type="number"
+                            type="text"
                             min="0"
                             name="oldPrice"
                             placeholder="Old Price"
@@ -888,7 +903,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="unitPrice3"
                             placeholder="Unit Price"
@@ -906,7 +921,7 @@ const AddProduct = () => {
                         {/* Discount Percentage */}
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
-                            type="number"
+                            type="text"
                             min="0"
                             name="discountPrice3"
                             placeholder="discount percentage"
@@ -923,7 +938,7 @@ const AddProduct = () => {
                         {/*    Product PackSize  */}
                         <Form.Group controlId="validationCustom01">
                           <Form.Control
-                            type="number"
+                            type="text"
                             name="packSize"
                             placeholder="Pack Size"
                             ref={productPackSize3}
@@ -941,7 +956,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="variantPrice3"
                             placeholder="variant price"
@@ -958,7 +973,7 @@ const AddProduct = () => {
                         {/* Product Old Price */}
                         <Form.Group controlId="validationCustom04">
                           <Form.Control
-                            type="number"
+                            type="text"
                             min="0"
                             name="oldPrice"
                             placeholder="Old Price"
@@ -995,7 +1010,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="unitPrice4"
                             placeholder="Unit Price"
@@ -1013,7 +1028,7 @@ const AddProduct = () => {
                         {/* Discount Percentage */}
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
-                            type="number"
+                            type="text"
                             min="0"
                             name="discountCount4"
                             placeholder="discount percentage"
@@ -1030,7 +1045,7 @@ const AddProduct = () => {
                         {/*    Product PackSize  */}
                         <Form.Group controlId="validationCustom01">
                           <Form.Control
-                            type="number"
+                            type="text"
                             name="packSize"
                             placeholder="Pack Size"
                             ref={productPackSize4}
@@ -1048,7 +1063,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="variantPrice4"
                             placeholder="variant price"
@@ -1065,7 +1080,7 @@ const AddProduct = () => {
                         {/* Product Old Price */}
                         <Form.Group controlId="validationCustom04">
                           <Form.Control
-                            type="number"
+                            type="text"
                             min="0"
                             name="oldPrice"
                             placeholder="Old Price"
@@ -1102,7 +1117,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="unitPrice5"
                             placeholder="Unit Price"
@@ -1120,7 +1135,7 @@ const AddProduct = () => {
                         {/* Discount Percentage */}
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
-                            type="number"
+                            type="text"
                             min="0"
                             name="discountCount5"
                             placeholder="discount percentage"
@@ -1136,7 +1151,7 @@ const AddProduct = () => {
                         {/*    Product PackSize  */}
                         <Form.Group controlId="validationCustom01">
                           <Form.Control
-                            type="number"
+                            type="text"
                             name="packSize"
                             placeholder="Pack Size"
                             ref={productPackSize5}
@@ -1153,7 +1168,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom02">
                           <Form.Control
                             disabled
-                            type="number"
+                            type="text"
                             min="0"
                             name="variantPrice5"
                             placeholder="variant price"
@@ -1170,7 +1185,7 @@ const AddProduct = () => {
                         <Form.Group controlId="validationCustom04">
                           <Form.Control
                             // required
-                            type="number"
+                            type="text"
                             min="0"
                             name="oldPrice"
                             placeholder="Old Price"

@@ -61,6 +61,16 @@ const Header = () => {
     navDynamicData();
   }, []);
 
+  // =============== categories product ====================
+  const [categorizedProduct, setCategorizedProduct] = useState([]);
+
+  // axios
+  //   .get(`${Link_Path_URL}api/products/category/${categoryId}/${slug}`)
+  //   .then((res) => {
+  //     setNavData(res.data.allProductCaregories);
+  //     setNavDataBrand(res.data.allBrands);
+  //   });
+
   return (
     <div className="header">
       {/* desktop header */}
@@ -165,21 +175,35 @@ const Header = () => {
               {navData.map((data, i) =>
                 data.sub_category.length ? (
                   <li className="navbar-dropdown" key={i}>
-                    <Link className="title" to="/">
+                    <Link className="title" to="#">
                       {data.name} <FaIcons.FaAngleDown className="ms-1" />
                     </Link>
                     <div className="dropdown">
                       <Row className="w-50">
                         <Col md={12}>
                           <span className="fw-bold">Kategori</span> -{" "}
-                          <Link to={"/products/category/" + data.name}>
+                          <Link
+                            to={
+                              "/products/category/" + data.id + "/" + data.slug
+                            }
+                          >
                             {data.name}
                           </Link>
                         </Col>
                         {data.sub_category.map((category, i) => (
                           <Col md={6} className="my-1" key={i}>
-                            <Link to={"/products/category/" + category.name}>
-                              {" "}
+                            <Link
+                              to={
+                                "/products/category/" +
+                                data.id +
+                                "/" +
+                                data.slug +
+                                "/" +
+                                category.id +
+                                "/" +
+                                category.slug
+                              }
+                            >
                               {category.name}
                             </Link>
                           </Col>
@@ -191,7 +215,7 @@ const Header = () => {
                   <li className="navbar-dropdown" key={i}>
                     <Link
                       className="title"
-                      to={"/products/category/" + data.name}
+                      to={"/products/category/" + data.id + "/" + data.slug}
                     >
                       {data.name}
                     </Link>

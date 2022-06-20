@@ -26,7 +26,6 @@ const ProductDetails = () => {
   const { slug } = useParams();
   const { setCartQuantity, setCartTotal } = useContext(UserContext);
 
-
   const cartFunction = () => {
     const cartQuantitycheck = localStorage.getItem("cartProductQuantity");
     const cartTotalcheck = localStorage.getItem("cartTotal");
@@ -127,7 +126,6 @@ const ProductDetails = () => {
         USER_ID = localStorage.getItem("USER_TEMP_ID");
         console.log(" Not First Time", localStorage.getItem("USER_TEMP_ID"));
       }
-      
     } else {
       USER_TYPE = "Reg";
       USER_ID = localStorage.getItem("LOGGED_IN_USER_ID");
@@ -139,8 +137,8 @@ const ProductDetails = () => {
     console.log("Final user Type", USER_TYPE);
 
     const formdata = new FormData();
-    
-    formdata.append("selectedPackSize",selectedPackSize);
+
+    formdata.append("selectedPackSize", selectedPackSize);
     formdata.append("qty", 1);
     formdata.append("productId", productId);
     formdata.append("userId", USER_ID);
@@ -189,10 +187,34 @@ const ProductDetails = () => {
                 <div className="product_thumbnail_tag mb-3">
                   <div className="d-flex justify-content-between">
                     <h3>
-                      <Badge bg="secondary">{productDetails.flagText1}</Badge>
+                      <Badge bg="secondary">
+                        {(productDetails.flagText1 &&
+                          productDetails.flagText1) ||
+                          (productDetails.flagText2 &&
+                            productDetails.flagText2) ||
+                          (productDetails.flagText3 &&
+                            productDetails.flagText3) ||
+                          (productDetails.flagText4 &&
+                            productDetails.flagText4) ||
+                          (productDetails.flagText5 &&
+                            productDetails.flagText5)}
+                      </Badge>
                     </h3>
                     <h3>
-                      <Badge bg="info">{productDetails.packSize1}-Pack</Badge>
+                      <Badge bg="info">
+                        {productDetails.packSize1
+                          ? productDetails.packSize1
+                          : productDetails.packSize2
+                          ? productDetails.packSize2
+                          : productDetails.packSize3
+                          ? productDetails.packSize3
+                          : productDetails.packSize4
+                          ? productDetails.packSize4
+                          : productDetails.packSize5
+                          ? productDetails.packSize5
+                          : ""}
+                        -Pack
+                      </Badge>
                     </h3>
                   </div>
                 </div>
@@ -201,11 +223,11 @@ const ProductDetails = () => {
               <Col md={7}>
                 <div className="product_cart">
                   <div className="title">
-                    {Parser("" + productDetails.description)}
+                    {Parser("" + productDetails.shortDescription)}
                   </div>
 
                   <div className="check_box_border">
-                    <div className="check_box_content" >
+                    <div className="check_box_content">
                       <div className="check_box">
                         {productDetails.packSize1 && (
                           <div className="form-check_border mb-3">
@@ -217,7 +239,6 @@ const ProductDetails = () => {
                                 id="flexRadioDefault1"
                                 value="1"
                                 onChange={selectedPriceShow}
-
                               />
                               <label
                                 className="form-check-label"
@@ -551,7 +572,7 @@ const ProductDetails = () => {
             <Row>
               {/* product_description content */}
               <Col md={6} className="product_description">
-                {Parser("" + productDetails.shortDescription)}
+                {Parser("" + productDetails.description)}
               </Col>
 
               {/* product review */}

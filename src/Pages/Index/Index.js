@@ -18,6 +18,7 @@ const Index = () => {
     axios.get(`${Link_Path_URL}api/index-master-get`).then((res) => {
       setSliderData(res.data.allBanners);
       setAllProducts(res.data.allProductsMaster.data);
+      
     });
   };
   useEffect(() => {
@@ -40,7 +41,7 @@ const Index = () => {
             {/* main content */}
             <Col xl={12} xxl={8}>
               {/* Carousel */}
-              <div className="mb-5 mt-4 " style={{ height: "400px" }}>
+              <div className="mb-5 mt-4 " >
                 <Carousel>
                   {sliderData.map((data, index) => (
                     <Carousel.Item key={index}>
@@ -48,7 +49,7 @@ const Index = () => {
                         src={`${Link_Path_URL}${data.image}`}
                         alt=""
                         className="w-100"
-                        style={{ height: "400px" }}
+                        
                       />
                       <Carousel.Caption>
                         <Link to={data.btnLink}>
@@ -74,7 +75,12 @@ const Index = () => {
                           className="mb-3"
                           key={index}
                         >
-                          <Card className="border-0">
+                          {/* <Link to={`/products/details/${data.slug}`}> */}
+                          <Card
+                            className="border-0"
+                            as={Link}
+                            to={`/products/details/${data.slug}`}
+                          >
                             <div className="img-wrapper d-flex align-items-center">
                               <Card.Img
                                 variant="top"
@@ -96,6 +102,7 @@ const Index = () => {
                               </Button>
                             </Card.Body>
                           </Card>
+                          {/* </Link> */}
                         </Col>
                       );
                     }
