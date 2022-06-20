@@ -42,9 +42,18 @@ Route::get('/tabs', [MasterController::class, 'filterTabs']);
 Route::get('/product/tab/{id}', [MasterController::class, 'filterTabProduct']);
 
 
+/*
+|--------------------------------------------------------------------------
+| PRODUCT
+|--------------------------------------------------------------------------
+*/
 Route::get('/all-product', [MasterController::class, 'getAllProduct']);
 
 Route::get('/products/single-details/{slug}', [MasterController::class, 'getSingleProductDetails']);
+
+Route::get('/products/category/{categoryId}/{slug}', [MasterController::class, 'getAllCategoryProduct']);
+
+Route::get('/products/category/{categoryId}/{categorySlug}/{subCategoryId}/{subCategorySlug}', [MasterController::class, 'getAllSubCategoryProduct']);
 
 /*
 |--------------------------------------------------------------------------

@@ -24,8 +24,8 @@ class CustomerAuthController extends Controller
                     'name' => 'required',
                     'email' => 'required|email|unique:users',
                     'phone' => 'nullable',
-                    'password' => 'required|min:4|max:12',
-                    'confirm_password' => 'required|same:password|min:4|max:12',
+                    'password' => 'required|min:4|max:18',
+                    'confirm_password' => 'required|same:password|min:4|max:18',
                 ]
             );
             // validation error

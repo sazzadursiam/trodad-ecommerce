@@ -16,7 +16,7 @@ class MasterController extends Controller
     {
         $allBrands = Brand::orderBy('brandName', 'asc')->where('status', 1)->get();
 
-        $allProductCaregories = Category::with('subCategory')->where('status', 1)->where('parrentCatId', 0)->orderBy('name', 'asc')->get();
+        $allProductCaregories = Category::with('subCategory')->where('status', 1)->where('parrentCatId', 0)->get();
 
         $allBanners = Banner::get();
 
@@ -48,6 +48,21 @@ class MasterController extends Controller
 
         return response()->json([
             'singleBrand' => $singleBrand,
+        ]);
+    }
+
+    public function getAllCategoryProduct($categoryId, $categorySlug)
+    {
+        $categoryProducts = Product::where('categoryId', $categoryId)->with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->paginate(24);
+        return response()->json([
+            'categoryProducts' => $categoryProducts,
+        ]);
+    }
+    public function getAllSubCategoryProduct($categoryId, $categorySlug, $subCategoryId, $subCategorySlug)
+    {
+        $subCategoryProducts = Product::where('categoryId', $categoryId)->where('subCategoryId', $subCategoryId)->with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->paginate(24);
+        return response()->json([
+            'subCategoryProducts' => $subCategoryProducts,
         ]);
     }
 
@@ -87,7 +102,7 @@ class MasterController extends Controller
     public function filterTabs()
     {
         // echo "hi";
-        $tabs = Category::where('parrentCatId', 0)->orderBy('name', 'asc')->get();
+        $tabs = Category::where('parrentCatId', 0)->get();
         return response()->json([
             'tabs' => $tabs,
         ]);
@@ -95,7 +110,7 @@ class MasterController extends Controller
 
     public function filterTabProduct($categoryId)
     {
-        $tabProducts = Product::where('categoryId', $categoryId)->orderBy('name', 'asc')->get();
+        $tabProducts = Product::where('categoryId', $categoryId)->get();
         return response()->json([
             'tabProducts' => $tabProducts,
         ]);
@@ -103,7 +118,7 @@ class MasterController extends Controller
 
     public function getAllProduct()
     {
-        $allProducts = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->paginate(5);
+        $allProducts = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->paginate(24);
 
         return response()->json([
             'allProducts' => $allProducts,

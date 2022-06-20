@@ -86,7 +86,7 @@ class AddToCartController extends Controller
     {
         $model = AddToCart::find($id);
         $unitPrice = $model->unitPrice;
-        $price = $unitPrice * $qty;
+        $price = ($unitPrice * $qty) * $model->packSize;
         $model->qty = $qty;
         $model->price = $price;
         $model->save();
