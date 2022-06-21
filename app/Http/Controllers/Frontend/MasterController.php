@@ -65,6 +65,13 @@ class MasterController extends Controller
             'subCategoryProducts' => $subCategoryProducts,
         ]);
     }
+    public function getAllSBrandProduct($brandId, $brandSlug)
+    {
+        $brandProducts = Product::where('brandId', $brandId)->with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->paginate(24);
+        return response()->json([
+            'brandProducts' => $brandProducts,
+        ]);
+    }
 
     // Get all Product categories info
     // public function getAllProductCaregories()

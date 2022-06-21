@@ -38,4 +38,8 @@ class Product extends Model
     {
         return $this->belongsTo(Brand::class, 'brandId');
     }
+    public function ordersdetails()
+    {
+        return $this->belongsToMany(OrderDetails::class);
+    }
 }

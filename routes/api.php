@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\DashboardMasterController;
 use App\Http\Controllers\Admin\Product\CategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Frontend\AddToCartController;
@@ -55,6 +57,8 @@ Route::get('/products/category/{categoryId}/{slug}', [MasterController::class, '
 
 Route::get('/products/category/{categoryId}/{categorySlug}/{subCategoryId}/{subCategorySlug}', [MasterController::class, 'getAllSubCategoryProduct']);
 
+Route::get('/brands/{brandId}/{brandSlug}/products', [MasterController::class, 'getAllSBrandProduct']);
+
 /*
 |--------------------------------------------------------------------------
 | Cart
@@ -72,6 +76,8 @@ Route::delete('/add-to-cart/qty/delete/{id}', [AddToCartController::class, 'addT
 |--------------------------------------------------------------------------
 */
 Route::post('/users/orders/store', [OrderController::class, 'storeOrders']);
+Route::get('/users/orders/{userId}/view', [OrderController::class, 'viewUserOrders']);
+Route::get('/users/orders/order-details/{orderId}', [OrderController::class, 'viewUserOrdersDetails']);
 
 
 //auth test route 
@@ -87,7 +93,6 @@ Route::group(['middleware' => 'admin_auth'], function () {
 | Admin Routes
 |--------------------------------------------------------------------------
 */
-
 Route::group(['prefix' => '/admin'], function () {
 
     /*
@@ -119,6 +124,7 @@ Route::group(['prefix' => '/admin'], function () {
         Route::put('/update/{id}', [CategoryController::class, 'update']);
         Route::delete('/delete/{id}', [CategoryController::class, 'destroy']);
     });
+
     /*
     |--------------------------------------------------------------------------
     | Product Routes
@@ -151,6 +157,13 @@ Route::group(['prefix' => '/admin'], function () {
         Route::put('/update/{id}', [BannerController::class, 'update']);
         Route::delete('/delete/{id}', [BannerController::class, 'destroy']);
     });
+
+    Route::get('/all-orders', [OrderController::class, 'viewAllOrders']);
+    Route::get('/all-orders/order-details/{orderId}', [OrderController::class, 'viewUserOrdersDetails']);
+    //customer
+    Route::get('/all-customers', [CustomerController::class, 'allCustomer']);
+    //dashboard count element
+    Route::get('/all-counts', [DashboardMasterController::class, 'allCount']);
 
 
 

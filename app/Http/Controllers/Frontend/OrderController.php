@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\AddToCart;
 use App\Models\Order;
 use App\Models\OrderDetails;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -53,6 +55,46 @@ class OrderController extends Controller
         return response()->json([
             'message' => "Order Placed Successful.",
 
+        ]);
+    }
+
+    public function viewUserOrders($userId)
+    {
+        $usersOrders = Order::with('orderDetails')->where('customerId', $userId)->orderBy('id', 'desc')->get();
+
+        return response()->json([
+            'usersOrders' => $usersOrders,
+        ]);
+    }
+    public function viewAllOrders()
+    {
+        $allOrders = Order::with('orderDetails')->orderBy('id', 'desc')->get();
+
+        return response()->json([
+            'allOrders' => $allOrders,
+        ]);
+    }
+
+    public function viewUserOrdersDetails($orderId)
+    {
+        $userOrdersDetails = Order::with('orderDetails')->where('id', $orderId)->first();
+        $products = Product::get();
+
+        $ordersDetails = DB::table('order_details')
+            ->select('orders.id as orderId', 'orders.name', 'orders.email', 'orders.city', 'orders.postCode', 'orders.streetAddress', 'orders.country', 'orders.created_at as orderDate', 'orders.paymentStatus', 'orders.paymentType', 'orders.orderStatus', 'orders.totalAmount', 'order_details.price',  'products.name as productName', 'order_details.qty')
+            ->leftJoin('orders', 'orders.id', '=', 'order_details.orderId')
+            ->leftJoin('products', 'products.id', '=', 'order_details.productId')
+            ->where(['orders.id' => $orderId])
+            ->get();
+        $orders = DB::table('orders')
+            ->select('orders.id as orderId', 'orders.name', 'orders.email', 'orders.city', 'orders.postCode', 'orders.streetAddress', 'orders.country', 'orders.created_at as orderDate', 'orders.paymentStatus', 'orders.paymentType', 'orders.orderStatus', 'orders.totalAmount')
+            ->where(['orders.id' => $orderId])
+            ->first();
+
+
+        return response()->json([
+            'ordersDetails' => $ordersDetails,
+            'orders' => $orders,
         ]);
     }
 }
