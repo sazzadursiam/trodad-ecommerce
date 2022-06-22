@@ -12,7 +12,7 @@ import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
 import "./products.css";
 
 const Product = () => {
-  const { slugName, setCartQuantity, setCartTotal } = useContext(UserContext);
+  const { setCartQuantity, setCartTotal } = useContext(UserContext);
   const sendCol = useRef();
 
   const cartFunction = () => {
@@ -34,26 +34,6 @@ const Product = () => {
     SliderData();
   }, []);
 
-  // =============== Fetch Products =============================
-  // const [newProducts, setNewProducts] = useState([]);
-
-  // const renderAllProducts = async () => {
-  //   try {
-  //     await axios
-  //       .get(`${BACKEND_BASE_URL}/api/product/${slugName}`)
-  //       .then((res) => {
-  //         setNewProducts(res.data.products);
-  //         console.log(res.data);
-  //       });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  
-  // useEffect(() => {
-  //   renderAllProducts();
-  // }, [slugName]);
-  // console.log(newProducts);
 
   // =============== Fetch Tabs =============================
   const [tabItems, setTabItems] = useState([]);

@@ -7,15 +7,15 @@ import { Link, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { v4 as uuid } from "uuid";
 import { UserContext } from "../../App";
-import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
+import { BACKEND_BASE_URL } from "../GlobalVariables";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 
 import "./products.css";
 
-const CategorizedProduct = () => {
-  const { slugName, setCartQuantity, setCartTotal } = useContext(UserContext);
-  const { id, slug } = useParams();
+const BrandProducts = () => {
+  const { setCartQuantity, setCartTotal } = useContext(UserContext);
+  const { brandId, brandSlug } = useParams();
 
   const sendCol = useRef();
 
@@ -27,24 +27,20 @@ const CategorizedProduct = () => {
   };
 
   // =============== Fetch Categorized Products =============================
-  const [categorizedProducts, setCategorizedProducts] = useState([]);
-  console.log(categorizedProducts);
+  const [brandProducts, setBrandProducts] = useState([]);
+  // console.log(categorizedProducts);
   const renderAllProducts = async () => {
-    try {
-      await axios
-        .get(`${BACKEND_BASE_URL}/api/products/category/${id}/${slug}`)
-        .then((res) => {
-          setCategorizedProducts(res.data.categoryProducts.data);
-          console.log(res.data);
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    await axios
+      .get(`${BACKEND_BASE_URL}/api/brands/${brandId}/${brandSlug}/products`)
+      .then((res) => {
+        setBrandProducts(res.data.brandProducts.data);
+        // console.log(res.data);
+      });
   };
 
   useEffect(() => {
     renderAllProducts();
-  }, [slug]);
+  }, [brandSlug]);
 
   const [isOnChanged, setisOnChanged] = useState("");
   const [selectedValue, setSelectedValue] = useState([]);
@@ -124,14 +120,14 @@ const CategorizedProduct = () => {
       <Header />
       <Container className=" mt-5 mb-5">
         <h1 className="text-center mb-5 product-section-title">
-         {categorizedProducts[0]?.product_category.name}
+          {brandProducts[0]?.product_category.name}
         </h1>
 
         <Row className="mb-5">
-          {categorizedProducts.length == 0 ? (
+          {brandProducts.length == 0 ? (
             <h1 className="text-danger my-5">No Products Found</h1>
           ) : (
-            categorizedProducts.map((data, index) => (
+            brandProducts.map((data, index) => (
               <Col
                 sm={6}
                 md={4}
@@ -345,4 +341,4 @@ const CategorizedProduct = () => {
   );
 };
 
-export default CategorizedProduct;
+export default BrandProducts;

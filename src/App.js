@@ -40,6 +40,10 @@ import AdminPrivateRoute from "./Components/PrivateRoute/AdminPrivateRoute";
 import AccDetails from "./Pages/User/UserContent/Dashboard/AccDetails/AccDetails";
 import CategorizedProduct from "./Components/Products/CategorizedProduct";
 import SubCategorizedProduct from "./Components/Products/SubCategorizedProduct";
+import BrandProducts from "./Components/Products/BrandProducts";
+import AdminOrders from "./Pages/Admin/AdminOrder/AdminOrders";
+import ViewOrders from "./Pages/Admin/AdminOrder/ViewOrders";
+import AllCustomers from "./Pages/Admin/AllCustomers";
 
 export const UserContext = createContext();
 
@@ -86,6 +90,10 @@ function App() {
             element={<SubCategorizedProduct />}
           />
           <Route
+            path="/brands/:brandId/:brandSlug/products/"
+            element={<BrandProducts />}
+          />
+          <Route
             path="/checkout"
             element={
               <PrivateRoute>
@@ -110,10 +118,13 @@ function App() {
             <Route path="categories" element={<ProductCategories />} />
             <Route path="shipping-method" element={<ShippingMethod />} />
             <Route path="slider-element" element={<SliderElement />} />
+            <Route path="all-customers" element={<AllCustomers />} />
 
             <Route path="products" element={<AllProduct />} />
             <Route path="products/add-new" element={<AddProduct />} />
             <Route path="products/edit/:id" element={<EditProduct />} />
+            <Route path="all-orders" element={<AdminOrders />} />
+            <Route path="all-orders/:orderId" element={<ViewOrders />} />
           </Route>
 
           {/* User Dashboard */}
@@ -131,8 +142,11 @@ function App() {
               path="address/billing-address"
               element={<BillingAddress />}
             />
-            <Route path="orders" element={<Orders />} />
-            <Route path="orders/:orderId" element={<OrderDetails />} />
+            <Route path="users/orders/allorders/:userId" element={<Orders />} />
+            <Route
+              path="users/orders/allorders/:userId/orderdetails/:orderId"
+              element={<OrderDetails />}
+            />
             <Route path="edit-account" element={<AccDetails />} />
           </Route>
         </Routes>

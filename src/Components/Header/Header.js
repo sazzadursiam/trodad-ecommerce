@@ -229,18 +229,24 @@ const Header = () => {
 
               <li className="navbar-dropdown">
                 <Link className="title" to="/">
-                  Brand <FaIcons.FaAngleDown className="ms-1" />
+                Varumärken <FaIcons.FaAngleDown className="ms-1" />
                 </Link>
                 <div className="dropdown">
                   <Row className="w-50">
                     <Col md={12}>
-                      <span className="fw-bold">Brand</span> -{" "}
-                      <Link to="/products/category/Brand">Brand</Link>
+                      <span className="fw-bold"><Link to="#">Varumärken</Link></span>
+                      
                     </Col>
                     {navDataBrand.map((dropdownItem, i) => (
                       <Col md={6} className="my-1" key={i}>
                         <Link
-                          to={"/products/category/" + dropdownItem.brandName}
+                          to={
+                            "/brands/" +
+                            dropdownItem.id +
+                            "/" +
+                            dropdownItem.slug +
+                            "/products/"
+                          }
                         >
                           {" "}
                           {dropdownItem.brandName}

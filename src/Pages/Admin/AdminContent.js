@@ -3,6 +3,7 @@ import * as FaIcons from "react-icons/fa";
 import * as BiIcons from "react-icons/bi";
 import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
+import * as RiIcons from "react-icons/ri";
 import * as LoIcons from "react-icons/io5";
 import * as GrIcons from "react-icons/gr";
 import * as ImIcons from "react-icons/im";
@@ -16,22 +17,23 @@ import AdminFooter from "./AdminFooter";
 const Test = () => {
   const [toggleNav, setToggleNav] = useState(false);
   const logoutAdmin = () => {
-    localStorage.removeItem('adminemail');
-    localStorage.removeItem('LOGGED_IN_ADMIN_ID');
-  }
+    localStorage.removeItem("adminemail");
+    localStorage.removeItem("LOGGED_IN_ADMIN_ID");
+  };
   return (
     <div className="d-flex test">
       <nav className={`sidebar  ${toggleNav ? "close" : ""}`}>
         <header className="mt-3 mb-5">
-          <div className="mx-4 image-text d-flex align-items-center justify-content-between">
-            <span className="image">
-              <img src={require("../../Assets/test.png")} alt="" />
-            </span>
-
-            <div className="text logo-text ">
-              <span className="name">Trodad</span>
+          <Link to="/" target="_blank">
+            <div className="mx-4 image-text d-flex align-items-center justify-content-between">
+              <span className="image">
+                <img src={require("../../Assets/test.png")} alt="" />
+              </span>
+              <div className="text logo-text ">
+                <span className="name">Tobak Shandel</span>
+              </div>
             </div>
-          </div>
+          </Link>
 
           <FaIcons.FaChevronCircleRight
             className="bx bx-chevron-right toggle"
@@ -42,6 +44,12 @@ const Test = () => {
         <div className="menu-bar">
           <div className="menu">
             <ul className="menu-links ps-0">
+              <li className="nav-link">
+                <Link to="">
+                  <RiIcons.RiDashboardLine className="icon" />
+                  <span className="text nav-text">Dashboard</span>
+                </Link>
+              </li>
               <li className="nav-link">
                 <Link to="brands">
                   <FaIcons.FaExternalLinkAlt className="icon" />
@@ -55,8 +63,8 @@ const Test = () => {
                 </Link>
               </li>
               <li className="nav-link d-flex align-items-center">
-                <FaIcons.FaProductHunt className="icon" />
                 <Link to="products ">
+                  <FaIcons.FaProductHunt className="icon" />
                   <span className="text nav-text">All Products</span>
                 </Link>
                 {/* <NavDropdown className='text' title="Products" id="navbarScrollingDropdown">
@@ -64,24 +72,24 @@ const Test = () => {
                   <NavDropdown.Item as={Link} to="products">All Products</NavDropdown.Item>
                 </NavDropdown> */}
               </li>
-              <li className="nav-link">
+              {/* <li className="nav-link">
                 <Link to="shipping-method">
                   <MdIcons.MdLocalShipping className="icon" />
                   <span className="text nav-text">Shipping Method</span>
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-link">
                 <Link to="slider-element">
                   <BsIcons.BsSliders className="icon" />
                   <span className="text nav-text">Slider Elements</span>
                 </Link>
               </li>
-              <li className="nav-link">
+              {/* <li className="nav-link">
                 <Link to="coupons">
                   <FaIcons.FaTags className="icon" />
                   <span className="text nav-text">Coupons</span>
                 </Link>
-              </li>
+              </li> */}
               {/* <li className="nav-link">
                 <Link to="locations">
                   <LoIcons.IoLocationSharp className="icon" />
@@ -89,18 +97,18 @@ const Test = () => {
                 </Link>
               </li> */}
               <li className="nav-link">
-                <Link to="#">
+                <Link to="all-customers">
                   <HiIcons.HiUserGroup className="icon" />
                   <span className="text nav-text">All Customers</span>
                 </Link>
               </li>
-
               <li className="nav-link">
-                <Link to="">
-                  <LoIcons.IoSettingsSharp className="icon" />
-                  <span className="text nav-text">Settings</span>
+                <Link to="all-orders">
+                  <HiIcons.HiUserGroup className="icon" />
+                  <span className="text nav-text">Orders</span>
                 </Link>
               </li>
+
               <li className="nav-link">
                 <Link to="" onClick={logoutAdmin}>
                   <ImIcons.ImExit className="icon" />

@@ -2,12 +2,14 @@ import React from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 
 const AccDetails = () => {
+
+    
     return (
         <div className='edit_details'>
             <Form>
                 <Row>
                     <Form.Group className="mb-3" as={Col} md="6" controlId="validationCustom01">
-                        <Form.Label>First name *</Form.Label>
+                        <Form.Label>First name <span className='text-danger'>*</span></Form.Label>
                         <Form.Control
                             required
                             type="text"
@@ -16,7 +18,7 @@ const AccDetails = () => {
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" as={Col} md="6" controlId="validationCustom02">
-                        <Form.Label>Last name *</Form.Label>
+                        <Form.Label>Last name <span className='text-danger'>*</span></Form.Label>
                         <Form.Control
                             required
                             type="text"
@@ -26,7 +28,7 @@ const AccDetails = () => {
                     </Form.Group>
                 </Row>
                 <Form.Group className="mb-3" controlId="validationCustom02">
-                    <Form.Label>Display name *</Form.Label>
+                    <Form.Label>Display name <span className='text-danger'>*</span></Form.Label>
                     <Form.Control
                         required
                         type="text"
@@ -35,7 +37,7 @@ const AccDetails = () => {
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="validationCustom02">
-                    <Form.Label>Email address *</Form.Label>
+                    <Form.Label>Email address <span className='text-danger'>*</span></Form.Label>
                     <Form.Control required type="email" placeholder="tanvermehede51@gmail.com" defaultValue="Otto" />
 
                 </Form.Group>
