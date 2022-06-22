@@ -22,7 +22,7 @@ const Orders = () => {
     renderAllProducts();
   }, []);
 
-  var total_qty = 0;
+  var total_qty;
 
   return (
     <div>
@@ -45,6 +45,7 @@ const Orders = () => {
 
                 <td>{data.created_at.toString().slice(0, 10)}</td>
                 <td>{data.orderStatus == 0 ? "Placed" : ""}</td>
+                <span className="d-none"> {(total_qty = 0)}</span>
                 {data.order_details.map((qty, i) => (
                   <span className="d-none" key={i}>
                     {(total_qty = total_qty + qty.qty)}

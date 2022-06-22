@@ -18,7 +18,6 @@ const AdminOrders = () => {
         .get(`${BACKEND_BASE_URL}/api/admin/all-orders`)
         .then((res) => {
           setAllOrders(res.data.allOrders);
-          
         });
     } catch (error) {
       console.log(error);
@@ -133,8 +132,9 @@ const AdminOrders = () => {
             <div className="card-body">
               <div className="col-lg-12">
                 <span className="top-border"></span>
-                <div className="card p-2">
+                <div className="p-2">
                   <div className="card-header">
+                    <h5 className="form-title my-2 fw-bold ">All Orders</h5>
                     <hr />
                   </div>
                 </div>
@@ -142,11 +142,11 @@ const AdminOrders = () => {
                   <table className="table table-hover">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col"> Name</th>
                         <th scope="col">Order Id</th>
+                        <th scope="col"> Name</th>
                         <th scope="col">Order Date</th>
                         <th scope="col">Order Status</th>
+                        <th scope="col">Payment Status</th>
                         <th scope="col">Total </th>
                         <th scope="col">Handle</th>
                       </tr>
@@ -154,11 +154,11 @@ const AdminOrders = () => {
                     <tbody>
                       {allOrders.map((data, index) => (
                         <tr key={index}>
-                          <td> {index + 1}</td>
-                          <td>{data.name}</td>
                           <td>{"# " + data.id}</td>
+                          <td>{data.name}</td>
                           <td>{data.created_at.toString().slice(0, 10)}</td>
                           <td>{data.orderStatus == 0 ? "Placed" : ""}</td>
+                          <td>{data.paymentStatus}</td>
                           <td>{data.totalAmount}</td>
                           <td>
                             {/* view button */}

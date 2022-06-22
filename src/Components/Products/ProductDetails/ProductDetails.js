@@ -543,8 +543,7 @@ const ProductDetails = () => {
                       <div className="checkbox_addCart">
                         <div className="d-flex justify-content-between align-items-center ms-4">
                           <Button
-                            className="w_45 border-0"
-                            variant="danger"
+                            className="w_45 border-0 bg_brown"
                             size="lg"
                             // onClick={() => addToCart(productDetails.id)}
                           >

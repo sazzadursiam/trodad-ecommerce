@@ -26,9 +26,16 @@
 .cl_navy {
     color: #003153;
 }
-.cl_white{
+
+.cl_white {
     color: white;
 }
+
+.bg_brown {
+    background-color: #4e3524 !important;
+}
+
+
 
 .cl_light_navy {
     color: #1763a1;
@@ -37,6 +44,7 @@
 .bg_navy {
     background-color: #003153;
 }
+
 .bg_yellow {
     background-color: yellow;
 }
@@ -52,14 +60,15 @@
 
 
 
-.line_height_12{
+.line_height_12 {
     line-height: 20px;
 }
 
-.fs20{
+.fs20 {
     font-size: 20px !important;
 }
-.fs14{
+
+.fs14 {
     font-size: 14px;
 }
 
@@ -73,7 +82,6 @@
 
 
 
-.jodit-container.jodit.jodit_theme_default.jodit-wysiwyg_mode{
+.jodit-container.jodit.jodit_theme_default.jodit-wysiwyg_mode {
     min-width: unset !important;
 }
-

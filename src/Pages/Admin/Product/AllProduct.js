@@ -30,7 +30,7 @@ const AllProduct = () => {
     try {
       await axios.get(`${BACKEND_BASE_URL}/api/admin/products`).then((res) => {
         setTableData(res.data.allProducts);
-        console.log(res.data.allProducts);
+        console.log(res.data);
       });
     } catch (error) {
       console.log(error);
@@ -115,8 +115,7 @@ const AllProduct = () => {
                 </Button>
               </Link>
               <hr />
-              <h5 className="form-title">All Products</h5>
-              <hr />
+              <h4 className="form-title my-3 fw-bold ">All Products</h4>
             </div>
             <div className="table-responsive">
               <table className="table table-hover">
@@ -125,6 +124,8 @@ const AllProduct = () => {
                     <th scope="col">#</th>
                     <th scope="col">Product Name</th>
                     <th scope="col">Product Image</th>
+                    <th scope="col">Product Category</th>
+                    <th scope="col">Product Sub-category</th>
                     <th scope="col">Handle</th>
                   </tr>
                 </thead>
@@ -142,7 +143,8 @@ const AllProduct = () => {
                           alt={data.name}
                         />
                       </td>
-
+                      <td>{data.product_category.name}</td>
+                      <td>{data.product_sub_category?.name}</td>
                       <td>
                         {/* view button */}
                         <button

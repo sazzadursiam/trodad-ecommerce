@@ -108,6 +108,18 @@ const Test = () => {
                   <span className="text nav-text">Orders</span>
                 </Link>
               </li>
+              <li className="nav-link">
+                <Link to="journal-category">
+                  <BsIcons.BsJournalCheck className="icon" />
+                  <span className="text nav-text">Journal Category</span>
+                </Link>
+              </li>
+              <li className="nav-link">
+                <Link to="journal-post">
+                  <BsIcons.BsJournalCheck className="icon" />
+                  <span className="text nav-text">Journal Post</span>
+                </Link>
+              </li>
 
               <li className="nav-link">
                 <Link to="" onClick={logoutAdmin}>

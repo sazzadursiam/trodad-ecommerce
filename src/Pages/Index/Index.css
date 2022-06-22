@@ -46,6 +46,11 @@
     z-index: 9 !important;
 }
 
+.card {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px !important;
+
+}
+
 .product_card .img-wrapper {
     width: 100%;
     min-height: 300px;

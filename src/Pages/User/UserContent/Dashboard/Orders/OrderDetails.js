@@ -86,7 +86,6 @@ const OrderDetails = () => {
               </tbody>
             </table>
           </div>
-
  
         </div>
       </div>

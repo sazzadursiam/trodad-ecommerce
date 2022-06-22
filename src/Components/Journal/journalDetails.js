@@ -267,7 +267,7 @@ const JournalDetails = () => {
           </p>
         </Row>
       </div>
-      <Footer middleSection="d-none" />
+      <Footer footerTop="d-none" />
     </>
   );
 };

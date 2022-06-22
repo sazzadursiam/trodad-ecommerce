@@ -253,7 +253,7 @@ const ProductCategories = () => {
             <div className="card-body">
               <div className="col-lg-12">
                 <span className="top-border"></span>
-                <div className="card p-2">
+                <div className="p-2">
                   <div className="card-header">
                     <Button
                       variant="success"

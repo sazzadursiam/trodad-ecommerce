@@ -77,8 +77,9 @@ const AllCustomers = () => {
             <div className="card-body">
               <div className="col-lg-12">
                 <span className="top-border"></span>
-                <div className="card p-2">
-                  <div className="card-header">
+                <div className="p-2">
+                  <div className="card-header my-2">
+                    <h4>All Customers</h4>
                     <hr />
                   </div>
                 </div>

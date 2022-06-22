@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import * as AiIcons from "react-icons/ai";
 import * as FiIcons from "react-icons/fi";
@@ -6,131 +5,33 @@ import * as BiIcons from "react-icons/bi";
 import * as FaIcons from "react-icons/fa";
 import * as CgIcons from "react-icons/cg";
 import * as MdIcons from "react-icons/md";
-import { Link } from "react-router-dom";
-import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
-import Swal from "sweetalert2";
 import { Button, Col, Form, Modal, Row } from "react-bootstrap";
+import { BACKEND_BASE_URL } from "../../../../Components/GlobalVariables";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 import JoditEditor from "jodit-react";
 import Parse from "html-react-parser";
 
-const Brands = () => {
-  const brandName = useRef();
-  const brandImage = useRef();
-  const shortDesc = useRef();
-
-  //=================================== Fetch Table Data ===================================
-
-  const [tableData, setTableData] = useState([]);
-
-  const renderAllBrands = async () => {
-    try {
-      await axios.get(`${BACKEND_BASE_URL}/api/admin/brands`).then((res) => {
-        setTableData(res.data.allBrands);
-        console.log(res.data.allBrands);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    renderAllBrands();
-  }, []);
-
-  const [descValue, setDescValue] = useState();
+const AllJournalCategory = () => {
+  const postTitle = useRef();
+  const postImage = useRef();
+  const categoryId = useRef();
+  const postShortDesc = useRef();
+  const postDesc = useRef();
 
   // Modal Section Data
   const [modalShow, setModalShow] = useState(false);
   const [modalData, setModalData] = useState("");
   const [modalSize, setModalSize] = useState("lg");
 
-  // View single brand
-  const [singleBrandInfo, setSingleBrandInfo] = useState([]);
-
-  // Edit value
-  const [editedBrandName, setEditedBrandName] = useState();
-  const [editedBrandImage, setEditedBrandImage] = useState();
-  const [editedBrandDesc, setEditedBrandDesc] = useState();
-
-  // ============================= Add new data =============================
+  // View single category
+  const [singlePostInfo, setSinglePostInfo] = useState([]);
 
   const addNewData = (modalValue) => {
-    setFile([]);
     setModalSize("lg");
     setModalData(modalValue);
     setModalShow(true);
-  };
-
-  // ============================= form submit to backend ======================
-
-  const storeData = (e) => {
-    const formdata = new FormData();
-    formdata.append("brandName", brandName.current.value);
-    formdata.append("brandImage", brandImage.current.files[0]);
-    formdata.append("shortDesc", shortDesc.current.value);
-
-    axios
-      .post(`${BACKEND_BASE_URL}/api/admin/brands/store`, formdata, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-
-      .then((response) => {
-        if (response.data.status === 200) {
-          Swal.fire({
-            icon: "success",
-            text: response.data.message,
-            confirmButtonColor: "#5eba86",
-          });
-          renderAllBrands();
-          // setChecked(false);
-          e.target.reset();
-          setDescValue("", "html");
-          setModalShow(false);
-        }
-      });
-    e.preventDefault();
-  };
-
-  const statusUpdate = (id, status) => {
-    axios
-      .get(`${BACKEND_BASE_URL}/api/admin/brands/status-update/${id}/${status}`)
-      .then((res) => {
-        renderAllBrands();
-      });
-  };
-
-  // ===================== View single image ===================================
-
-  const showSingleImageData = (modalValue, id) => {
-    setModalSize("");
-    axios.get(`${BACKEND_BASE_URL}/api/admin/brands/view/${id}`).then((res) => {
-      // console.log(res.data);
-      setModalSize("lg");
-      setModalData(modalValue);
-      setSingleBrandInfo(res.data.viewBrand);
-      // console.log(res.data.viewHappyClientInfo);
-      setModalShow(true);
-    });
-  };
-
-  // ===================== Edit data ==========================================
-
-  const [Id, setId] = useState();
-  // console.log("initial value", isChecked);
-  const fetchDataForEdit = (modalValue, id) => {
-    setFile([]);
-
-    axios.get(`${BACKEND_BASE_URL}/api/admin/brands/edit/${id}`).then((res) => {
-      const { id, brandName, brandImage, shortDesc } = res.data.editBrand;
-      // console.log("db is home", isHome);
-      setId(id);
-      setEditedBrandName(brandName);
-      setEditedBrandImage(brandImage);
-      setEditedBrandDesc(shortDesc);
-      setModalData(modalValue);
-      setModalSize("lg");
-      setModalShow(true);
-    });
   };
 
   // Image Preview
@@ -147,23 +48,123 @@ const Brands = () => {
     }
   };
 
+  //=================================== Fetch Table Data ===================================
+
+  const [journalPost, setjournalPost] = useState([]);
+  const [alljournalCat, setAlljournalCat] = useState([]);
+
+  const fetchPost = async () => {
+    try {
+      await axios
+        .get(`${BACKEND_BASE_URL}/api/admin/journal/post`)
+        .then((res) => {
+          setjournalPost(res.data.allJournalPosts);
+          setAlljournalCat(res.data.allJournalCategories);
+          console.log(res.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
+
+  // ============================= form submit to backend ======================
+
+  const storeData = (e) => {
+    const formdata = new FormData();
+    formdata.append("title", postTitle.current.value);
+    formdata.append("image", postImage.current.files[0]);
+    formdata.append("categoryId", categoryId.current.value);
+    formdata.append("shortDescription", postShortDesc.current.value);
+    formdata.append("description", postDesc.current.value);
+
+    axios
+      .post(`${BACKEND_BASE_URL}/api/admin/journal/post/store`, formdata, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+
+      .then((response) => {
+        if (response.data.status === 200) {
+          Swal.fire({
+            icon: "success",
+            text: response.data.message,
+            confirmButtonColor: "#5eba86",
+          });
+          fetchPost();
+          e.target.reset();
+          setModalShow(false);
+        }
+      });
+    e.preventDefault();
+  };
+
+  // ===================== View single image ===================================
+
+  const showSingleImageData = (modalValue, id) => {
+    setModalSize("");
+    axios
+      .get(`${BACKEND_BASE_URL}/api/admin/journal/post/view/${id}`)
+      .then((res) => {
+        // console.log(res.data);
+        setModalSize("lg");
+        setModalData(modalValue);
+        setSinglePostInfo(res.data.viewJournalPost);
+        setModalShow(true);
+      });
+  };
+
+  // ===================== Edit data ==========================================
+  const [Id, setId] = useState();
+  const [editedPostTitle, setEditedPostTitle] = useState([]);
+  const [editedImage, setEditedImage] = useState([]);
+  const [editedCategoryId, setEditedCategoryId] = useState([]);
+  const [editedShortDesc, setEditedShortDesc] = useState([]);
+  const [editedDesc, setEditedDesc] = useState([]);
+  const fetchDataForEdit = (modalValue, id) => {
+    axios
+      .get(`${BACKEND_BASE_URL}/api/admin/journal/post/edit/${id}`)
+      .then((res) => {
+        const { id, categoryId, title, image, shortDescription, description } =
+          res.data.editJournalPost;
+        console.log(categoryId);
+        setId(id);
+        setEditedPostTitle(title);
+        setEditedImage(image);
+        setEditedCategoryId(categoryId);
+        setEditedShortDesc(shortDescription);
+        setEditedDesc(description);
+
+        setModalData(modalValue);
+        setModalSize("lg");
+        setModalShow(true);
+        // console.log("Set value to var", isChecked);
+      });
+  };
+
   // ===================== Updated data to backend ===============================
 
   const updateImageGallery = (e) => {
-    const UpdatedBrandImage = brandImage.current.files[0];
-
     const formdata = new FormData();
     formdata.append("_method", "PUT");
-    formdata.append("brandName", brandName.current.value);
-    if (UpdatedBrandImage) {
-      formdata.append("brandImage", UpdatedBrandImage);
+    formdata.append("title", postTitle.current.value);
+    if (postImage.current.files[0]) {
+      formdata.append("image", postImage.current.files[0]);
     }
-    formdata.append("shortDesc", shortDesc.current.value);
+    formdata.append("categoryId", categoryId.current.value);
+    formdata.append("shortDescription", postShortDesc.current.value);
+    formdata.append("description", postDesc.current.value);
 
     axios
-      .post(`${BACKEND_BASE_URL}/api/admin/brands/update/${Id}`, formdata, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
+      .post(
+        `${BACKEND_BASE_URL}/api/admin/journal/post/update/${Id}`,
+        formdata,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      )
 
       .then((response) => {
         Swal.fire({
@@ -172,7 +173,7 @@ const Brands = () => {
           confirmButtonColor: "#5eba86",
         });
         setModalShow(false);
-        renderAllBrands();
+        fetchPost();
       });
 
     e.preventDefault();
@@ -198,14 +199,14 @@ const Brands = () => {
 
     if (isConfirm) {
       axios
-        .delete(`${BACKEND_BASE_URL}/api/admin/brands/delete/${id}`)
+        .delete(`${BACKEND_BASE_URL}/api/admin/journal/post/delete/${id}`)
         .then((res) => {
           Swal.fire({
             icon: "success",
             text: res.data.message,
             confirmButtonColor: "#5eba86",
           });
-          renderAllBrands();
+          fetchPost();
         });
     }
   };
@@ -246,9 +247,9 @@ const Brands = () => {
         <div className="breadcrumb">
           <div className="breadcrumb-item">
             <Link to="/admin">Dashboard</Link>
-            <Link to="#" className="before">
+            {/* <Link to="#" className="before">
               Add
-            </Link>
+            </Link> */}
           </div>
         </div>
 
@@ -279,47 +280,27 @@ const Brands = () => {
                     <thead>
                       <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Brand Name</th>
-                        <th scope="col">Brand Image</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col"> Title</th>
+                        <th scope="col"> Image</th>
+                        <th scope="col"> Category</th>
+                        <th scope="col"> Handle</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {tableData.map((data, index) => (
+                      {journalPost.map((data, index) => (
                         <tr key={index}>
-                          <td> {index + 1}</td>
-                          <td>{data.brandName}</td>
+                          <td>{index + 1}</td>
+                          <td>{data.title}</td>
                           <td>
                             <img
-                              className="img-thumbnail"
+                              src={`${BACKEND_BASE_URL}/${data.image}`}
+                              alt={data.title}
                               width={80}
                               height={50}
-                              src={`${BACKEND_BASE_URL}${data.brandImage}`}
-                              alt={data.brandName}
+                              className="img-thumbnail"
                             />
                           </td>
-                          <td>
-                            {data.status == 1 ? (
-                              <div
-                                className="btn btn-success btn-sm border-0"
-                                onClick={() =>
-                                  statusUpdate(data.id, data.status)
-                                }
-                              >
-                                Active
-                              </div>
-                            ) : (
-                              <div
-                                className="btn btn-danger btn-sm border-0"
-                                onClick={() =>
-                                  statusUpdate(data.id, data.status)
-                                }
-                              >
-                                In-active
-                              </div>
-                            )}
-                          </td>
+                          <td>{data.journal_categories.categoryName}</td>
                           <td>
                             {/* view button */}
                             <button
@@ -403,28 +384,26 @@ const Brands = () => {
                         <div className="card">
                           <div className="card-body">
                             <Row className="py-3">
-                              {/* Brand Name */}
+                              {/* Post Title */}
                               <Form.Group
-                                as={Col}
-                                md="6"
                                 controlId="validationCustom01"
                                 className="mb-3"
                               >
                                 <Form.Label className="label fw-bold">
-                                  Brand Name
+                                  Title
                                 </Form.Label>
                                 <Form.Control
                                   required
                                   type="text"
-                                  placeholder="Brand Name"
-                                  ref={brandName}
+                                  placeholder="Journal Category Name"
+                                  ref={postTitle}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                   Title is required
                                 </Form.Control.Feedback>
                               </Form.Group>
 
-                              {/* Brand Image */}
+                              {/* Post Image */}
                               <Form.Group
                                 as={Col}
                                 md="6"
@@ -438,7 +417,7 @@ const Brands = () => {
                                 <Form.Control
                                   required
                                   type="file"
-                                  ref={brandImage}
+                                  ref={postImage}
                                   onChange={handleImgPreview}
                                 />
 
@@ -462,6 +441,48 @@ const Brands = () => {
                                 </Form.Control.Feedback>
                               </Form.Group>
 
+                              {/* Category Id Dropdown */}
+                              <Form.Group
+                                as={Col}
+                                md="12"
+                                controlId="validationCustom01"
+                                className="mb-3"
+                              >
+                                <Form.Label className="label fw-bold">
+                                  Category
+                                  <span className="text-danger">*</span>
+                                </Form.Label>
+                                <Form.Select
+                                  aria-label="Default select example"
+                                  required
+                                  ref={categoryId}
+                                >
+                                  <option value="0">Select Category</option>
+                                  {alljournalCat.map((data, index) => {
+                                    return (
+                                      <option key={index} value={data.id}>
+                                        {data.categoryName}
+                                      </option>
+                                    );
+                                  })}
+                                </Form.Select>
+                              </Form.Group>
+                              {/* Brand Short Description */}
+                              <Form.Group
+                                as={Col}
+                                md="12"
+                                controlId="validationCustom02"
+                                className="mb-3"
+                              >
+                                <Form.Label className="label fw-bold">
+                                  Short Description
+                                </Form.Label>
+                                <JoditEditor
+                                  ref={postShortDesc}
+                                  config={config}
+                                  tabIndex={1}
+                                />
+                              </Form.Group>
                               {/* Brand Description */}
                               <Form.Group
                                 as={Col}
@@ -473,10 +494,9 @@ const Brands = () => {
                                   Description
                                 </Form.Label>
                                 <JoditEditor
-                                  ref={shortDesc}
+                                  ref={postDesc}
                                   config={config}
                                   tabIndex={1}
-                                  value={descValue}
                                 />
                               </Form.Group>
 
@@ -494,6 +514,7 @@ const Brands = () => {
                     </Form>
                   </div>
                 )}
+
                 {/* Edit modal section */}
                 {modalData === "Edit" && (
                   <Form onSubmit={updateImageGallery}>
@@ -501,7 +522,7 @@ const Brands = () => {
                       <div className="card">
                         <div className="card-body">
                           <Row className="py-3">
-                            {/* Brand Name */}
+                            {/* Post Title */}
                             <Form.Group
                               as={Col}
                               md="6"
@@ -509,22 +530,18 @@ const Brands = () => {
                               className="mb-3"
                             >
                               <Form.Label className="label fw-bold">
-                                Brand Name
+                                Title
                               </Form.Label>
                               <Form.Control
                                 required
                                 type="text"
-                                ref={brandName}
-                                value={editedBrandName}
-                                onChange={(e) => {
-                                  setEditedBrandName(e.target.value);
-                                }}
+                                ref={postTitle}
+                                defaultValue={editedPostTitle}
                               />
                               <Form.Control.Feedback type="invalid">
                                 Title is required
                               </Form.Control.Feedback>
                             </Form.Group>
-
                             {/* Brand Image */}
                             <Form.Group
                               as={Col}
@@ -538,7 +555,7 @@ const Brands = () => {
 
                               <Form.Control
                                 type="file"
-                                ref={brandImage}
+                                ref={postImage}
                                 onChange={handleImgPreview}
                               />
 
@@ -562,18 +579,49 @@ const Brands = () => {
                                   className="img-thumbnail mt-1"
                                   width={80}
                                   height={50}
-                                  src={`${BACKEND_BASE_URL}${editedBrandImage}`}
-                                  alt={brandName}
-                                  name="img"
+                                  src={`${BACKEND_BASE_URL}${editedImage}`}
+                                  alt={editedPostTitle}
                                 />
                               )}
-
-                              <Form.Control.Feedback type="invalid">
-                                Please choose an image
-                              </Form.Control.Feedback>
                             </Form.Group>
 
-                            {/* Brand Description */}
+                            {/* Category Id Dropdown */}
+                            <Form.Group
+                              as={Col}
+                              md="12"
+                              controlId="validationCustom01"
+                              className="mb-3"
+                            >
+                              <Form.Label className="label fw-bold">
+                                Category
+                                <span className="text-danger">*</span>
+                              </Form.Label>
+                              <Form.Select
+                                aria-label="Default select example"
+                                required
+                                ref={categoryId}
+                                defaultValue={editedCategoryId}
+                              >
+                                <option value="0">Select Category</option>
+
+                                {alljournalCat.map((data, index) => {
+                                  return (
+                                    <option
+                                      key={index}
+                                      value={data.id}
+                                      selected={
+                                        data.id == editedCategoryId
+                                          ? "selected"
+                                          : ""
+                                      }
+                                    >
+                                      {data.categoryName}
+                                    </option>
+                                  );
+                                })}
+                              </Form.Select>
+                            </Form.Group>
+                            {/* Post Short Description */}
                             <Form.Group
                               as={Col}
                               md="12"
@@ -586,11 +634,26 @@ const Brands = () => {
                               <JoditEditor
                                 tabIndex={1}
                                 config={config}
-                                ref={shortDesc}
-                                value={editedBrandDesc}
-                                // onChange={(e) => {
-                                //   setEditedBrandDesc(e.target.value);
-                                // }}
+                                ref={postShortDesc}
+                                value={editedShortDesc}
+                              />
+                            </Form.Group>
+
+                            {/* Post Description */}
+                            <Form.Group
+                              as={Col}
+                              md="12"
+                              controlId="validationCustom02"
+                              className="mb-3"
+                            >
+                              <Form.Label className="label fw-bold">
+                                Description
+                              </Form.Label>
+                              <JoditEditor
+                                tabIndex={1}
+                                config={config}
+                                ref={postDesc}
+                                value={editedDesc}
                               />
                             </Form.Group>
 
@@ -610,28 +673,30 @@ const Brands = () => {
                 {/* View Modal section */}
                 {modalData === "View" && (
                   <>
-                    <h4>{singleBrandInfo.brandName}</h4>
                     <div className="text-center">
                       <img
+                        src={`${BACKEND_BASE_URL}/${singlePostInfo.image}`}
+                        alt={singlePostInfo.title}
                         className="img-fluid"
-                        src={`${BACKEND_BASE_URL}/${singleBrandInfo.brandImage}`}
-                        alt=""
                       />
                     </div>
+                    <div className=" my-3 d-flex justify-content-between align-items-center">
+                      <h3>{singlePostInfo.title}</h3>
+                      <p className="text-muted p-1 bg_grey border-2 rounded-1">
+                        {singlePostInfo.journal_categories.categoryName}
+                      </p>
+                    </div>
+                    <hr />
                     <div className="mt-2">
-                      {Parse(`${singleBrandInfo.shortDesc}`)}
+                      {Parse(`${singlePostInfo.shortDescription}`)}
+                    </div>
+                    <hr />
+                    <div className="mt-2">
+                      {Parse(`${singlePostInfo.description}`)}
                     </div>
                   </>
                 )}
               </Modal.Body>
-              <Modal.Footer>
-                <Button
-                  onClick={() => setModalShow(false)}
-                  className="btn-danger"
-                >
-                  Close
-                </Button>
-              </Modal.Footer>
             </Modal>
           </div>
         </div>
@@ -640,4 +705,4 @@ const Brands = () => {
   );
 };
 
-export default Brands;
+export default AllJournalCategory;

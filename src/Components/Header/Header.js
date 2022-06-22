@@ -89,29 +89,29 @@ const Header = () => {
                 <span className="cl_light_grey">{today}</span>
               </span>
               <span className="me-3 me-md-2 me-lg-3 me-xl-0">
-                <Link to="/underconstruction">The snus report</Link>
+                <Link to="/underconstruction">Snusrapporten</Link>
               </span>
               <span className="me-3 me-md-2 me-lg-3 me-xl-0">
-                <Link to="/underconstruction">Privacy Policy</Link>
+                <Link to="/underconstruction">Integritetspolicy</Link>
               </span>
               <span className="me-3 me-md-2 me-lg-3 me-xl-0">
-                <Link to="/underconstruction">Customer service</Link>
+                <Link to="/underconstruction">Kundservice</Link>
               </span>
               <span className="me-3 me-md-2 me-lg-3 me-xl-0">
-                <Link to="/underconstruction">Shipping & delivery time</Link>
+                <Link to="/underconstruction">Frakt & leveranstid</Link>
               </span>
               <span className="me-3 me-md-2 me-lg-3 me-xl-0">
-                <Link to="/underconstruction">About Snusbolaget</Link>
+                <Link to="/underconstruction">Om Snusbolaget</Link>
               </span>
               <span className="d-flex align-items-center me-3 me-md-2 me-lg-3 me-xl-0">
                 <Link to="/journals">
                   <FaIcons.FaCircleNotch className="me-2 cl_navy" />
-                  The snus journal
+                  Snusjournalen
                 </Link>
               </span>
               <span className="d-flex align-items-center me-3 me-md-2 me-lg-3 me-xl-0">
                 <Link to="/my-account">
-                  My page
+                  Mina sidor
                   <FaIcons.FaUser className="ms-2" />
                 </Link>
               </span>
@@ -140,7 +140,7 @@ const Header = () => {
                 </Form>
               </div>
               <div>
-                {cartQuantity && (
+                {cartQuantity != 0 && cartQuantity != null && (
                   <Link to="/checkout">
                     <Card className=" text-white cart_design">
                       <Card.Body>
@@ -229,13 +229,14 @@ const Header = () => {
 
               <li className="navbar-dropdown">
                 <Link className="title" to="/">
-                Varumärken <FaIcons.FaAngleDown className="ms-1" />
+                  Varumärken <FaIcons.FaAngleDown className="ms-1" />
                 </Link>
                 <div className="dropdown">
                   <Row className="w-50">
                     <Col md={12}>
-                      <span className="fw-bold"><Link to="#">Varumärken</Link></span>
-                      
+                      <span className="fw-bold">
+                        <Link to="#">Varumärken</Link>
+                      </span>
                     </Col>
                     {navDataBrand.map((dropdownItem, i) => (
                       <Col md={6} className="my-1" key={i}>

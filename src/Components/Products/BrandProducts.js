@@ -10,6 +10,7 @@ import { UserContext } from "../../App";
 import { BACKEND_BASE_URL } from "../GlobalVariables";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import parser from "html-react-parser";
 
 import "./products.css";
 
@@ -119,11 +120,27 @@ const BrandProducts = () => {
     <>
       <Header />
       <Container className=" mt-5 mb-5">
-        <h1 className="text-center mb-5 product-section-title">
+        <h3>{brandProducts[0]?.product_brand?.brandName}</h3>
+        <Row>
+          <Col md={4}>
+            <img
+              src={`${BACKEND_BASE_URL}/${brandProducts[0]?.product_brand?.brandImage}`}
+              className="img-fluid"
+              height={80}
+              width={180}
+              alt={brandProducts[0]?.product_brand?.brandName}
+            />
+          </Col>
+          <Col md={8}>
+            <div>{parser("" +brandProducts[0]?.product_brand?.shortDesc)}</div>
+          </Col>
+        </Row>
+        <hr />
+        {/* <h1 className="text-center mb-5 product-section-title">
           {brandProducts[0]?.product_category.name}
-        </h1>
+        </h1> */}
 
-        <Row className="mb-5">
+        <Row className="my-5">
           {brandProducts.length == 0 ? (
             <h1 className="text-danger my-5">No Products Found</h1>
           ) : (

@@ -44,6 +44,8 @@ import BrandProducts from "./Components/Products/BrandProducts";
 import AdminOrders from "./Pages/Admin/AdminOrder/AdminOrders";
 import ViewOrders from "./Pages/Admin/AdminOrder/ViewOrders";
 import AllCustomers from "./Pages/Admin/AllCustomers";
+import AllJournalCategory from "./Pages/Admin/Journal/Category/AllJournalCategory";
+import AllJournalPost from "./Pages/Admin/Journal/Post/AllJournalPost";
 
 export const UserContext = createContext();
 
@@ -125,9 +127,11 @@ function App() {
             <Route path="products/edit/:id" element={<EditProduct />} />
             <Route path="all-orders" element={<AdminOrders />} />
             <Route path="all-orders/:orderId" element={<ViewOrders />} />
+            <Route path="journal-category" element={<AllJournalCategory />} />
+            <Route path="journal-post" element={<AllJournalPost />} />
           </Route>
 
-          {/* User Dashboard */}
+          {/*===================== User Dashboard ===============================*/}
           <Route
             path="my-account"
             element={
