@@ -6,10 +6,12 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardMasterController;
 use App\Http\Controllers\Admin\Journal\CategoryController as JournalCategoryController;
+use App\Http\Controllers\Admin\Journal\PostController;
 use App\Http\Controllers\Admin\Product\CategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Frontend\AddToCartController;
 use App\Http\Controllers\Frontend\CustomerAuth\CustomerAuthController;
+use App\Http\Controllers\Frontend\JournalController;
 use App\Http\Controllers\Frontend\MasterController;
 use App\Http\Controllers\Frontend\OrderController;
 use App\Http\Controllers\TestController;
@@ -43,6 +45,15 @@ Route::get('/product/{filterText}', [MasterController::class, 'filterNewProduct'
 Route::get('/tabs', [MasterController::class, 'filterTabs']);
 
 Route::get('/product/tab/{id}', [MasterController::class, 'filterTabProduct']);
+
+/*
+|--------------------------------------------------------------------------
+| Front Journal 
+|--------------------------------------------------------------------------
+*/
+Route::get('/journals', [JournalController::class, 'allJournalPosts']);
+Route::get('/journals/{postId}', [JournalController::class, 'singleJournalPost']);
+Route::get('/journals/category/{categoryId}', [JournalController::class, 'categoryJournalPost']);
 
 
 /*
@@ -181,12 +192,22 @@ Route::group(['prefix' => '/admin'], function () {
     |--------------------------------------------------------------------------
     */
     Route::group(['prefix' => '/journal'], function () {
-        Route::get('/', [JournalCategoryController::class, 'index']);
-        Route::post('/store', [JournalCategoryController::class, 'store']);
-        Route::get('/view/{id}', [JournalCategoryController::class, 'show']);
-        Route::get('/edit/{id}', [JournalCategoryController::class, 'edit']);
-        Route::put('/update/{id}', [JournalCategoryController::class, 'update']);
-        Route::delete('/delete/{id}', [JournalCategoryController::class, 'destroy']);
+        Route::group(['prefix' => '/category'], function () {
+            Route::get('/', [JournalCategoryController::class, 'index']);
+            Route::post('/store', [JournalCategoryController::class, 'store']);
+            Route::get('/view/{id}', [JournalCategoryController::class, 'show']);
+            Route::get('/edit/{id}', [JournalCategoryController::class, 'edit']);
+            Route::put('/update/{id}', [JournalCategoryController::class, 'update']);
+            Route::delete('/delete/{id}', [JournalCategoryController::class, 'destroy']);
+        });
+        Route::group(['prefix' => '/post'], function () {
+            Route::get('/', [PostController::class, 'index']);
+            Route::post('/store', [PostController::class, 'store']);
+            Route::get('/view/{id}', [PostController::class, 'show']);
+            Route::get('/edit/{id}', [PostController::class, 'edit']);
+            Route::put('/update/{id}', [PostController::class, 'update']);
+            Route::delete('/delete/{id}', [PostController::class, 'destroy']);
+        });
     });
 
 

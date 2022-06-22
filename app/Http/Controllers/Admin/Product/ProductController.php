@@ -16,7 +16,7 @@ class ProductController extends Controller
     //
     public function index()
     {
-        $allProducts = Product::orderBy('id', 'desc')->get();
+        $allProducts = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->orderBy('id', 'desc')->get();
         return response()->json([
             'allProducts' => $allProducts
         ]);
