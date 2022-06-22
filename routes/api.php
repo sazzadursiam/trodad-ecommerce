@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DashboardMasterController;
+use App\Http\Controllers\Admin\Journal\CategoryController as JournalCategoryController;
 use App\Http\Controllers\Admin\Product\CategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Frontend\AddToCartController;
@@ -157,9 +158,11 @@ Route::group(['prefix' => '/admin'], function () {
         Route::put('/update/{id}', [BannerController::class, 'update']);
         Route::delete('/delete/{id}', [BannerController::class, 'destroy']);
     });
-
+    //order
     Route::get('/all-orders', [OrderController::class, 'viewAllOrders']);
     Route::get('/all-orders/order-details/{orderId}', [OrderController::class, 'viewUserOrdersDetails']);
+    Route::put('/order/order-status/update/{orderId}', [OrderController::class, 'orderStatusUpdate']);
+    Route::put('/order/payment-status/update/{orderId}', [OrderController::class, 'paymentStatusUpdate']);
     //customer
     Route::get('/all-customers', [CustomerController::class, 'allCustomer']);
     //dashboard count element
@@ -171,6 +174,20 @@ Route::group(['prefix' => '/admin'], function () {
     Route::post('/get-sub-categories/{id}', [CategoryController::class, 'getSubCategories']);
     //test route
     Route::post('/test', [TestController::class, 'index']);
+
+    /*
+    |--------------------------------------------------------------------------
+    | Journal Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['prefix' => '/journal'], function () {
+        Route::get('/', [JournalCategoryController::class, 'index']);
+        Route::post('/store', [JournalCategoryController::class, 'store']);
+        Route::get('/view/{id}', [JournalCategoryController::class, 'show']);
+        Route::get('/edit/{id}', [JournalCategoryController::class, 'edit']);
+        Route::put('/update/{id}', [JournalCategoryController::class, 'update']);
+        Route::delete('/delete/{id}', [JournalCategoryController::class, 'destroy']);
+    });
 
 
 

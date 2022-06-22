@@ -97,4 +97,24 @@ class OrderController extends Controller
             'orders' => $orders,
         ]);
     }
+    public function orderStatusUpdate(Request $request, $orderId)
+    {
+        $model = Order::find($orderId);
+        $model->orderStatus = $request->orderStatus;
+        $model->save();
+        return response()->json([
+            'status' => 200,
+            'orderStatusMessage' => 'Order Status Update Successful.',
+        ]);
+    }
+    public function paymentStatusUpdate(Request $request, $orderId)
+    {
+        $model = Order::find($orderId);
+        $model->paymentStatus = $request->paymentStatus;
+        $model->save();
+        return response()->json([
+            'status' => 200,
+            'paymentStatusMessage' => 'Payment Status Update Successful.',
+        ]);
+    }
 }
