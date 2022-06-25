@@ -13,13 +13,7 @@ const UserRegForm = () => {
   const ContactNo = useRef();
   const ConfirmPassword = useRef();
 
-  const initialValues = {
-    userName: "",
-    email: "",
-    phoneNo: "",
-    password: "",
-    confirmPassword: "",
-  };
+
   // const [userRegInfo, setUserRegInfo] = useState(initialValues);
 
   const [userNameError, setUserNameError] = useState("");

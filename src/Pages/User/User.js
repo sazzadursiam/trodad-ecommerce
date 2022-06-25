@@ -1,6 +1,6 @@
 import React from "react";
 import Footer from "../../Components/Footer/Footer";
-import Header from "../../Components/Header/Header"
+import Header from "../../Components/Header/Header";
 import UserContent from "./UserContent/UserContent";
 
 const User = () => {
@@ -8,7 +8,7 @@ const User = () => {
     <div className="userDashboard">
       <Header />
       <UserContent />
-      <Footer />
+      <Footer shippingPolicy="d-none" />
     </div>
   );
 };

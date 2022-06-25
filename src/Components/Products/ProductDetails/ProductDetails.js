@@ -10,6 +10,8 @@ import {
   FloatingLabel,
   Form,
   Row,
+  Tab,
+  Tabs,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Slider from "react-slick/lib/slider";
@@ -21,10 +23,15 @@ import Parser from "html-react-parser";
 import Swal from "sweetalert2";
 import { v4 as uuid } from "uuid";
 import { UserContext } from "../../../App";
+import { useRef } from "react";
 
 const ProductDetails = () => {
   const { slug } = useParams();
   const { setCartQuantity, setCartTotal } = useContext(UserContext);
+
+  const ratingTitle = useRef();
+  const ratingComments = useRef();
+  const ratingUser = useRef();
 
   const cartFunction = () => {
     const cartQuantitycheck = localStorage.getItem("cartProductQuantity");
@@ -35,19 +42,16 @@ const ProductDetails = () => {
   //=================================== Fetch Product Details ===================================
 
   const [productDetails, setProductDetails] = useState([]);
-  console.log("productDetails", productDetails);
-  const AllProductDetails = async () => {
-    try {
-      await axios
-        .get(`${Link_Path_URL}api/products/single-details/${slug}`)
-        .then((res) => {
-          setProductDetails(res.data.singleProductDetails);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const [productID, setProductID] = useState([]);
 
+  const AllProductDetails = async () => {
+    await axios
+      .get(`${Link_Path_URL}api/products/single-details/${slug}`)
+      .then((res) => {
+        setProductDetails(res.data.singleProductDetails);
+        setProductID(res.data.singleProductDetails.id);
+      });
+  };
   useEffect(() => {
     AllProductDetails();
   }, []);
@@ -167,6 +171,61 @@ const ProductDetails = () => {
       });
   };
 
+  // ===================== Rating Submit =====================
+
+  const [rating, setRating] = useState("");
+
+  const submitRating = (e) => {
+    e.preventDefault();
+    const formdata = new FormData();
+    formdata.append("rating", rating);
+    formdata.append("ratingTitle", ratingTitle.current.value);
+    formdata.append("ratingComments", ratingComments.current.value);
+    formdata.append("ratingUser", ratingUser.current.value);
+    formdata.append("productId", productID);
+
+    axios
+      .post(`${Link_Path_URL}api/products/rating-store`, formdata, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+
+      .then((response) => {
+        if (response.data.status === 200) {
+          Swal.fire({
+            icon: "success",
+            text: response.data.message,
+            confirmButtonColor: "#5eba86",
+          });
+          DisplayRetings();
+          e.target.reset();
+          setRating("");
+        }
+      });
+  };
+
+  // Display All Retings
+
+  const [allRatings, setAllRatings] = useState([]);
+  const [ratingCount, setRatingCount] = useState(0);
+  const [totalRatingCount, setTotalRatingCount] = useState();
+
+  const avgRating = Number(totalRatingCount / ratingCount);
+ 
+
+  const DisplayRetings = () => {
+    axios
+      .get(`${Link_Path_URL}api/products/ratings/${productID}`)
+      .then((res) => {
+        setAllRatings(res.data.productRattings);
+        setRatingCount(res.data.productRattings.length);
+        setTotalRatingCount(res.data.sumOfRatting);
+      });
+  };
+  
+  useEffect(() => {
+    DisplayRetings();
+  }, [productID]);
+
   return (
     <div>
       <Header />
@@ -229,134 +288,152 @@ const ProductDetails = () => {
                   <div className="check_box_border">
                     <div className="check_box_content">
                       <div className="check_box">
-                        {productDetails.packSize1 && (
-                          <div className="form-check_border mb-3">
-                            <div className="form-check">
-                              <input
-                                className="form-check-input mx-2"
-                                type="radio"
-                                name="flexRadioDefault"
-                                id="flexRadioDefault1"
-                                value="1"
-                                onChange={selectedPriceShow}
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexRadioDefault1"
-                              >
-                                <div className="d-flex justify-content-between">
-                                  <span>{productDetails.packSize1} dose</span>
-                                  <span>{productDetails.variantPrice1} kr</span>
+                        <Row>
+                          <Col md={6}>
+                            {productDetails.packSize1 && (
+                              <div className="form-check_border mb-3">
+                                <div className="form-check">
+                                  <input
+                                    className="form-check-input mx-2"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    id="flexRadioDefault1"
+                                    value="1"
+                                    onChange={selectedPriceShow}
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="flexRadioDefault1"
+                                  >
+                                    <div className="d-flex justify-content-between">
+                                      <span>
+                                        {productDetails.packSize1} dose
+                                      </span>
+                                      <span>
+                                        {productDetails.variantPrice1} kr
+                                      </span>
+                                    </div>
+                                  </label>
                                 </div>
-                              </label>
-                            </div>
-                          </div>
-                        )}
-                        {productDetails.packSize2 && (
-                          <div className="form-check_border mb-3">
-                            <div className="form-check">
-                              <input
-                                className="form-check-input mx-2"
-                                type="radio"
-                                name="flexRadioDefault"
-                                id="flexRadioDefault2"
-                                // defaultChecked={true}
-                                value="2"
-                                onChange={selectedPriceShow}
-                              />
-                              <label
-                                className="form-check-label "
-                                htmlFor="flexRadioDefault2"
-                              >
-                                <div className="d-flex justify-content-between ">
-                                  <span>
-                                    {productDetails.packSize2}-pack (SEK{" "}
-                                    {productDetails.unitPrice2} / pc)
-                                  </span>
-                                  <span>{productDetails.variantPrice2} kr</span>{" "}
+                              </div>
+                            )}
+                            {productDetails.packSize3 && (
+                              <div className="form-check_border mb-3">
+                                <div className="form-check">
+                                  <input
+                                    className="form-check-input  mx-2"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    id="flexRadioDefault3"
+                                    value="3"
+                                    onChange={selectedPriceShow}
+                                  />
+                                  <label
+                                    className="form-check-label"
+                                    htmlFor="flexRadioDefault3"
+                                  >
+                                    <div className="d-flex justify-content-between ">
+                                      <span>
+                                        {productDetails.packSize3}-pack (SEK{" "}
+                                        {productDetails.unitPrice3} / pc)
+                                      </span>
+                                      <span>
+                                        {productDetails.variantPrice3} kr
+                                      </span>
+                                    </div>
+                                  </label>
                                 </div>
-                              </label>
-                            </div>
-                          </div>
-                        )}
-                        {productDetails.packSize3 && (
-                          <div className="form-check_border mb-3">
-                            <div className="form-check">
-                              <input
-                                className="form-check-input  mx-2"
-                                type="radio"
-                                name="flexRadioDefault"
-                                id="flexRadioDefault3"
-                                value="3"
-                                onChange={selectedPriceShow}
-                              />
-                              <label
-                                className="form-check-label"
-                                htmlFor="flexRadioDefault3"
-                              >
-                                <div className="d-flex justify-content-between ">
-                                  <span>
-                                    {productDetails.packSize3}-pack (SEK{" "}
-                                    {productDetails.unitPrice3} / pc)
-                                  </span>
-                                  <span>{productDetails.variantPrice3} kr</span>
+                              </div>
+                            )}
+                            {productDetails.packSize5 && (
+                              <div className="form-check_border mb-3">
+                                <div className="form-check test">
+                                  <input
+                                    className="form-check-input mx-2"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    id="flexRadioDefault5"
+                                    value="5"
+                                    onChange={selectedPriceShow}
+                                  />
+                                  <label
+                                    className="form-check-label "
+                                    htmlFor="flexRadioDefault5"
+                                  >
+                                    <div className="d-flex justify-content-between">
+                                      <span>
+                                        {productDetails.packSize5}-pack (SEK{" "}
+                                        {productDetails.unitPrice5} / pc)
+                                      </span>
+                                      <span>
+                                        {productDetails.variantPrice5} kr
+                                      </span>
+                                    </div>
+                                  </label>
                                 </div>
-                              </label>
-                            </div>
-                          </div>
-                        )}
-                        {productDetails.packSize4 && (
-                          <div className="form-check_border mb-3">
-                            <div className="form-check">
-                              <input
-                                className="form-check-input mx-2"
-                                type="radio"
-                                name="flexRadioDefault"
-                                id="flexRadioDefault4"
-                                value="4"
-                                onChange={selectedPriceShow}
-                              />
-                              <label
-                                className="form-check-label "
-                                htmlFor="flexRadioDefault4"
-                              >
-                                <div className="d-flex justify-content-between ">
-                                  <span>
-                                    {productDetails.packSize4}-pack (SEK{" "}
-                                    {productDetails.unitPrice4} / pc)
-                                  </span>
-                                  <span>{productDetails.variantPrice4} kr</span>
+                              </div>
+                            )}
+                          </Col>
+                          <Col md={6}>
+                            {productDetails.packSize2 && (
+                              <div className="form-check_border mb-3">
+                                <div className="form-check">
+                                  <input
+                                    className="form-check-input mx-2"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    id="flexRadioDefault2"
+                                    // defaultChecked={true}
+                                    value="2"
+                                    onChange={selectedPriceShow}
+                                  />
+                                  <label
+                                    className="form-check-label "
+                                    htmlFor="flexRadioDefault2"
+                                  >
+                                    <div className="d-flex justify-content-between ">
+                                      <span>
+                                        {productDetails.packSize2}-pack (SEK{" "}
+                                        {productDetails.unitPrice2} / pc)
+                                      </span>
+                                      <span>
+                                        {productDetails.variantPrice2} kr
+                                      </span>{" "}
+                                    </div>
+                                  </label>
                                 </div>
-                              </label>
-                            </div>
-                          </div>
-                        )}
-                        {productDetails.packSize5 && (
-                          <div className="form-check_border mb-3">
-                            <div className="form-check test">
-                              <input
-                                className="form-check-input mx-2"
-                                type="radio"
-                                name="flexRadioDefault"
-                                id="flexRadioDefault5"
-                                value="5"
-                                onChange={selectedPriceShow}
-                              />
-                              <label
-                                className="form-check-label "
-                                htmlFor="flexRadioDefault5"
-                              >
-                                <div className="d-flex justify-content-between">
-                                  <span>
-                                    {productDetails.packSize5}-pack (SEK{" "}
-                                    {productDetails.unitPrice5} / pc)
-                                  </span>
-                                  <span>{productDetails.variantPrice5} kr</span>
+                              </div>
+                            )}
+                            {productDetails.packSize4 && (
+                              <div className="form-check_border mb-3">
+                                <div className="form-check">
+                                  <input
+                                    className="form-check-input mx-2"
+                                    type="radio"
+                                    name="flexRadioDefault"
+                                    id="flexRadioDefault4"
+                                    value="4"
+                                    onChange={selectedPriceShow}
+                                  />
+                                  <label
+                                    className="form-check-label "
+                                    htmlFor="flexRadioDefault4"
+                                  >
+                                    <div className="d-flex justify-content-between ">
+                                      <span>
+                                        {productDetails.packSize4}-pack (SEK{" "}
+                                        {productDetails.unitPrice4} / pc)
+                                      </span>
+                                      <span>
+                                        {productDetails.variantPrice4} kr
+                                      </span>
+                                    </div>
+                                  </label>
                                 </div>
-                              </label>
-                            </div>
-                          </div>
-                        )}
+                              </div>
+                            )}
+                          </Col>{" "}
+                        </Row>
                       </div>
                       {isOnChanged == "" || isOnChanged == null ? (
                         <>
@@ -566,203 +643,162 @@ const ProductDetails = () => {
             </Row>
           </div>
 
-          {/* product_description */}
-          <div className=" mb-5">
-            <Row>
-              {/* product_description content */}
-              <Col md={6} className="product_description">
-                {Parser("" + productDetails.description)}
-              </Col>
+          <Row>
+            <Tabs
+              defaultActiveKey="Product Description"
+              id="uncontrolled-tab-example"
+              className="mb-3"
+            >
+              <Tab eventKey="Product Description" title="Product Description">
+                {/* product_description */}
+                <Col md={12} className="product_description">
+                  {Parser("" + productDetails.description)}
+                </Col>
+              </Tab>
+              <Tab eventKey="Product Review" title="Product Review">
+                {/* product review */}
+                <Col md={12}>
+                  <div className="product_review">
+                    <div className="product_review_content p-3">
+                      {/* rating */}
+                      <div className="rating  d-flex justify-content-center align-items-center mb-4">
+                        <Rating
+                          className="me-2"
+                          style={{ color: "#666666", fontSize: "30px" }}
+                          name="read-only"
+                          value={Math.round(avgRating)}
+                          readOnly
+                        />
+                        <p className="m-0"> ({ratingCount}) reviews</p>
+                      </div>
 
-              {/* product review */}
-              <Col md={6}>
-                <div className="product_review">
-                  <div className="product_review_content p-3">
-                    {/* rating */}
-                    <div className="rating  d-flex justify-content-center align-items-center mb-4">
-                      <Rating
-                        className="me-2"
-                        style={{ color: "#666666", fontSize: "30px" }}
-                        name="half-rating"
-                        defaultValue={4.5}
-                        precision={0.5}
-                        readOnly
-                      />
-                      <p className="m-0"> (12) reviews</p>
-                    </div>
+                      {/* description */}
+                      <div className="description mb-4">
+                        <h6>Customer Reviews for {productDetails.name}</h6>
+                        <p>
+                          Observera att samtliga recensioner skrivits av kunder
+                          till Snusbolaget.se och att publicering endast sker i
+                          informationssyfte. Snusbolaget förhandsgranskar och
+                          godkänner samtliga inlägg innan publicering.
+                        </p>
+                      </div>
 
-                    {/* description */}
-                    <div className="description mb-4">
-                      <h6>Customer Reviews for On! Coffee 6 mg Strong</h6>
-                      <p>
-                        Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit. Totam omnis sequi sit mollitia dolores illo
-                        nostrum iste at repellat consequuntur, architecto
-                        aperiam quidem eos ipsam rerum ipsa hic odit aliquam.
-                      </p>
-                    </div>
-
-                    {/* review_submission */}
-                    <div className="review_submission mb-4">
-                      <Row>
-                        <Col md={2}>
-                          <img
-                            className="w-100"
-                            src={require("../../../Assets/Products/volt-blue.png")}
-                            alt=""
-                          />
-                        </Col>
-                        <Col md={10}>
-                          <Form>
-                            <div className="rating_padding bg-light">
-                              <div className="d-flex justify-content-center align-items-center mb-4 py-2">
-                                <p className="mb-0 me-2 fs20"> Your rating: </p>
-                                <Rating
-                                  className=""
-                                  style={{ color: "#666666", fontSize: "30px" }}
-                                  name="half-rating"
-                                  defaultValue={4.5}
-                                  precision={0.5}
-                                />
+                      {/* review_submission */}
+                      <div className="review_submission mb-4">
+                        <Row>
+                          <Col md={2}>
+                            <img
+                              className="w-100"
+                              src={`${Link_Path_URL}${productDetails.image}`}
+                              alt=""
+                            />
+                          </Col>
+                          <Col md={10}>
+                            <Form onSubmit={submitRating}>
+                              <div className="rating_padding bg-light">
+                                <div className="d-flex justify-content-center align-items-center mb-4 py-2">
+                                  <p className="mb-0 me-2 fs20">Your rating:</p>
+                                  <Rating
+                                    className=""
+                                    style={{
+                                      color: "#666666",
+                                      fontSize: "30px",
+                                    }}
+                                    name="half-rating"
+                                    value={Number(rating)}
+                                    precision={0.5}
+                                    onChange={(e) => {
+                                      e.preventDefault();
+                                      setRating(e.target.value);
+                                    }}
+                                  />
+                                </div>
                               </div>
-                            </div>
-                            <FloatingLabel
-                              controlId="floatingTextarea"
-                              label="Write a headline for your review"
-                              className="mb-3"
-                            >
-                              <Form.Control
-                                as="textarea"
-                                placeholder="Leave a comment here"
-                                required
-                                style={{ height: "70px" }}
-                              />
-                            </FloatingLabel>
-                            <FloatingLabel
-                              controlId="floatingTextarea"
-                              label="What did you think of the product?"
-                              className="mb-3"
-                            >
-                              <Form.Control
-                                as="textarea"
-                                placeholder="Leave a comment here"
-                                required
-                                style={{ height: "100px" }}
-                              />
-                            </FloatingLabel>
-                            <FloatingLabel
-                              controlId="floatingTextarea"
-                              label="What name do you want to be displayed?"
-                              className="mb-3"
-                            >
-                              <Form.Control
-                                as="textarea"
-                                placeholder="Leave a comment here"
-                                required
-                                style={{ height: "70px" }}
-                              />
-                            </FloatingLabel>
-                            <Button
-                              className="w-100 border-0"
-                              variant="light"
-                              type="submit"
-                            >
-                              Submit
-                            </Button>
-                          </Form>
-                        </Col>
-                      </Row>
-                    </div>
+                              <FloatingLabel
+                                controlId="floatingTextarea"
+                                label="Write a headline for your review"
+                                className="mb-3"
+                              >
+                                <Form.Control
+                                  as="textarea"
+                                  placeholder="Leave a comment here"
+                                  required
+                                  style={{ height: "70px" }}
+                                  ref={ratingTitle}
+                                />
+                              </FloatingLabel>
+                              <FloatingLabel
+                                controlId="floatingTextarea"
+                                label="What did you think of the product?"
+                                className="mb-3"
+                              >
+                                <Form.Control
+                                  as="textarea"
+                                  placeholder="Leave a comment here"
+                                  required
+                                  style={{ height: "100px" }}
+                                  ref={ratingComments}
+                                />
+                              </FloatingLabel>
+                              <FloatingLabel
+                                controlId="floatingTextarea"
+                                label="What name do you want to be displayed?"
+                                className="mb-3"
+                              >
+                                <Form.Control
+                                  as="textarea"
+                                  placeholder="Leave a comment here"
+                                  required
+                                  style={{ height: "70px" }}
+                                  ref={ratingUser}
+                                />
+                              </FloatingLabel>
+                              <Button
+                                className="w-100 border-0"
+                                variant="light"
+                                type="submit"
+                              >
+                                Submit
+                              </Button>
+                            </Form>
+                          </Col>
+                        </Row>
+                      </div>
 
-                    {/* review */}
-                    <div className="review">
-                      <Rating
-                        className="mb-2"
-                        style={{ color: "#666666", fontSize: "25px" }}
-                        name="half-rating"
-                        defaultValue={4.5}
-                        precision={0.5}
-                        readOnly
-                      />
-                      <h6 className="mb-1">Fantastic!</h6>
-                      <p className="mb-1">
-                        <span className="fw-bold me-2">Annika Andersson ,</span>
-                        <span>March 11, 2022</span>
-                      </p>
-                      <p>
-                        The coffee taste is very good and goes well with the
-                        morning cup. You really wake up. It was easy to quit
-                        smoking with these and has also reduced my intake of
-                        coffee.
-                      </p>
-                    </div>
-                    <div className="review">
-                      <Rating
-                        className="mb-2"
-                        style={{ color: "#666666", fontSize: "25px" }}
-                        name="half-rating"
-                        defaultValue={4.5}
-                        precision={0.5}
-                        readOnly
-                      />
-                      <h6 className="mb-1">Fantastic!</h6>
-                      <p className="mb-1">
-                        <span className="fw-bold me-2">Annika Andersson ,</span>
-                        <span>March 11, 2022</span>
-                      </p>
-                      <p>
-                        The coffee taste is very good and goes well with the
-                        morning cup. You really wake up. It was easy to quit
-                        smoking with these and has also reduced my intake of
-                        coffee.
-                      </p>
-                    </div>
-                    <div className="review">
-                      <Rating
-                        className="mb-2"
-                        style={{ color: "#666666", fontSize: "25px" }}
-                        name="half-rating"
-                        defaultValue={4.5}
-                        precision={0.5}
-                        readOnly
-                      />
-                      <h6 className="mb-1">Fantastic!</h6>
-                      <p className="mb-1">
-                        <span className="fw-bold me-2">Annika Andersson ,</span>
-                        <span>March 11, 2022</span>
-                      </p>
-                      <p>
-                        The coffee taste is very good and goes well with the
-                        morning cup. You really wake up. It was easy to quit
-                        smoking with these and has also reduced my intake of
-                        coffee.
-                      </p>
-                    </div>
-                    <div className="review">
-                      <Rating
-                        className="mb-2"
-                        style={{ color: "#666666", fontSize: "25px" }}
-                        name="half-rating"
-                        defaultValue={4.5}
-                        precision={0.5}
-                        readOnly
-                      />
-                      <h6 className="mb-1">Fantastic!</h6>
-                      <p className="mb-1">
-                        <span className="fw-bold me-2">Annika Andersson ,</span>
-                        <span>March 11, 2022</span>
-                      </p>
-                      <p>
-                        The coffee taste is very good and goes well with the
-                        morning cup. You really wake up. It was easy to quit
-                        smoking with these and has also reduced my intake of
-                        coffee.
-                      </p>
+                      {/* review */}
+                      <div className="review">
+                        {allRatings.map((data, index) => (
+                          <div key={index}>
+                            <Rating
+                              className="mb-2"
+                              style={{ color: "#666666", fontSize: "25px" }}
+                              name="half-rating"
+                              defaultValue={data.rating}
+                              precision={0.5}
+                              readOnly
+                            />
+                            <h6 className="mb-1">{data.ratingTitle}</h6>
+                            <p className="mb-1">
+                              <span className="fw-bold me-2">
+                                {data.ratingUser}
+                              </span>
+                              <span>
+                                {data.created_at.toString().slice(0, 10)}
+                              </span>
+                            </p>
+                            <p>{data.ratingComments}</p>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Col>
-            </Row>
+                </Col>
+              </Tab>
+            </Tabs>
+          </Row>
+
+          <div className=" mb-5">
+            <Row>{/* product_description content */}</Row>
           </div>
 
           {/* similar products */}
@@ -1036,7 +1072,7 @@ const ProductDetails = () => {
           </div>
         </div>
       </Container>
-      <Footer />
+      <Footer shippingPolicy="d-none" />
     </div>
   );
 };

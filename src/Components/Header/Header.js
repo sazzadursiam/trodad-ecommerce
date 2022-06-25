@@ -20,7 +20,7 @@ import axios from "axios";
 import { Link_Path_URL } from "../../Utils/LinkPath";
 import { UserContext } from "../../App";
 
-const Header = () => {
+const Header = (props) => {
   const { cartQuantity, cartTotal, setCartQuantity, setCartTotal } =
     useContext(UserContext);
   const [navData, setNavData] = useState([]);
@@ -40,10 +40,12 @@ const Header = () => {
   const today = daylist[day];
   // console.log("Today is : " + daylist[day] + ".");
 
-  const cartQuantityget = localStorage.getItem("cartProductQuantity");
-  const cartTotalget = localStorage.getItem("cartTotal");
-  setCartQuantity(cartQuantityget);
-  setCartTotal(cartTotalget);
+  useEffect(() => {
+    const cartQuantityget = localStorage.getItem("cartProductQuantity");
+    const cartTotalget = localStorage.getItem("cartTotal");
+    setCartQuantity(cartQuantityget);
+    setCartTotal(cartTotalget);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -139,7 +141,7 @@ const Header = () => {
                   </InputGroup>
                 </Form>
               </div>
-              <div>
+              <div className={`${props.cartHidden}`}>
                 {cartQuantity != 0 && cartQuantity != null && (
                   <Link to="/checkout">
                     <Card className=" text-white cart_design">
@@ -152,7 +154,7 @@ const Header = () => {
                           </div>
                           <div className="d-flex align-items-center w-75 justify-content-end">
                             {/* {localStorage.getItem("cartTotal")} kr */}
-                            {cartTotal} kr
+                            {Number(cartTotal).toFixed(2)} kr
                             <FaIcons.FaChevronCircleRight className="ms-3" />
                           </div>
                         </div>
@@ -317,46 +319,6 @@ const Header = () => {
 
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <NavDropdown
-                    title="Snuff"
-                    id="offcanvasNavbarDropdown-expand-false"
-                  >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  <NavDropdown
-                    title="All White Portion"
-                    id="offcanvasNavbarDropdown-expand-false"
-                  >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                  <NavDropdown
-                    title="Göra Eget Snus"
-                    id="offcanvasNavbarDropdown-expand-false"
-                  >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
-                  </NavDropdown>
-
                   {navData.map((data, i) =>
                     data.sub_category.length ? (
                       <NavDropdown title={data.name} key={i}>
@@ -389,18 +351,26 @@ const Header = () => {
 
                   <Nav.Link href="#action2">Subscribe</Nav.Link>
 
-                  <NavDropdown
-                    title="Varumärken"
-                    id="offcanvasNavbarDropdown-expand-false"
-                  >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
-                    </NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
-                    </NavDropdown.Item>
+                  {/* <Link className="title" to="/">
+                    Varumärken <FaIcons.FaAngleDown className="ms-1" />
+                  </Link> */}
+                  <NavDropdown title="Varumärken">
+                    {navDataBrand.map((dropdownItem, i) => (
+                      <NavDropdown.Item
+                        key={i}
+                        as={Link}
+                        to={
+                          "/brands/" +
+                          dropdownItem.id +
+                          "/" +
+                          dropdownItem.slug +
+                          "/products/"
+                        }
+                      >
+                        {" "}
+                        {dropdownItem.brandName}
+                      </NavDropdown.Item>
+                    ))}
                   </NavDropdown>
 
                   <hr />

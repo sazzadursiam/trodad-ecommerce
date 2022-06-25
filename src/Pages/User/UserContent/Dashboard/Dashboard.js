@@ -34,28 +34,15 @@ const Dashboard = () => {
             </Button>
           </Col>
           <Col md={4} className="mb-3">
-            <Button className="w-100" variant="outline-secondary">
-              Card
-            </Button>
-          </Col>
-          <Col md={4} className="mb-3">
-            <Button className="w-100" variant="outline-secondary">
-              Download
-            </Button>
-          </Col>
-          <Col md={4} className="mb-3">
-            <Button className="w-100" variant="outline-secondary">
-              Addreases
-            </Button>
-          </Col>
-          <Col md={4} className="mb-3">
-            <Button className="w-100" variant="outline-secondary">
+            <Button  as={Link}
+              to="edit-account" className="w-100" variant="outline-secondary">
               Account Details
             </Button>
           </Col>
-          <Col md={4} className="mb-3">
+
+          <Col as={Link} to="address" md={4} className="mb-3">
             <Button className="w-100" variant="outline-secondary">
-              Whichlist
+              Addreases
             </Button>
           </Col>
         </Row>

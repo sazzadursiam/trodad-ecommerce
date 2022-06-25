@@ -411,7 +411,8 @@ const AllJournalCategory = () => {
                                 className="mb-3"
                               >
                                 <Form.Label className="label fw-bold">
-                                  Image Link
+                                  Image Link{" "}
+                                  <span className="text-danger">*</span>
                                 </Form.Label>
 
                                 <Form.Control
@@ -444,17 +445,17 @@ const AllJournalCategory = () => {
                               {/* Category Id Dropdown */}
                               <Form.Group
                                 as={Col}
-                                md="12"
+                                md="6"
                                 controlId="validationCustom01"
                                 className="mb-3"
                               >
                                 <Form.Label className="label fw-bold">
-                                  Category
-                                  <span className="text-danger">*</span>
+                                  Category{" "}
+                                  <span className="text-danger"> *</span>
                                 </Form.Label>
                                 <Form.Select
-                                  aria-label="Default select example"
                                   required
+                                  aria-label="Default select example"
                                   ref={categoryId}
                                 >
                                   <option value="0">Select Category</option>
@@ -467,7 +468,8 @@ const AllJournalCategory = () => {
                                   })}
                                 </Form.Select>
                               </Form.Group>
-                              {/* Brand Short Description */}
+
+                              {/* Post Short Description */}
                               <Form.Group
                                 as={Col}
                                 md="12"
@@ -483,7 +485,8 @@ const AllJournalCategory = () => {
                                   tabIndex={1}
                                 />
                               </Form.Group>
-                              {/* Brand Description */}
+
+                              {/* Post Description */}
                               <Form.Group
                                 as={Col}
                                 md="12"

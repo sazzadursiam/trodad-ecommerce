@@ -22,17 +22,17 @@ const TextBox = styled.p`
   overflow: hidden;
 `;
 
-const Journal = () => {
+const Journal = (props) => {
   return (
     <>
       <div className="container">
-        <Row>
+        <Row className={`${props.journalTop}}`}>
           <Col xs={12} sm={6} md={8} className="mb-3">
             <h2>Snus på nätet - fria fraktalternativ &amp; snabb leverans</h2>
             <p>
               Snusbolaget.se erbjuder alltid ett stort utbud av svenskt snus och
               nikotinpåsar. Här kan du enkelt och snabbt köpa snus och andra
-              produkter från de flesta producenterna – i alla olika prisklasser,
+              produkter från de flesta producenterna - i alla olika prisklasser,
               styrkor, packstorlekar som stock snus, samt format. Hitta snus
               från klassiska märken som General snus, Göteborgs Rapé eller Ettan
               snus. Om du föredrar tobaksfritt snus kan du hitta din favorit

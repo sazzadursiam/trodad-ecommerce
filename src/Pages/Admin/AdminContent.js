@@ -5,7 +5,7 @@ import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import * as RiIcons from "react-icons/ri";
 import * as LoIcons from "react-icons/io5";
-import * as GrIcons from "react-icons/gr";
+import * as GiIcons from "react-icons/gi";
 import * as ImIcons from "react-icons/im";
 import * as HiIcons from "react-icons/hi";
 import { Link, Outlet } from "react-router-dom";
@@ -118,6 +118,12 @@ const Test = () => {
                 <Link to="journal-post">
                   <BsIcons.BsJournalCheck className="icon" />
                   <span className="text nav-text">Journal Post</span>
+                </Link>
+              </li>
+              <li className="nav-link">
+                <Link to="ratings">
+                  <GiIcons.GiStarsStack className="icon" size="1.5rem" />
+                  <span className="text nav-text">Product Ratings</span>
                 </Link>
               </li>
 

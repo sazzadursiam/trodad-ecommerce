@@ -1,6 +1,4 @@
-import {
-  InputLabel,
-} from "@mui/material";
+import { InputLabel } from "@mui/material";
 import axios from "axios";
 import JoditEditor from "jodit-react";
 import { useEffect, useRef, useState } from "react";
@@ -275,8 +273,8 @@ const ProductCategories = () => {
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Category Name</th>
-                      <th scope="col">Parent</th>
+                      <th scope="col">Parent Category</th>
+                      <th scope="col">Sub Category</th>
                       <th scope="col">Status</th>
                       <th scope="col">Handle</th>
                     </tr>
@@ -285,13 +283,12 @@ const ProductCategories = () => {
                     {tableData.map((data, index) => (
                       <tr key={index}>
                         <td> {index + 1}</td>
-                        <td>{data.name}</td>
-
                         <td>
                           {data.parent_category
                             ? data.parent_category.name
                             : "Main Category"}
                         </td>
+                        <td>{data.name}</td>
                         <td>
                           {data.status == 1 ? (
                             <div
@@ -419,7 +416,7 @@ const ProductCategories = () => {
                                 className="mb-3"
                               >
                                 <Form.Label className="label fw-bold">
-                                  Select Category
+                                  Select Parent Category
                                 </Form.Label>
 
                                 <Form.Select required ref={ParentCategoryId}>

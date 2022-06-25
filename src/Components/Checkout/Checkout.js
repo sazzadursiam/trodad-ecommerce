@@ -104,7 +104,7 @@ const Checkout = () => {
             text: response.data.message,
             confirmButtonColor: "#5eba86",
           });
-            e.target.reset();
+          e.target.reset();
           CartDetails();
         }
       });
@@ -114,7 +114,7 @@ const Checkout = () => {
 
   return (
     <div>
-      <Header />
+      <Header cartHidden="d-none" />
       <div className="checkout">
         <Container>
           <div className="shopping_cart my-5">
@@ -138,7 +138,7 @@ const Checkout = () => {
                       <td style={{ height: "80px", width: "80px" }}>
                         <img
                           className="h-100 w-100"
-                          src={require("../../Assets/Products/volt-blue.png")}
+                          src={`${Link_Path_URL}${data.products.image}`}
                           alt=""
                         />
                       </td>
@@ -182,7 +182,9 @@ const Checkout = () => {
               <div className="calculation btm_border_dash">
                 <div className="d-flex justify-content-between align-items-center">
                   <p className="mb-1 fw-bold fs20">Order Total</p>
-                  <p className="mb-1 fw-bold fs20">{cartTotals} kr</p>
+                  <p className="mb-1 fw-bold fs20">
+                    {Number(cartTotals).toFixed(2)} kr
+                  </p>
                 </div>
                 {/* <div className="d-flex justify-content-between align-items-center">
                   <p className="mb-1">Vat</p>
@@ -349,7 +351,7 @@ const Checkout = () => {
           </div>
         </Container>
       </div>
-      <Footer displayNone="d-none" />
+      <Footer shippingPolicy="d-none" footerTop="d-none" />
     </div>
   );
 };

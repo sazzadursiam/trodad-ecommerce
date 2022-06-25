@@ -22,11 +22,12 @@ import Dashboard from "./Pages/User/UserContent/Dashboard/Dashboard";
 
 import AllProduct from "./Pages/Admin/Product/AllProduct";
 import EditProduct from "./Pages/Admin/Product/EditProduct";
+import HandleRatings from "./Pages/Admin/HandleRatings";
 import ProductCategory from "./Pages/ProductCategory/ProductCategory";
 import Report from "./Pages/Report/Report";
 import Address from "./Pages/User/UserContent/Dashboard/Address/Address";
 import BillingAddress from "./Pages/User/UserContent/Dashboard/BillingAddress/BillingAddress";
-import JournalDetails from "./Components/Journal/journalDetails";
+import JournalPosts from "./Components/Journal/JournalPosts";
 import ShippingMethod from "./Pages/Admin/ShippingMethod";
 import SliderElement from "./Pages/Admin/SliderElement";
 import Orders from "./Pages/User/UserContent/Dashboard/Orders/Orders";
@@ -46,6 +47,9 @@ import ViewOrders from "./Pages/Admin/AdminOrder/ViewOrders";
 import AllCustomers from "./Pages/Admin/AllCustomers";
 import AllJournalCategory from "./Pages/Admin/Journal/Category/AllJournalCategory";
 import AllJournalPost from "./Pages/Admin/Journal/Post/AllJournalPost";
+import PageChangeToTop from "./Utils/PageChangeToTop";
+import SingleJournalPost from "./Components/Journal/SingleJournalPost";
+import UserRegistration from "./Pages/Registration&Login/UserRegistration";
 
 export const UserContext = createContext();
 
@@ -70,13 +74,15 @@ function App() {
       }}
     >
       <Router>
+        <PageChangeToTop />
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/journals" element={<JournalDetails />} />
+          <Route path="/journals" element={<JournalPosts />} />
           <Route path="/user/registration" element={<UserRegForm />} />
           <Route path="/user/login" element={<UserLogin />} />
           <Route path="/admin/login" element={<AdminLoginForm />} />
-
+          <Route path="/journals/:postId" element={<SingleJournalPost />} />
+          <Route path="/user/reg" element={<UserRegistration />} />
           {/* Products */}
           <Route
             path="/products/category/:productcategory"
@@ -129,6 +135,7 @@ function App() {
             <Route path="all-orders/:orderId" element={<ViewOrders />} />
             <Route path="journal-category" element={<AllJournalCategory />} />
             <Route path="journal-post" element={<AllJournalPost />} />
+            <Route path="ratings" element={<HandleRatings />} />
           </Route>
 
           {/*===================== User Dashboard ===============================*/}

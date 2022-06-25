@@ -340,7 +340,7 @@ const CategorizedProduct = () => {
           )}
         </Row>
       </Container>
-      <Footer />
+      <Footer shippingPolicy="d-none"/>
     </>
   );
 };

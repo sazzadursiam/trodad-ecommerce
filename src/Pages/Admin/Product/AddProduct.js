@@ -328,7 +328,7 @@ const AddProduct = () => {
     const unitPriceVal1 = productUnitPrice1.current.value;
 
     const PackSize1 = e.target.value;
-    const Variant1 = unitPriceVal1 * PackSize1;
+    const Variant1 = Number(unitPriceVal1 * PackSize1).toFixed(2);
     setVariantPrice1(Variant1);
   };
 

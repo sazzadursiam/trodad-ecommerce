@@ -14,7 +14,7 @@ const ProductCategory = () => {
           <Product displayNone="d-none" />
         </Container>
       </div>
-      <Footer />
+      <Footer shippingPolicy="d-none"/>
     </div>
   );
 };

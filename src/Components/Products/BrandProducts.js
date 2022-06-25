@@ -353,7 +353,7 @@ const BrandProducts = () => {
           )}
         </Row>
       </Container>
-      <Footer />
+      <Footer shippingPolicy="d-none"/>
     </>
   );
 };

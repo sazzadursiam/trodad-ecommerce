@@ -5,7 +5,9 @@ import "./footer.css";
 const Footer = (props) => {
   return (
     <>
-      <div className={`bg_grey footer_container mt_100 ${props.displayNone} ${props.footerTop}`}>
+      <div
+        className={`bg_grey footer_container mt_100 ${props.shippingPolicy} `}
+      >
         {/* ====================== SHIPPING POLICY ========================= */}
         <div className="container ">
           <Row className="text-center d-flex justify-content-between">
@@ -107,8 +109,11 @@ const Footer = (props) => {
         </div>
       </div>
 
-      {/* ========================== FOOTER TOP ========================= */}
-      <div className={` container ${props.displayNone}`}>
+      {/* ========================== FOOTER TOP ==== ===================== */}
+      <div
+        className={` container-fluid ${props.footerTop} text-light`}
+        style={{ backgroundColor: "#11283e" }}
+      >
         <div className="footer__body">
           <Row className="pt_50">
             <Col xs={12} sm={6} md={4} className="mb_30">
@@ -119,7 +124,7 @@ const Footer = (props) => {
                     <img
                       src={require("../../Assets/Footer/payment_methods.png")}
                       alt="Payment Methods"
-                      className="img-fluid"
+                      className="img-fluid rounded-2"
                     />
                   </div>
                 </Col>
@@ -128,7 +133,7 @@ const Footer = (props) => {
                     <img
                       src={require("../../Assets/Footer/dhl.png")}
                       alt="DHL"
-                      className="img-fluid"
+                      className="img-fluid rounded-2"
                     />
                   </div>
                 </Col>
@@ -137,7 +142,7 @@ const Footer = (props) => {
                     <img
                       src={require("../../Assets/Footer/earlybird.png")}
                       alt="DHL"
-                      className="img-fluid"
+                      className="img-fluid rounded-2"
                     />
                   </div>
                 </Col>
@@ -146,7 +151,7 @@ const Footer = (props) => {
                     <img
                       src={require("../../Assets/Footer/airmee.png")}
                       alt="DHL"
-                      className="img-fluid"
+                      className="img-fluid rounded-2"
                     />
                   </div>
                 </Col>
@@ -155,16 +160,16 @@ const Footer = (props) => {
                     <img
                       src={require("../../Assets/Footer/postnord.png")}
                       alt="DHL"
-                      className="img-fluid"
+                      className="img-fluid rounded-2"
                     />
                   </div>
                 </Col>
                 <Col xs={4}>
-                  <div className="brand mb-4">
+                  <div className="brand mb-4 ">
                     <img
                       src={require("../../Assets/Footer/budbee.png")}
                       alt="DHL"
-                      className="img-fluid"
+                      className="img-fluid rounded-2"
                     />
                   </div>
                 </Col>
@@ -173,7 +178,7 @@ const Footer = (props) => {
                     <img
                       src={require("../../Assets/Footer/instabox.png")}
                       alt="DHL"
-                      className="img-fluid"
+                      className="img-fluid rounded-2"
                     />
                   </div>
                 </Col>
@@ -183,10 +188,15 @@ const Footer = (props) => {
               <h3 className="mb-4 fs-5">Questions? Contact customer service</h3>
               <p className="custom_anchor_tag">
                 <span>Phone:</span>
-                <a href="tel://+46-20-0753464"> +46-20-0753464</a>
+                <a href="tel://+46-20-0753464" className="text-info">
+                  {" "}
+                  +46-20-0753464
+                </a>
               </p>
               <p className="custom_anchor_tag">
-                <a href="/kundservice/">Click here to contact us</a>
+                <a href="/kundservice/" className="text-info">
+                  Click here to contact us
+                </a>
               </p>
               <p children="phonetime mt_30">
                 Phone hours: Mon - Wed 8-17, Thu 8-16, Fri 8-17 Sat closed &amp;
@@ -241,9 +251,8 @@ const Footer = (props) => {
         </div>
       </div>
 
-      
       {/* ============================ FOOTER BOTTOM ============================ */}
-      <div className="footer_nav p-4 bg_grey ">
+      <div className={`footer_nav p-4 bg_grey`}>
         <div className="container d-md-flex justify-content-md-between align-items-center">
           <Row>
             <Col md={12} lg={6} className="d-none d-sm-block">
@@ -261,9 +270,18 @@ const Footer = (props) => {
               lg={6}
               className="d-flex align-items-center justify-content-center  footer_copyright text-sm-center"
             >
-              <p>
-                Copyright © Snusbolaget Norden AB, Birger Jarlsgatan 43, 111 45
-                Stockholm
+              <p className="fw-bold">
+                Copyright © 2022 TOBAKSHANDEL. All Rights Reserved | Developed
+                By
+                <a
+                  className="ms-2"
+                  href="https://sarfaa.com"
+                  target="_blank"
+                  alt="Sarfaa"
+                  rel="noreferrer"
+                >
+                  SARFAA
+                </a>
               </p>
             </Col>
           </Row>

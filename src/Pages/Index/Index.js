@@ -4,7 +4,7 @@ import { Button, Card, Carousel, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import Header from "../../Components/Header/Header";
-import Journal from "../../Components/Journal/Journal";
+import Journal from "../../Components/Journal/IndexJournal";
 import Product from "../../Components/Products/Product";
 import { Link_Path_URL } from "../../Utils/LinkPath";
 
@@ -18,7 +18,6 @@ const Index = () => {
     axios.get(`${Link_Path_URL}api/index-master-get`).then((res) => {
       setSliderData(res.data.allBanners);
       setAllProducts(res.data.allProductsMaster.data);
-      
     });
   };
   useEffect(() => {
@@ -41,7 +40,7 @@ const Index = () => {
             {/* main content */}
             <Col xl={12} xxl={8}>
               {/* Carousel */}
-              <div className="mb-5 mt-4 " >
+              <div className="mb-5 mt-4 ">
                 <Carousel>
                   {sliderData.map((data, index) => (
                     <Carousel.Item key={index}>
@@ -49,7 +48,6 @@ const Index = () => {
                         src={`${Link_Path_URL}${data.image}`}
                         alt=""
                         className="w-100"
-                        
                       />
                       <Carousel.Caption>
                         <Link to={data.btnLink}>
@@ -136,8 +134,8 @@ const Index = () => {
         </Container>
       </div>
       <Product />
-      <Journal />
-      <Footer />
+      <Journal journalTop="d-none !important" />
+      <Footer shippingPolicy="d-none" />
     </div>
   );
 };

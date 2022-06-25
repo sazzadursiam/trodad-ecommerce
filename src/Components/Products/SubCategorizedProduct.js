@@ -342,7 +342,7 @@ const SubCategorizedProduct = () => {
           )}
         </Row>
       </Container>
-      <Footer />
+      <Footer shippingPolicy="d-none" />
     </>
   );
 };
