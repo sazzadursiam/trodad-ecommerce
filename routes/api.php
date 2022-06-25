@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\CustomerAuth\CustomerAuthController;
 use App\Http\Controllers\Frontend\JournalController;
 use App\Http\Controllers\Frontend\MasterController;
 use App\Http\Controllers\Frontend\OrderController;
+use App\Http\Controllers\ProductRatingController;
 use App\Http\Controllers\TestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,14 @@ Route::get('/journals', [JournalController::class, 'allJournalPosts']);
 Route::get('/journals/{postId}', [JournalController::class, 'singleJournalPost']);
 Route::get('/journals/category/{categoryId}', [JournalController::class, 'categoryJournalPost']);
 
+/*
+|--------------------------------------------------------------------------
+| Product Rating Routes
+|--------------------------------------------------------------------------
+*/
+
+Route::post('products/rating-store', [ProductRatingController::class, 'productRatingStore']);
+Route::get('products/ratings/{productId}', [ProductRatingController::class, 'productRatingShow']);
 
 /*
 |--------------------------------------------------------------------------
@@ -210,7 +219,17 @@ Route::group(['prefix' => '/admin'], function () {
         });
     });
 
-
+    /*
+    |--------------------------------------------------------------------------
+    | Product Rating Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::group(['prefix' => '/product/ratings'], function () {
+        Route::get('/new', [ProductRatingController::class, 'newProductRating']);
+        Route::get('/', [ProductRatingController::class, 'allProductRating']);
+        Route::get('/new-rating/status-update/{id}/{status}', [ProductRatingController::class, 'productRatingUpdateStatus']);
+        Route::delete('/delete/{id}', [ProductRatingController::class, 'productRatingdelete']);
+    });
 
     //
 });
