@@ -34,6 +34,15 @@ Route::post('/admin/login/process', [AdminAuthController::class, 'adminLogin']);
 
 /* ===================== Auth End ===================== */
 
+/*
+|--------------------------------------------------------------------------
+| User (customer) Routes
+|--------------------------------------------------------------------------
+*/
+Route::get('/user/data/{userId}', [CustomerAuthController::class, 'userData']);
+Route::put('/user/update-profile/{userId}', [CustomerAuthController::class, 'userUpdateProfile']);
+Route::put('/user/update-address/{userId}', [CustomerAuthController::class, 'userUpdateAddress']);
+
 // Brands 
 Route::get('/index-master-get', [MasterController::class, 'masterGet']);
 Route::get('/brands/{slug}', [MasterController::class, 'getSingleBrand']);

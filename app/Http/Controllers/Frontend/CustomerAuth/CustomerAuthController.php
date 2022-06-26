@@ -118,4 +118,85 @@ class CustomerAuthController extends Controller
             }
         }
     }
+
+    public function userData($userId)
+    {
+        $userInfo = User::find($userId);
+
+        return response()->json([
+            'userInfo' => $userInfo,
+        ]);
+    }
+    public function userUpdateProfile(Request $request, $userId)
+    {
+        $model = User::find($userId);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'password' => 'nullable|min:4|max:18',
+                'confirm_password' => 'nullable|same:password|min:4|max:18',
+            ]
+        );
+        // validation error
+        if ($validator->fails()) {
+
+            return response()->json([
+                'status' => '400',
+                'errors' => $validator->errors(),
+            ]);
+        }
+        $model->name = $request->name;
+        //image upload
+        if ($request->hasFile('profileImage')) {
+            //remove old image form folder if new image comes
+            if ($model->profileImage != null || $model->profileImage != "") {
+                $image_file = public_path($model->profileImage);
+                if (file_exists($image_file)) {
+                    unlink($image_file);
+                }
+            }
+            $profileImage = $request->file('profileImage');
+            $new_name = time() . '.' . $request->profileImage->getClientOriginalExtension();
+            $path = '/Images/user/profile/';
+            $profileImage->move(public_path($path), $new_name);
+            $model->profileImage = $path . $new_name;
+        }
+
+        if ($request->current_password != null || $request->current_password != "") {
+            $current_pass = $model->password;
+            if (Hash::check($request->current_password, $current_pass)) {
+                // The passwords match...
+                $model->password = Hash::make($request->password);
+            } else {
+
+                return response()->json([
+                    'status' => 400,
+                    'currentPassError' => 'Password Dose Not Match.',
+                ]);
+            }
+        }
+
+        $model->save();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Profile Update Successful.',
+            'userInfo' => $model,
+        ]);
+    }
+    public function userUpdateAddress(Request $request, $userId)
+    {
+        $model = User::find($userId);
+        $model->
+
+        $model->save();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Update Successful.',
+            'userInfo' => $model,
+        ]);
+    }
 }
