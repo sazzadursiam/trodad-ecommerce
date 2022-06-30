@@ -189,7 +189,14 @@ class CustomerAuthController extends Controller
     public function userUpdateAddress(Request $request, $userId)
     {
         $model = User::find($userId);
-        $model->
+
+        $model->phone = $request->phone;
+        $model->country = $request->country;
+        $model->streetAddress = $request->streetAddress;
+        $model->apartmentAddress = $request->apartmentAddress;
+        $model->city = $request->city;
+        $model->district = $request->district;
+        $model->postCode = $request->postCode;
 
         $model->save();
 

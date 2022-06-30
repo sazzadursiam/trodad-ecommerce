@@ -16,11 +16,14 @@ class MasterController extends Controller
     {
         $allBrands = Brand::orderBy('brandName', 'asc')->where('status', 1)->get();
 
-        $allProductCaregories = Category::with('subCategory')->where('status', 1)->where('parrentCatId', 0)->get();
+        $allProductCaregories = Category::with(['subCategory' => function ($query) {
+            // Query the name field in subcaegory
+            $query->where('status', 1);
+        }])->where('status', 1)->where('parrentCatId', 0)->get();
 
         $allBanners = Banner::get();
 
-        $allProductsMaster = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->orderBy('id', 'desc')->paginate(5);
+        $allProductsMaster = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->orderBy('id', 'desc')->take(8)->get();
 
 
 
@@ -36,8 +39,13 @@ class MasterController extends Controller
     {
         $singleProductDetails = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->where('slug', $slug)->first();
 
+        $categoryId = $singleProductDetails->categoryId;
+
+        $relatedProducts = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->where('categoryId', $categoryId)->get();
+
         return response()->json([
             'singleProductDetails' => $singleProductDetails,
+            'relatedProducts' => $relatedProducts,
         ]);
     }
 
@@ -73,15 +81,7 @@ class MasterController extends Controller
         ]);
     }
 
-    // Get all Product categories info
-    // public function getAllProductCaregories()
-    // {
-    //     $allProductCaregories = Category::with('subCategory')->where('status', 1)->where('parrentCatId', 0)->orderBy('name', 'asc')->get();
 
-    //     return response()->json([
-    //         'allProductCaregories' => $allProductCaregories,
-    //     ]);
-    // }
     // Get Single Brand  info
     public function getSingleProductCategory($slug)
     {
@@ -94,7 +94,6 @@ class MasterController extends Controller
 
     public function filterNewProduct($filterText)
     {
-        // return $filterText;
         $products = "";
         if ($filterText == 'new') {
             $products = Product::where('isNew', 1)->get();
@@ -108,7 +107,6 @@ class MasterController extends Controller
 
     public function filterTabs()
     {
-        // echo "hi";
         $tabs = Category::where('parrentCatId', 0)->get();
         return response()->json([
             'tabs' => $tabs,
@@ -117,7 +115,7 @@ class MasterController extends Controller
 
     public function filterTabProduct($categoryId)
     {
-        $tabProducts = Product::where('categoryId', $categoryId)->get();
+        $tabProducts = Product::where('categoryId', $categoryId)->take(8)->get();
         return response()->json([
             'tabProducts' => $tabProducts,
         ]);
@@ -125,7 +123,7 @@ class MasterController extends Controller
 
     public function getAllProduct()
     {
-        $allProducts = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->paginate(24);
+        $allProducts = Product::select('id', 'name', 'slug', 'image')->get();
 
         return response()->json([
             'allProducts' => $allProducts,

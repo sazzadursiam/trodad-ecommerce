@@ -58,9 +58,12 @@ class AddToCartController extends Controller
     {
         $cartData = AddToCart::with('Products')->where('userId', $userId)->get();
         $cartOrderTotal = $cartData->sum('price');
+        // $products = AddToCart::where('userId', $cartData->userID)->get();
+        $cartProductQuantity = $cartData->count();
         return response()->json([
             'cartData' => $cartData,
             'cartOrderTotal' => $cartOrderTotal,
+            'cartProductQuantity' => $cartProductQuantity,
         ]);
     }
 
@@ -90,6 +93,9 @@ class AddToCartController extends Controller
         $model->qty = $qty;
         $model->price = $price;
         $model->save();
+
+
+
         return response()->json([
             'message' => 'Qty update successful',
         ]);

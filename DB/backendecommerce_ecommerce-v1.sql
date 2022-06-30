@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 26, 2022 at 09:22 AM
+-- Generation Time: Jun 27, 2022 at 03:02 AM
 -- Server version: 10.2.44-MariaDB
 -- PHP Version: 7.4.29
 
@@ -492,8 +492,11 @@ CREATE TABLE `users` (
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `streetAddress` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `apartmentAddress` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `district` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `profileImage` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `postCode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -507,8 +510,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `streetAddress`, `city`, `profileImage`, `postCode`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'user', 'user@gmail.com', '41411353553', NULL, NULL, '/Images/user/profile/1656248430.png', NULL, NULL, '$2y$10$n0kPtQxkf5UimhCMJUY3jeOkjABHyZrucpIG2EBcwJDBG7hsEIxou', NULL, '2022-06-26 16:55:36', '2022-06-26 17:01:22');
+INSERT INTO `users` (`id`, `name`, `email`, `phone`, `country`, `streetAddress`, `apartmentAddress`, `city`, `district`, `profileImage`, `postCode`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'user', 'user@gmail.com', '41411353553', NULL, NULL, NULL, NULL, NULL, '/Images/user/profile/1656248430.png', NULL, NULL, '$2y$10$n0kPtQxkf5UimhCMJUY3jeOkjABHyZrucpIG2EBcwJDBG7hsEIxou', NULL, '2022-06-26 16:55:36', '2022-06-26 17:01:22');
 
 --
 -- Indexes for dumped tables

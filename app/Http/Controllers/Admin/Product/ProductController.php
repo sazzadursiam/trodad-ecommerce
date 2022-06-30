@@ -103,12 +103,7 @@ class ProductController extends Controller
             $product->flagText4 = $request->flagText4;
             $product->flagText5 = $request->flagText5;
 
-            $product->isNew = $request->isNew;
-            $product->isNewPrice = $request->isNewPrice;
-
-            $product->sku = 'Art ' . time();
-
-
+            $product->sku = $request->sku;
 
             //image upload
             if ($request->hasFile('image')) {
@@ -226,10 +221,8 @@ class ProductController extends Controller
         $product->flagText4 = $request->flagText4;
         $product->flagText5 = $request->flagText5;
 
-        $product->isNew = $request->isNew;
-        $product->isNewPrice = $request->isNewPrice;
 
-        $product->sku = 'Art ' . time();
+        $product->sku = $request->sku;
 
 
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\Journal\CategoryController as JournalCategoryCont
 use App\Http\Controllers\Admin\Journal\PostController;
 use App\Http\Controllers\Admin\Product\CategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
+use App\Http\Controllers\Admin\ShippingController;
 use App\Http\Controllers\Frontend\AddToCartController;
 use App\Http\Controllers\Frontend\CustomerAuth\CustomerAuthController;
 use App\Http\Controllers\Frontend\JournalController;
@@ -79,10 +80,12 @@ Route::get('products/ratings/{productId}', [ProductRatingController::class, 'pro
 | PRODUCT
 |--------------------------------------------------------------------------
 */
+Route::get('/search-all-products', [MasterController::class, 'searchAllProduct']);
 Route::get('/all-product', [MasterController::class, 'getAllProduct']);
 
 Route::get('/products/single-details/{slug}', [MasterController::class, 'getSingleProductDetails']);
 
+//category product
 Route::get('/products/category/{categoryId}/{slug}', [MasterController::class, 'getAllCategoryProduct']);
 
 Route::get('/products/category/{categoryId}/{categorySlug}/{subCategoryId}/{subCategorySlug}', [MasterController::class, 'getAllSubCategoryProduct']);
@@ -239,9 +242,15 @@ Route::group(['prefix' => '/admin'], function () {
         Route::get('/new-rating/status-update/{id}/{status}', [ProductRatingController::class, 'productRatingUpdateStatus']);
         Route::delete('/delete/{id}', [ProductRatingController::class, 'productRatingdelete']);
     });
+    Route::group(['prefix' => '/shipping'], function () {
+        Route::get('/edit', [ShippingController::class, 'edit']);
+        Route::put('/update/{id}', [ShippingController::class, 'update']);
+    });
+
 
     //
 });
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
