@@ -65,7 +65,7 @@ const JournalPosts = () => {
   return (
     <>
       <Header />
-      <div className="container">
+      <div className="container main_section">
         <div className="my-5">
           <Row>
             {journalPosts.map((data, index) => (

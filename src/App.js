@@ -56,7 +56,7 @@ export const UserContext = createContext();
 function App() {
   const [slugName, setSlugName] = useState("new");
   const [authUser, setAuthUser] = useState([]);
-
+  const [userInfo, setUserINfo] = useState([]);
   const [cartQuantity, setCartQuantity] = useState();
   const [cartTotal, setCartTotal] = useState();
 
@@ -71,6 +71,8 @@ function App() {
         setCartQuantity,
         cartTotal,
         setCartTotal,
+        userInfo,
+        setUserINfo,
       }}
     >
       <Router>
@@ -78,11 +80,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/journals" element={<JournalPosts />} />
-          <Route path="/user/registration" element={<UserRegForm />} />
-          <Route path="/user/login" element={<UserLogin />} />
+          <Route path="/user/reg" element={<UserRegistration />} />
+          {/* <Route path="/user/login" element={<UserLogin />} /> */}
+          {/* <Route path="/user/registration" element={<UserRegForm />} /> */}
           <Route path="/admin/login" element={<AdminLoginForm />} />
           <Route path="/journals/:postId" element={<SingleJournalPost />} />
-          <Route path="/user/reg" element={<UserRegistration />} />
           {/* Products */}
           <Route
             path="/products/category/:productcategory"

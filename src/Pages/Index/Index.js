@@ -17,7 +17,7 @@ const Index = () => {
   const SliderData = () => {
     axios.get(`${Link_Path_URL}api/index-master-get`).then((res) => {
       setSliderData(res.data.allBanners);
-      setAllProducts(res.data.allProductsMaster.data);
+      setAllProducts(res.data.allProductsMaster);
     });
   };
   useEffect(() => {
@@ -27,7 +27,7 @@ const Index = () => {
   return (
     <div>
       <Header />
-      <div>
+      <div className="main_section">
         <Container fluid className="index_page">
           <Row>
             {/* left banner */}
@@ -58,21 +58,27 @@ const Index = () => {
                   ))}
                 </Carousel>
               </div>
-
+              {/* banner */}
+              <div className="mb-5">
+                <Row>
+                  <Col md={12}>
+                    <div className="">
+                      <img
+                        src={require("../../Assets/volt.jpg")}
+                        className="h-100 w-100"
+                        alt=""
+                      />
+                    </div>
+                  </Col>
+                </Row>
+              </div>
               {/* card */}
-              <div className="product_card">
+              <div className="product_card p-sm-5 p-lg-0 mb-5">
                 <Row className="justify-content-center">
                   {AllProducts.map((data, index) => {
                     if (index < 4) {
                       return (
-                        <Col
-                          sm={6}
-                          md={4}
-                          lg={4}
-                          xl={3}
-                          className="mb-3"
-                          key={index}
-                        >
+                        <Col xs={6} lg={4} xl={3} className="mb-3" key={index}>
                           {/* <Link to={`/products/details/${data.slug}`}> */}
                           <Card
                             className="border-0"
@@ -87,16 +93,19 @@ const Index = () => {
                               />
                             </div>
                             <Card.Body className="text-center">
-                              <Card.Title>{data.name}</Card.Title>
-                              <Card.Text>
+                              <Card.Title className="text-dark fw-bolder">
+                                {data.name}
+                              </Card.Title>
+                              <Card.Text className="text-dark ">
                                 {data.price} KR / {data.packSize1}-PACK
                               </Card.Text>
                               <Button
                                 as={Link}
                                 to={`/products/details/${data.slug}`}
                                 variant="danger"
+                                className="border-0"
                               >
-                                Buy Here
+                                Köp här
                               </Button>
                             </Card.Body>
                           </Card>
@@ -105,21 +114,6 @@ const Index = () => {
                       );
                     }
                   })}
-                </Row>
-              </div>
-
-              {/* banner */}
-              <div className="mb-5">
-                <Row>
-                  <Col md={12}>
-                    <div className="">
-                      <img
-                        src={require("../../Assets/volt.jpg")}
-                        className="h-100 w-100"
-                        alt=""
-                      />
-                    </div>
-                  </Col>
                 </Row>
               </div>
             </Col>

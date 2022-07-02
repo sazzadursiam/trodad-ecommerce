@@ -8,7 +8,7 @@ const User = () => {
     <div className="userDashboard">
       <Header />
       <UserContent />
-      <Footer shippingPolicy="d-none" />
+      <Footer shippingPolicy="d-none mt-5" />
     </div>
   );
 };

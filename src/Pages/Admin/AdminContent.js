@@ -126,6 +126,12 @@ const Test = () => {
                   <span className="text nav-text">Product Ratings</span>
                 </Link>
               </li>
+              <li className="nav-link">
+                <Link to="shipping-method">
+                  <MdIcons.MdOutlineLocalShipping className="icon" size="1.5rem" />
+                  <span className="text nav-text">Shipping Method</span>
+                </Link>
+              </li>
 
               <li className="nav-link">
                 <Link to="" onClick={logoutAdmin}>

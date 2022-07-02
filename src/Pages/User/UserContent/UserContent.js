@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
+import { UserContext } from "../../../App";
+import { BACKEND_BASE_URL } from "../../../Components/GlobalVariables";
 import "./UserContent.css";
 
 const UserContent = () => {
+  const { userInfo, setUserINfo } = useContext(UserContext);
   const [clickState, setClickState] = useState();
 
   const ToggleClass = (index) => {
@@ -11,11 +15,32 @@ const UserContent = () => {
   };
   const logoutUser = () => {
     localStorage.removeItem("email");
+    localStorage.removeItem("customerName");
     localStorage.removeItem("LOGGED_IN_USER_ID");
+    localStorage.removeItem("cartTotal");
+    localStorage.removeItem("cartProductQuantity");
   };
+  console.log(localStorage.getItem("LOGGED_IN_USER_ID"));
+  // ===================== User Info =================
+
+  const fetchUserData = () => {
+    axios
+      .get(
+        `${BACKEND_BASE_URL}/api/user/data/${localStorage.getItem(
+          "LOGGED_IN_USER_ID"
+        )}`
+      )
+      .then((res) => {
+        setUserINfo(res.data.userInfo);
+        console.log(res.data);
+      });
+  };
+  useEffect(() => {
+    fetchUserData();
+  }, []);
 
   return (
-    <div className="userProfile">
+    <div className="userProfile main_section">
       {/* pageTitle */}
       <div className="pageTitle mb-4">
         <Container className="inner">
@@ -34,13 +59,20 @@ const UserContent = () => {
               <div className="leftbar_title mb-3">
                 <div className="d-flex align-items-center">
                   <div className="profile_image me-3">
-                    <img
-                      src="https://toppng.com//public/uploads/preview/donna-picarro-dummy-avatar-115633298255iautrofxa.png"
-                      alt=""
-                    />
+                    {!userInfo.profileImage ? (
+                      <img
+                        src="https://toppng.com//public/uploads/preview/donna-picarro-dummy-avatar-115633298255iautrofxa.png"
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        src={`${BACKEND_BASE_URL}/${userInfo.profileImage}`}
+                        alt=""
+                      />
+                    )}
                   </div>
                   <div className="profile_name">
-                    <span> Tanver Mehede </span>
+                    <span> {userInfo.name} </span>
                   </div>
                 </div>
               </div>

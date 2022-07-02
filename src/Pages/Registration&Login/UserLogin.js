@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { UserContext } from "../../App";
 import { Link_Path_URL } from "../../Utils/LinkPath";
 
-import "./customerRegForm.css";
+// import "./customerRegForm.css";
 
 const UserLoginForm = () => {
   const Email = useRef();

@@ -32,9 +32,12 @@
 }
 
 .bg_brown {
-    background-color: #4e3524 !important;
+    background-color: #4a270e !important;
 }
 
+.bg_green {
+    background-color: #0b683d !important;
+}
 
 
 .cl_light_navy {
@@ -50,7 +53,7 @@
 }
 
 .bg_smooky {
-    background-color: #26506d;
+    background-color: #3c4043;
 }
 
 .bg_light_grey {
@@ -84,4 +87,19 @@
 
 .jodit-container.jodit.jodit_theme_default.jodit-wysiwyg_mode {
     min-width: unset !important;
+}
+
+/* Pagination */
+.pagination {
+    margin: 30px;
+}
+
+.pagination button {
+    padding: 0 10px;
+    margin-right: 20px;
+}
+
+.pagination .selected {
+    background-color: rgb(43, 43, 224);
+    color: white;
 }

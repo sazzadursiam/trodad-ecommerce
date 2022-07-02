@@ -1,6 +1,17 @@
+import { Rating } from "@mui/material";
 import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Pagination,
+  Row,
+  Tab,
+  Tabs,
+} from "react-bootstrap";
 import * as BsIcons from "react-icons/bs";
 import * as FaIcons from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -12,8 +23,15 @@ import { BACKEND_BASE_URL } from "../../Components/GlobalVariables";
 import "./products.css";
 
 const Product = () => {
+  const [clickState, setClickState] = useState("");
   const { setCartQuantity, setCartTotal } = useContext(UserContext);
   const sendCol = useRef();
+
+  const [initialActive, setInitialActive] = useState(0);
+
+  const ToggleClass = (index) => {
+    setClickState(index);
+  };
 
   const cartFunction = () => {
     const cartQuantitycheck = localStorage.getItem("cartProductQuantity");
@@ -24,16 +42,15 @@ const Product = () => {
 
   // ===================== All Products =================
   const [AllProducts, setAllProducts] = useState([]);
+
   const SliderData = () => {
     axios.get(`${BACKEND_BASE_URL}/api/index-master-get`).then((res) => {
-      setAllProducts(res.data.allProductsMaster.data);
-      console.log(res.data);
+      setAllProducts(res.data.allProductsMaster);
     });
   };
   useEffect(() => {
     SliderData();
   }, []);
-
 
   // =============== Fetch Tabs =============================
   const [tabItems, setTabItems] = useState([]);
@@ -57,7 +74,6 @@ const Product = () => {
   const getTabItems = (id) => {
     axios.get(`${BACKEND_BASE_URL}/api/product/tab/${id}`).then((res) => {
       setFilterTabProduct(res.data.tabProducts);
-      // console.log(res.data.tabProducts);
     });
   };
 
@@ -136,29 +152,47 @@ const Product = () => {
 
   return (
     <Container className="mb-5">
-      <h1 className="text-center mb-5 product-section-title">
-        Snus online - Snusbolaget
-      </h1>
+      <div className="text-center mb-5 product-section-header">
+        <h1>Snus på nätet</h1>
+        <p>
+          På Tobakshandel hittar du SNUS, en stor mängd Snus! Vi arbetar aktivt
+          med att utöka vårt sortiment för att kunna bli det självklara valet
+          för dig som vill köpa snus på nätet. Med våra blixtsnabba
+          leveranstider kan vi erbjuda dig FÄRSK snus på 1-3 dagar.{" "}
+        </p>
+      </div>
 
-      <Row>
+      <Row className="justify-content-center">
         {tabItems.map((data, index) => (
-          <Col
-            xs={6}
-            md={3}
-            key={index}
-            className="products-tabs active my-3 cursor_pointer"
-            onClick={() => getTabItems(data.id)}
-          >
-            <span className="text-white">{data.name}</span>
-          </Col>
+          <>
+            <Col
+              xs={6}
+              md={3}
+              key={index}
+              onClick={() => {
+                getTabItems(data.id);
+                ToggleClass(data.id);
+              }}
+              className={`products-tabs cursor_pointer 
+                ${clickState === data.id ? "active" : ""}`}
+            >
+              <span
+                className={` ${
+                  clickState === data.id ? "active" : "text-white"
+                }`}
+              >
+                {data.name}
+              </span>
+            </Col>
+          </>
         ))}
       </Row>
 
-      <Row className="mb-5">
+      <Row className="my-5 Product_mobile">
         {filterTabProduct.length != 0
           ? filterTabProduct.map((data, index) => (
               <Col
-                sm={6}
+                xs={6}
                 md={4}
                 lg={4}
                 xl={3}
@@ -187,37 +221,29 @@ const Product = () => {
                         </div>
                       </div>
                     </Card.Title>
-                    <Card.Text className="product-details">
+                    <Card.Text className="product-details text-center text-sm-start">
                       <Link to={`/products/details/${data.slug}`}>
                         {data.name}
                       </Link>
                     </Card.Text>
-                    <div className="d-flex justify-content-between align-items-center">
+                    <div className="d-sm-flex justify-content-sm-between align-items-center">
                       <div className="product-rating d-flex align-items-center">
-                        <BsIcons.BsStarFill
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStarFill
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStarHalf
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStar
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStar
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <span className="ps-1 ">(5)</span>
+                        {data.avgRating != 0 && (
+                          <Rating
+                            size="small"
+                            name="half-rating"
+                            defaultValue={data.avgRating}
+                            precision={0.5}
+                            readOnly
+                          />
+                        )}
+
+                        {data.totalRating != 0 && (
+                          <span className="ps-1 ">({data.totalRating})</span>
+                        )}
                       </div>
 
-                      <div className="product-price d-flex flex-column align-items-center">
+                      <div className="product-price d-flex flex-column d-sm-flex flex-sm-column align-items-center">
                         {isOnChanged == "" || isOnChanged == null ? (
                           <>
                             <span>({data.unitPrice1}/st)</span>
@@ -297,7 +323,7 @@ const Product = () => {
                       </div>
                     </div>
                     {/* Tab Products */}
-                    <div className="d-flex mt-1">
+                    <div className="d-none d-sm-flex mt-1 ">
                       <Form.Select
                         ref={sendCol}
                         className="w-100 product-variant-select"
@@ -311,7 +337,7 @@ const Product = () => {
                             value="1"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize1} dose</span>-
+                            <span>{data.packSize1} Dosa</span>-
                             <span>{data.variantPrice1} kr</span>
                           </option>
                         )}
@@ -320,7 +346,7 @@ const Product = () => {
                             value="2"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize2} dose</span>-
+                            <span>{data.packSize2} Dosa</span>-
                             <span>{data.variantPrice2} kr</span>
                           </option>
                         )}
@@ -329,7 +355,7 @@ const Product = () => {
                             value="3"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize3} dose</span>-
+                            <span>{data.packSize3} Dosa</span>-
                             <span>{data.variantPrice3} kr</span>
                           </option>
                         )}
@@ -338,7 +364,7 @@ const Product = () => {
                             value="4"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize4} dose</span>-
+                            <span>{data.packSize4} Dosa</span>-
                             <span>{data.variantPrice4} kr</span>
                           </option>
                         )}
@@ -347,16 +373,16 @@ const Product = () => {
                             value="5"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize5} dose</span>-
+                            <span>{data.packSize5} Dosa</span>-
                             <span>{data.variantPrice5} kr</span>
                           </option>
                         )}
                       </Form.Select>
                       <button
-                        className="btn-danger w-50 border-0 add-to-cart-btn"
+                        className="btn-dark w-50 border-0 add-to-cart-btn"
                         onClick={() => addToCart(data.id)}
                       >
-                        <FaIcons.FaCartPlus size="1em" /> <span> aKöp</span>
+                        <BsIcons.BsCart4 size="1.5rem" /> <span> Köp</span>
                       </button>
                     </div>
                   </Card.Body>
@@ -365,7 +391,7 @@ const Product = () => {
             ))
           : AllProducts.map((data, index) => (
               <Col
-                sm={6}
+                xs={6}
                 md={4}
                 lg={4}
                 xl={3}
@@ -393,37 +419,29 @@ const Product = () => {
                         </div>
                       </div>
                     </Card.Title>
-                    <Card.Text className="product-details">
+                    <Card.Text className="product-details text-center text-sm-start">
                       <Link to={`/products/details/${data.slug}`}>
                         {data.name}
                       </Link>
                     </Card.Text>
 
-                    <div className="d-flex justify-content-between align-items-center">
-                      <div className="product-rating d-flex align-items-center">
-                        <BsIcons.BsStarFill
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStarFill
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStarHalf
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStar
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStar
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <span className="ps-1 ">(5)</span>
+                    <div className="d-sm-flex justify-content-sm-between align-items-center">
+                      <div className="product-rating d-sm-flex align-items-center  mobile_rating">
+                        {data.avgRating != 0 && (
+                          <Rating
+                            size="small"
+                            name="half-rating"
+                            defaultValue={data.avgRating}
+                            precision={0.5}
+                            readOnly
+                          />
+                        )}
+
+                        {data.totalRating != 0 && (
+                          <span className="ps-1 ">({data.totalRating})</span>
+                        )}
                       </div>
-                      <div className="product-price d-flex flex-column align-items-center">
+                      <div className="product-price d-flex flex-column d-sm-flex flex-sm-column align-items-center">
                         {isOnChanged == "" || isOnChanged == null ? (
                           <>
                             <span>({data.unitPrice1}/st)</span>
@@ -503,7 +521,7 @@ const Product = () => {
                       </div>
                     </div>
                     {/* New Products */}
-                    <div className="d-flex mt-1">
+                    <div className="d-sm-flex mt-1 d-none">
                       <Form.Select
                         ref={sendCol}
                         className="w-100 product-variant-select"
@@ -515,54 +533,55 @@ const Product = () => {
                         {data.packSize1 && (
                           <option
                             value="1"
-                            className="d-flex justify-content-between"
+                            className="d-flex justify-content-sm-between"
                           >
-                            <span>{data.packSize1} dose</span>-
+                            <span>{data.packSize1} Dosa</span>-
                             <span>{data.variantPrice1} kr</span>
                           </option>
                         )}
                         {data.packSize2 && (
                           <option
                             value="2"
-                            className="d-flex justify-content-between"
+                            className="d-flex justify-content-sm-between"
                           >
-                            <span>{data.packSize2} dose</span>-
+                            <span>{data.packSize2} Dosa</span>-
                             <span>{data.variantPrice2} kr</span>
                           </option>
                         )}
                         {data.packSize3 && (
                           <option
                             value="3"
-                            className="d-flex justify-content-between"
+                            className="d-flex justify-content-sm-between"
                           >
-                            <span>{data.packSize3} dose</span>-
+                            <span>{data.packSize3} Dosa</span>-
                             <span>{data.variantPrice3} kr</span>
                           </option>
                         )}
                         {data.packSize4 && (
                           <option
                             value="4"
-                            className="d-flex justify-content-between"
+                            className="d-flex justify-content-sm-between"
                           >
-                            <span>{data.packSize4} dose</span>-
+                            <span>{data.packSize4} Dosa</span>-
                             <span>{data.variantPrice4} kr</span>
                           </option>
                         )}
                         {data.packSize5 && (
                           <option
                             value="5"
-                            className="d-flex justify-content-between"
+                            className="d-flex justify-content-sm-between"
                           >
-                            <span>{data.packSize5} dose</span>-
+                            <span>{data.packSize5} Dosa</span>-
                             <span>{data.variantPrice5} kr</span>
                           </option>
                         )}
                       </Form.Select>
                       <button
-                        className="btn-danger w-50 border-0 add-to-cart-btn"
+                        className="btn-dark w-50 border-0 add-to-cart-btn "
                         onClick={() => addToCart(data.id)}
                       >
-                        <FaIcons.FaCartPlus size="1em" /> <span> aKöp</span>
+                        <BsIcons.BsCart4 size="1.5rem" />
+                        <span> Köp</span>
                       </button>
                     </div>
                   </Card.Body>

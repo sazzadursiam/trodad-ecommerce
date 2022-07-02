@@ -1,8 +1,16 @@
-
 .btm_border_dash {
-    border-bottom: 1px dashed #414141!important;
+    border-bottom: 1px dashed #414141 !important;
 }
+
 .m_force_end {
     display: flex;
     justify-content: end;
+}
+
+.order_btn {
+    background-color: #11283E !important;
+}
+
+.order_btn:hover {
+    background-color: #175692 !important;
 }

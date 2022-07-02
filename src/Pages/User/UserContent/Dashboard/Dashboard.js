@@ -1,16 +1,19 @@
+import { useContext } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { UserContext } from "../../../../App";
 import "./Dashboard.css";
 const Dashboard = () => {
-  const { userId } = useParams();
+  const { userInfo } = useContext(UserContext);
   return (
     <div className="userdashboard_content">
       <div className="mb-5">
         <p>
           Hello
-          <span className="mx-2 fw-bold">Tanver Mehede</span>( not{" "}
+          <span className="mx-2 fw-bold">{userInfo.name}</span>
+          {/* ( not{" "}
           <span className="mx-1 fw-bold">Tanver Mehede</span> ? &nbsp;
-          <Link to="/">Logout</Link>)
+          <Link to="/">Logout</Link>) */}
         </p>
         <p>
           From your account dashboard you can view Your &nbsp;
@@ -34,8 +37,12 @@ const Dashboard = () => {
             </Button>
           </Col>
           <Col md={4} className="mb-3">
-            <Button  as={Link}
-              to="edit-account" className="w-100" variant="outline-secondary">
+            <Button
+              as={Link}
+              to="edit-account"
+              className="w-100"
+              variant="outline-secondary"
+            >
               Account Details
             </Button>
           </Col>

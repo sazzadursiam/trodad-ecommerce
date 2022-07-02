@@ -110,159 +110,207 @@ const Footer = (props) => {
       </div>
 
       {/* ========================== FOOTER TOP ==== ===================== */}
-      <div
-        className={` container-fluid ${props.footerTop} text-light`}
-        style={{ backgroundColor: "#11283e" }}
-      >
-        <div className="footer__body">
-          <Row className="pt_50">
-            <Col xs={12} sm={6} md={4} className="mb_30">
-              <h3 className="mb-4 fs-5">Secure e-commerce with:</h3>
-              <Row>
-                <Col xs={12}>
-                  <div className="mb-3">
-                    <img
-                      src={require("../../Assets/Footer/payment_methods.png")}
-                      alt="Payment Methods"
-                      className="img-fluid rounded-2"
-                    />
-                  </div>
-                </Col>
-                <Col xs={4}>
-                  <div className="brand mb-4">
-                    <img
-                      src={require("../../Assets/Footer/dhl.png")}
-                      alt="DHL"
-                      className="img-fluid rounded-2"
-                    />
-                  </div>
-                </Col>
-                <Col xs={4}>
-                  <div className="brand mb-4">
-                    <img
-                      src={require("../../Assets/Footer/earlybird.png")}
-                      alt="DHL"
-                      className="img-fluid rounded-2"
-                    />
-                  </div>
-                </Col>
-                <Col xs={4}>
-                  <div className="brand mb-4">
-                    <img
-                      src={require("../../Assets/Footer/airmee.png")}
-                      alt="DHL"
-                      className="img-fluid rounded-2"
-                    />
-                  </div>
-                </Col>
-                <Col xs={4}>
-                  <div className="brand mb-4">
-                    <img
-                      src={require("../../Assets/Footer/postnord.png")}
-                      alt="DHL"
-                      className="img-fluid rounded-2"
-                    />
-                  </div>
-                </Col>
-                <Col xs={4}>
-                  <div className="brand mb-4 ">
-                    <img
-                      src={require("../../Assets/Footer/budbee.png")}
-                      alt="DHL"
-                      className="img-fluid rounded-2"
-                    />
-                  </div>
-                </Col>
-                <Col xs={4}>
-                  <div className="brand mb-4">
-                    <img
-                      src={require("../../Assets/Footer/instabox.png")}
-                      alt="DHL"
-                      className="img-fluid rounded-2"
-                    />
-                  </div>
-                </Col>
-              </Row>
-            </Col>
-            <Col xs={12} sm={6} md={4} className="mb_30">
-              <h3 className="mb-4 fs-5">Questions? Contact customer service</h3>
-              <p className="custom_anchor_tag">
-                <span>Phone:</span>
-                <a href="tel://+46-20-0753464" className="text-info">
+      <div className="container-fluid border-top ">
+        <div className={` container ${props.footerTop} text-light`}>
+          <div className="footer__body">
+            <Row className="pt_50 g-0">
+              <Col xs={12} sm={6} md={4} className="mb_30">
+                {/* <h3 className="mb-4 fs-5 text-dark">Trygg ehandel med:</h3> */}
+                <Row className="pe-0 pe-sm-5">
+                  {/* <Col xs={12}>
+                    <div className="mb-3">
+                      <img
+                        src={require("../../Assets/Footer/payment_methods.png")}
+                        alt="Payment Methods"
+                        className="img-fluid rounded-2"
+                      />
+                    </div>
+                  </Col> */}
+                  <Col md={12}>
+                    <div className="d-flex justify-content-center mb-4 ">
+                      <img
+                        src={require("../../Assets/18-symbol.png")}
+                        alt=""
+                        className="img-fluid rounded-3 bg-black"
+                      />
+                    </div>
+                  </Col>
+                  {/* <Col xs={4}>
+                    <div className="brand mb-4">
+                      <img
+                        src={require("../../Assets/Footer/dhl.png")}
+                        alt="DHL"
+                        className="img-fluid rounded-2"
+                      />
+                    </div>
+                  </Col>
+                  <Col xs={4}>
+                    <div className="brand mb-4">
+                      <img
+                        src={require("../../Assets/Footer/earlybird.png")}
+                        alt="DHL"
+                        className="img-fluid rounded-2"
+                      />
+                    </div>
+                  </Col>
+                  <Col xs={4}>
+                    <div className="brand mb-4">
+                      <img
+                        src={require("../../Assets/Footer/airmee.png")}
+                        alt="DHL"
+                        className="img-fluid rounded-2"
+                      />
+                    </div>
+                  </Col>
+                  <Col xs={4}>
+                    <div className="brand mb-4">
+                      <img
+                        src={require("../../Assets/Footer/postnord.png")}
+                        alt="DHL"
+                        className="img-fluid rounded-2"
+                      />
+                    </div>
+                  </Col>
+                  <Col xs={4}>
+                    <div className="brand mb-4 ">
+                      <img
+                        src={require("../../Assets/Footer/budbee.png")}
+                        alt="DHL"
+                        className="img-fluid rounded-2"
+                      />
+                    </div>
+                  </Col>
+                  <Col xs={4}>
+                    <div className="brand mb-4">
+                      <img
+                        src={require("../../Assets/Footer/instabox.png")}
+                        alt="DHL"
+                        className="img-fluid rounded-2"
+                      />
+                    </div>
+                  </Col> */}
+                </Row>
+              </Col>
+              <Col
+                xs={12}
+                sm={6}
+                md={4}
+                className="mb_30 ps-5 pe-0 pe-sm-5 text-dark"
+              >
+                {/* <h3 className="mb-4 fs-5">Frågor? Kontakta kundservice</h3> */}
+                <h3 className="mb-4 fs-5">INFORMATION</h3>
+                {/* <p className="custom_anchor_tag">
+                  <span>Phone:</span>
+                  <a href="tel://+46-20-0753464" className="text-info">
+                    {" "}
+                    +46-20-0753464
+                  </a>
+                </p>
+                <p className="custom_anchor_tag">
+                  <a href="/kundservice/" className="text-info">
+                    Click here to contact us
+                  </a>
+                </p> */}
+                {/* <p className="phonetime mt_30">
+                  Phone hours: Mon - Wed 8-17, Thu 8-16, Fri 8-17 Sat closed
+                  &amp; Sun 9-12. Emails are usually answered within a couple of
+                  hours. You can also find answers to the most common questions
+                  by clicking on "Customer Service". We look forward to hearing
+                  from you!
+                </p> */}
+                <p>Om Tobakshandel</p>
+                <p>Köpvillkor</p>
+                <p>Integritetspolicy</p>
+                <p>Kontakt</p>
+              </Col>
+              <Col
+                xs={12}
+                sm={6}
+                md={4}
+                className="mb_30 pe-0 pe-sm-5 text-dark"
+              >
+                {/* <h3 className="mb-4 fs-5">Hallo! Hei! Tjena! Hello!</h3> */}
+                <h3 className="mb-4 fs-5">KONTAKT</h3>
+                <p>
+                  <span className="fw-bold">Butiksadress: </span>Stenbocksvägen
+                  1 C, 611 66 Nyköping
+                </p>
+                <p>
                   {" "}
-                  +46-20-0753464
-                </a>
-              </p>
-              <p className="custom_anchor_tag">
-                <a href="/kundservice/" className="text-info">
-                  Click here to contact us
-                </a>
-              </p>
-              <p children="phonetime mt_30">
-                Phone hours: Mon - Wed 8-17, Thu 8-16, Fri 8-17 Sat closed &amp;
-                Sun 9-12. Emails are usually answered within a couple of hours.
-                You can also find answers to the most common questions by
-                clicking on "Customer Service". We look forward to hearing from
-                you!
-              </p>
-            </Col>
-            <Col xs={12} sm={6} md={4} className="mb_30">
-              <h3 className="mb-4 fs-5">Hello! Hey! Hey! Hello!</h3>
-
-              <p children="mt_30">
-                Snusbolaget is expanding and you can now buy your snus from both
-                Switzerland and Norway. Click on the Swiss flag to be directed
-                to www.snusmarkt.ch, click on the Norwegian flag to be directed
-                to www.snushjem.no. See you there!
-              </p>
-              <div className="d-flex justify-content-between ">
-                <div className="footer_flag_img">
-                  <img
-                    src={require("../../Assets/Footer/switzerland.png")}
-                    alt="Switzerland"
-                    className="img-fluid footer_img"
-                  />
-                </div>
-                <div className="footer_flag_img">
-                  <img
-                    src={require("../../Assets/Footer/norway.png")}
-                    alt="Norway"
-                    className="img-fluid"
-                  />
-                </div>
-                <div className="footer_flag_img">
-                  <img
-                    src={require("../../Assets/Footer/swiden.png")}
-                    className="img-fluid"
-                    alt="Swiden"
-                  />
-                </div>
-                <div className="footer_flag_img">
-                  {" "}
-                  <img
-                    src={require("../../Assets/Footer/happ.png")}
-                    alt="Happ"
-                    className="img-fluid"
-                  />
-                </div>
-              </div>
-            </Col>
-          </Row>
+                  <span className="fw-bold">Växel: </span> 073-877 8406
+                </p>
+                <p>
+                  <span className="fw-bold">E-post: </span>info@snushandel.se
+                </p>
+                {/* 
+                <p children="mt_30">
+                  Snusbolaget is expanding and you can now buy your snus from
+                  both Switzerland and Norway. Click on the Swiss flag to be
+                  directed to www.snusmarkt.ch, click on the Norwegian flag to
+                  be directed to www.snushjem.no. See you there!
+                </p> */}
+                {/* <div className="d-flex justify-content-between ">
+                  <div className="footer_flag_img">
+                    <img
+                      src={require("../../Assets/Footer/switzerland.png")}
+                      alt="Switzerland"
+                      className="img-fluid footer_img"
+                    />
+                  </div>
+                  <div className="footer_flag_img">
+                    <img
+                      src={require("../../Assets/Footer/norway.png")}
+                      alt="Norway"
+                      className="img-fluid"
+                    />
+                  </div>
+                  <div className="footer_flag_img">
+                    <img
+                      src={require("../../Assets/Footer/swiden.png")}
+                      className="img-fluid"
+                      alt="Swiden"
+                    />
+                  </div>
+                  <div className="footer_flag_img">
+                    {" "}
+                    <img
+                      src={require("../../Assets/Footer/happ.png")}
+                      alt="Happ"
+                      className="img-fluid"
+                    />
+                  </div>
+                </div> */}
+              </Col>
+            </Row>
+          </div>
         </div>
       </div>
-
       {/* ============================ FOOTER BOTTOM ============================ */}
       <div className={`footer_nav p-4 bg_grey`}>
         <div className="container d-md-flex justify-content-md-between align-items-center">
           <Row>
             <Col md={12} lg={6} className="d-none d-sm-block">
-              <ul className="text-center">
-                <Link to="#">The snus report</Link>
-                <Link to="#">Privacy Policy</Link>
-                <Link to="#">Customer service</Link>
-                <Link to="#">Shipping &amp; delivery time</Link>
-                <Link to="#">About Snusbolaget</Link>
-                <Link to="#">The snus journal</Link>
+              <ul className="text-center text-dark footer_bottom">
+                <Link to="/underconstruction" className="text-dark">
+                  Snusrapporten
+                </Link>
+                <Link to="/underconstruction" className="text-dark">
+                  Integritetspolicy
+                </Link>
+                <Link to="/underconstruction" className="text-dark">
+                  {" "}
+                  Kundservice
+                </Link>
+                <Link to="/underconstruction" className="text-dark">
+                  Frakt &amp; leveranstid
+                </Link>
+                <Link to="/underconstruction" className="text-dark">
+                  {" "}
+                  Om Snusbolaget
+                </Link>
+                <Link to="/journals" className="text-dark">
+                  Snusjournalen
+                </Link>
               </ul>
             </Col>
             <Col

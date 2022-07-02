@@ -77,10 +77,14 @@
 /* REVIEW */
 
 .product_review {
-    background-color: #E0E0E0;
     height: 400px;
     overflow-y: auto;
     border-radius: 5px;
+}
+
+.css-dqr9h-MuiRating-label,
+.MuiRating-decimal label {
+    display: block !important;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -109,6 +113,9 @@
     color: #666;
 }
 
+.similar_Product_card {
+    box-shadow: none !important;
+}
 
 .similar_products .title {
     background-color: #003153;
@@ -169,5 +176,29 @@
     -moz-box-shadow: none !important;
     box-shadow: none !important;
 
-    border: none !important;
+}
+
+/* TABS */
+.nav-tabs {
+    background-color: #014b7f;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.tab_wrapper .nav-item .active {
+    background-color: #003153 !important;
+    color: #fff !important;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.nav-tabs .nav-link {
+    color: #fff !important;
+}
+
+
+@media screen and (max-width: 425px) {
+    .checkbox_addCart div button {
+        font-size: 15px !important;
+    }
 }

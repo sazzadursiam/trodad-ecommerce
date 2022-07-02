@@ -1,5 +1,15 @@
-/* ================================= Product Tab Starts ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
+
+/* Product section title */
+.product-section-header {}
+
+.product-section-header p {
+    font-family: 'EB Garamond', serif;
+    font-size: 14px;
+}
+
+/* ================================= Product Tab Starts ============================================ */
 
 .products-tabs {
     font-size: 14px;
@@ -12,19 +22,31 @@
 
 .product-card {
     border: 1px solid white !important;
-
+    margin-bottom: 18px !important;
 }
 
 .product-card:hover {
     border: 1px solid rgb(187, 185, 185) !important;
 }
 
-.products-tabs a {
+/* .products-tabs a {
     color: #003153;
+} */
+
+.products-tabs:hover {
+    background-color: #a5a5a5 !important;
+    color: #000 !important;
 }
 
 .products-tabs.active {
-    background-color: #003153;
+    background-color: #a5a5a5;
+    color: rgb(0, 0, 0);
+
+}
+
+.products-tabs {
+    background-color: rgb(0, 0, 0);
+
 
 }
 
@@ -77,19 +99,23 @@
     font-size: 14px;
 }
 
+.product-details a {
+    color: #000;
+}
+
 .product-rating span {
-    font-size: 13px;
+    /* font-size: 13px; */
 }
 
 .product-price span {
+    color: #666;
     font-size: 10px;
-    color: grey;
 }
 
 .product-price span:nth-child(2) {
-    font-size: 16px;
-    font-weight: 700;
-    color: black;
+    color: #ff3b3b;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 /* ================================= Product Variant Dropdown , Add to Cart Button ============================================ */
@@ -116,6 +142,9 @@ option>span {
 
 }
 
+.Product_mobile {}
+
+
 /* ================================= MEDIA QUERIES ============================================ */
 
 
@@ -127,4 +156,13 @@ option>span {
     .product-section-title {
         font-size: 22px;
     }
+
+
+
+    .products-cards .img-wrapper {
+        min-height: 100px !important;
+    }
+
 }
+
+@media screen and (max-width: 450px) {}

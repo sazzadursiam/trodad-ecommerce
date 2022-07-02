@@ -1,3 +1,4 @@
+
 /* R/L Banner */
 .bannerAdd {
     height: 80%;
@@ -54,4 +55,10 @@
 .product_card .img-wrapper {
     width: 100%;
     min-height: 300px;
+}
+
+@media screen and (max-width:576px) {
+    .product_card .img-wrapper {
+        min-height: 120px !important;
+    }
 }

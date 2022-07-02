@@ -1,6 +1,15 @@
-.userdashboard_content p{
-    font-weight : 500;
+.userdashboard_content p {
+    font-weight: 500;
 }
-.userdashboard_content a{
-    color : black;
+
+.userdashboard_content a {
+    color: black;
+}
+
+.submit_btn {
+    background-color: #11283E !important;
+}
+
+.submit_btn:hover {
+    background-color: #175692 !important;
 }

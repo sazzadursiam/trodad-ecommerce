@@ -1,6 +1,15 @@
+import { Rating } from "@mui/material";
 import axios from "axios";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import {
+  Button,
+  Card,
+  Col,
+  Container,
+  Form,
+  Pagination,
+  Row,
+} from "react-bootstrap";
 import * as BsIcons from "react-icons/bs";
 import * as FaIcons from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
@@ -37,6 +46,8 @@ const SubCategorizedProduct = () => {
         )
         .then((res) => {
           setSubCategorizedProducts(res.data.subCategoryProducts.data);
+          setCurrentPageActiveNum(res.data.subCategoryProducts.current_page);
+          setLastPageNumber(res.data.subCategoryProducts.last_page);
           console.log(res.data);
         });
     } catch (error) {
@@ -121,10 +132,32 @@ const SubCategorizedProduct = () => {
       });
   };
 
+  // ================== Load More ========================
+  const [currentPageNum, setCurrentPageActiveNum] = useState();
+  const [lastPageNumber, setLastPageNumber] = useState();
+
+  const LoadmoreProduct = () => {
+    if (currentPageNum != lastPageNumber) {
+      var pageNum = currentPageNum + 1;
+    }
+
+    axios
+      .get(
+        `${BACKEND_BASE_URL}/api/products/category/${categotyId}/${categorySlug}/${subCategoryId}/${subCategorySlug}?page=${pageNum}`
+      )
+      .then((res) => {
+        setSubCategorizedProducts([
+          ...subCategorizedProducts,
+          ...res.data.subCategoryProducts.data,
+        ]);
+        setCurrentPageActiveNum(pageNum);
+      });
+  };
+
   return (
     <>
       <Header />
-      <Container className=" mt-5 mb-5">
+      <Container className=" mt-5 mb-5 main_section">
         <h1 className="text-center mb-5 product-section-title">
           Snus online - Snusbolaget
         </h1>
@@ -171,28 +204,21 @@ const SubCategorizedProduct = () => {
 
                     <div className="d-flex justify-content-between align-items-center">
                       <div className="product-rating d-flex align-items-center">
-                        <BsIcons.BsStarFill
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStarFill
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStarHalf
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStar
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <BsIcons.BsStar
-                          style={{ marginRight: "3px" }}
-                          size="1em"
-                        />
-                        <span className="ps-1 ">(5)</span>
+                        {data.avgRating != 0 && (
+                          <Rating
+                            size="small"
+                            name="half-rating"
+                            defaultValue={data.avgRating}
+                            precision={0.5}
+                            readOnly
+                          />
+                        )}
+
+                        {data.totalRating != 0 && (
+                          <span className="ps-1 ">({data.totalRating})</span>
+                        )}
                       </div>
+
                       <div className="product-price d-flex flex-column align-items-center">
                         {isOnChanged == "" || isOnChanged == null ? (
                           <>
@@ -287,7 +313,7 @@ const SubCategorizedProduct = () => {
                             value="1"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize1} dose</span>-
+                            <span>{data.packSize1} Dosa</span>-
                             <span>{data.variantPrice1} kr</span>
                           </option>
                         )}
@@ -296,7 +322,7 @@ const SubCategorizedProduct = () => {
                             value="2"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize2} dose</span>-
+                            <span>{data.packSize2} Dosa</span>-
                             <span>{data.variantPrice2} kr</span>
                           </option>
                         )}
@@ -305,7 +331,7 @@ const SubCategorizedProduct = () => {
                             value="3"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize3} dose</span>-
+                            <span>{data.packSize3} Dosa</span>-
                             <span>{data.variantPrice3} kr</span>
                           </option>
                         )}
@@ -314,7 +340,7 @@ const SubCategorizedProduct = () => {
                             value="4"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize4} dose</span>-
+                            <span>{data.packSize4} Dosa</span>-
                             <span>{data.variantPrice4} kr</span>
                           </option>
                         )}
@@ -323,16 +349,17 @@ const SubCategorizedProduct = () => {
                             value="5"
                             className="d-flex justify-content-between"
                           >
-                            <span>{data.packSize5} dose</span>-
+                            <span>{data.packSize5} Dosa</span>-
                             <span>{data.variantPrice5} kr</span>
                           </option>
                         )}
                       </Form.Select>
                       <button
-                        className="btn-danger w-50 border-0 add-to-cart-btn"
+                        className="btn-dark w-50 border-0 add-to-cart-btn"
                         onClick={() => addToCart(data.id)}
                       >
-                        <FaIcons.FaCartPlus size="1em" /> <span> aKöp</span>
+                        <BsIcons.BsCart4 size="1.5rem" />
+                        <span> Köp</span>
                       </button>
                     </div>
                   </Card.Body>
@@ -341,6 +368,16 @@ const SubCategorizedProduct = () => {
             ))
           )}
         </Row>
+        {currentPageNum != lastPageNumber && (
+          <div className="text-center">
+            <Button
+              variant="outline-secondary  mt-1 rounded-0 fw-bold"
+              onClick={() => LoadmoreProduct()}
+            >
+              LADDA FLER PRODUKTER
+            </Button>
+          </div>
+        )}
       </Container>
       <Footer shippingPolicy="d-none" />
     </>

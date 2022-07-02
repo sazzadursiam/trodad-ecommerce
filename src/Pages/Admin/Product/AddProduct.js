@@ -19,6 +19,7 @@ const AddProduct = () => {
   const productDesc = useRef();
   const productShortDesc = useRef();
   const productPrice = useRef();
+  const productSku = useRef();
 
   const productPackSize1 = useRef();
   const productPackSize2 = useRef();
@@ -102,17 +103,6 @@ const AddProduct = () => {
   // ============================= form submit to backend ======================
 
   let handleSubmit = (event) => {
-    const IsNew = isNewcheckboxChecked;
-    const IsNewPrice = isNewpricecheckboxChecked;
-    // const IsNew2 = isNewcheckboxChecked2;
-    // const IsNewPrice2 = isNewpricecheckboxChecked2;
-    // const IsNew3 = isNewcheckboxChecked3;
-    // const IsNewPrice3 = isNewpricecheckboxChecked3;
-    // const IsNew4 = isNewcheckboxChecked4;
-    // const IsNewPrice4 = isNewpricecheckboxChecked4;
-    // const IsNew5 = isNewcheckboxChecked5;
-    // const IsNewPrice5 = isNewpricecheckboxChecked5;
-
     const formdata = new FormData();
     formdata.append("name", productName.current.value);
     formdata.append("image", productImage.current.files[0]);
@@ -122,6 +112,7 @@ const AddProduct = () => {
     formdata.append("description", productDesc.current.value);
     formdata.append("shortDescription", productShortDesc.current.value);
     formdata.append("price", productPrice.current.value);
+    formdata.append("sku", productSku.current.value);
 
     formdata.append("packSize1", productPackSize1.current.value);
     formdata.append("packSize2", productPackSize2.current.value);
@@ -185,18 +176,6 @@ const AddProduct = () => {
     formdata.append("flagText3", flagText3.current.value);
     formdata.append("flagText4", flagText4.current.value);
     formdata.append("flagText5", flagText5.current.value);
-
-    if (IsNew === true) {
-      formdata.append("isNew", 1);
-    } else {
-      formdata.append("isNew", 0);
-    }
-
-    if (IsNewPrice === true) {
-      formdata.append("isNewPrice", 1);
-    } else {
-      formdata.append("isNewPrice", 0);
-    }
 
     axios
       .post(`${BACKEND_BASE_URL}/api/admin/products/store`, formdata, {
@@ -586,34 +565,6 @@ const AddProduct = () => {
                     </Form.Select>
                   </Form.Group>
 
-                  {/* Checkbox */}
-                  {/* <Form.Group
-                    as={Col}
-                    md="6"
-                    className="mb-3"
-                    controlId="validationCustom06"
-                  >
-                    <div className="mt-2">
-                      <Form.Check
-                        type="checkbox"
-                        label="isNew"
-                        value="1"
-                        ref={isNew}
-                        onChange={handleCheckbox}
-                      />
-                    </div>
-
-                    <div className="mt-1">
-                      <Form.Check
-                        type="checkbox"
-                        label="isNewPrice"
-                        value="1"
-                        ref={isNewPrice}
-                        onChange={handleCheckbox1}
-                      />
-                    </div>
-                  </Form.Group> */}
-
                   {/* Product Price */}
                   <Form.Group
                     as={Col}
@@ -621,19 +572,32 @@ const AddProduct = () => {
                     className="mb-3"
                     controlId="validationCustom03"
                   >
-                    <Form.Label className="label fw-bold">Price</Form.Label>
+                    <Form.Label className="label fw-bold">
+                      Price <span className="text-danger">*</span>
+                    </Form.Label>
                     <Form.Control
                       required
                       type="text"
                       placeholder="Price"
                       name="price"
-                      ref={productPrice}
+                      ref={productSku}
                       onChange={handleInput}
                       value={pValue.price}
                     />
                     <Form.Control.Feedback type="invalid">
                       Title is required
                     </Form.Control.Feedback>
+                  </Form.Group>
+
+                  {/* Product SKU */}
+                  <Form.Group
+                    as={Col}
+                    md="12"
+                    className="mb-3"
+                    controlId="validationCustom03"
+                  >
+                    <Form.Label className="label fw-bold">SKU</Form.Label>
+                    <Form.Control type="text" name="sku" ref={productPrice} />
                   </Form.Group>
 
                   {/* Product Short Description */}

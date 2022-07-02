@@ -143,7 +143,7 @@ const AllProduct = () => {
                           alt={data.name}
                         />
                       </td>
-                      <td>{data.product_category.name}</td>
+                      <td>{data.product_category?.name}</td>
                       <td>{data.product_sub_category?.name}</td>
                       <td>
                         {/* view button */}

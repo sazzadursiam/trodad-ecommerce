@@ -11,9 +11,7 @@ export default function PrivateRoute({ children }) {
     setAuthUser(user);
     // console.log(user);
     const location = useLocation();
-
-    // return authUser.email ? children : <Navigate to="/user/login" replace state={{from: location}}/>;
-    return user? children : <Navigate to="/user/login" replace state={{from: location}}/>;
+    return user? children : <Navigate to="/user/reg" replace state={{from: location}}/>;
 
 
 }

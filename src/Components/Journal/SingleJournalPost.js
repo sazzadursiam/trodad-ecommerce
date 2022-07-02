@@ -44,7 +44,7 @@ const SingleJournalPost = () => {
   return (
     <>
       <Header />
-      <div className="container">
+      <div className="container main_section">
         <div className="my-5">
           <Row>
             <Col md={8}>

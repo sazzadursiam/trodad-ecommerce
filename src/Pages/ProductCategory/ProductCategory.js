@@ -9,7 +9,7 @@ const ProductCategory = () => {
   return (
     <div>
       <Header />
-      <div className="mt-5">
+      <div className="mt-5 main_section">
         <Container>
           <Product displayNone="d-none" />
         </Container>

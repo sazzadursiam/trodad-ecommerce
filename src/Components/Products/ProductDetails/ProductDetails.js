@@ -13,17 +13,17 @@ import {
   Tab,
   Tabs,
 } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Slider from "react-slick/lib/slider";
 import Footer from "../../Footer/Footer";
 import Header from "../../Header/Header";
-import { Link_Path_URL } from "../../../Utils/LinkPath";
-import "./ProductDetails.css";
 import Parser from "html-react-parser";
 import Swal from "sweetalert2";
 import { v4 as uuid } from "uuid";
 import { UserContext } from "../../../App";
 import { useRef } from "react";
+import { BACKEND_BASE_URL } from "../../GlobalVariables";
+import "./ProductDetails.css";
 
 const ProductDetails = () => {
   const { slug } = useParams();
@@ -31,7 +31,7 @@ const ProductDetails = () => {
 
   const ratingTitle = useRef();
   const ratingComments = useRef();
-  const ratingUser = useRef();
+  const ratingUserEmail = useRef();
 
   const cartFunction = () => {
     const cartQuantitycheck = localStorage.getItem("cartProductQuantity");
@@ -39,28 +39,33 @@ const ProductDetails = () => {
     setCartQuantity(cartQuantitycheck);
     setCartTotal(cartTotalcheck);
   };
+
   //=================================== Fetch Product Details ===================================
 
   const [productDetails, setProductDetails] = useState([]);
   const [productID, setProductID] = useState([]);
+  const [similarProduct, setSimilarProduct] = useState([]);
+  const [shippingInfo, setShippingInfo] = useState([]);
 
   const AllProductDetails = async () => {
     await axios
-      .get(`${Link_Path_URL}api/products/single-details/${slug}`)
+      .get(`${BACKEND_BASE_URL}/api/products/single-details/${slug}`)
       .then((res) => {
         setProductDetails(res.data.singleProductDetails);
         setProductID(res.data.singleProductDetails.id);
+        setSimilarProduct(res.data.relatedProducts);
+        setShippingInfo(res.data.shippingInfo);
       });
   };
   useEffect(() => {
     AllProductDetails();
-  }, []);
+  }, [slug]);
 
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
+    slidesToShow: 3,
     slidesToScroll: 1,
     initialSlide: 0,
     autoplay: true,
@@ -149,7 +154,7 @@ const ProductDetails = () => {
     formdata.append("userType", USER_TYPE);
 
     axios
-      .post(`${Link_Path_URL}api/add-to-cart/save`, formdata, {
+      .post(`${BACKEND_BASE_URL}/api/add-to-cart/save`, formdata, {
         headers: { "Content-Type": "multipart/form-data" },
       })
 
@@ -181,11 +186,11 @@ const ProductDetails = () => {
     formdata.append("rating", rating);
     formdata.append("ratingTitle", ratingTitle.current.value);
     formdata.append("ratingComments", ratingComments.current.value);
-    formdata.append("ratingUser", ratingUser.current.value);
+    formdata.append("ratingUserEmail", ratingUserEmail.current.value);
     formdata.append("productId", productID);
 
     axios
-      .post(`${Link_Path_URL}api/products/rating-store`, formdata, {
+      .post(`${BACKEND_BASE_URL}/api/products/rating-store`, formdata, {
         headers: { "Content-Type": "multipart/form-data" },
       })
 
@@ -196,41 +201,40 @@ const ProductDetails = () => {
             text: response.data.message,
             confirmButtonColor: "#5eba86",
           });
-          DisplayRetings();
+          DisplayRatings();
           e.target.reset();
           setRating("");
         }
       });
   };
 
-  // Display All Retings
+  // Display All Ratings
 
   const [allRatings, setAllRatings] = useState([]);
   const [ratingCount, setRatingCount] = useState(0);
   const [totalRatingCount, setTotalRatingCount] = useState();
 
   const avgRating = Number(totalRatingCount / ratingCount);
- 
 
-  const DisplayRetings = () => {
+  const DisplayRatings = () => {
     axios
-      .get(`${Link_Path_URL}api/products/ratings/${productID}`)
+      .get(`${BACKEND_BASE_URL}/api/products/ratings/${productID}`)
       .then((res) => {
         setAllRatings(res.data.productRattings);
         setRatingCount(res.data.productRattings.length);
         setTotalRatingCount(res.data.sumOfRatting);
       });
   };
-  
+
   useEffect(() => {
-    DisplayRetings();
+    DisplayRatings();
   }, [productID]);
 
   return (
     <div>
       <Header />
-      <Container>
-        <div className="product_details mt-5">
+      <Container className="main_section">
+        <div className="product_details my-5">
           {/* product_content */}
           <div className="product_content mb-5">
             <Row>
@@ -239,7 +243,7 @@ const ProductDetails = () => {
                 <div className="product_thumbnails w-100">
                   <img
                     className="w-100"
-                    src={`${Link_Path_URL}${productDetails.image}`}
+                    src={`${BACKEND_BASE_URL}/${productDetails.image}`}
                     alt=""
                   />
                 </div>
@@ -305,9 +309,9 @@ const ProductDetails = () => {
                                     className="form-check-label"
                                     htmlFor="flexRadioDefault1"
                                   >
-                                    <div className="d-flex justify-content-between">
-                                      <span>
-                                        {productDetails.packSize1} dose
+                                    <div className="d-flex justify-content-between flex-wrap">
+                                      <span className="text-start">
+                                        {productDetails.packSize1} Dosa
                                       </span>
                                       <span>
                                         {productDetails.variantPrice1} kr
@@ -332,8 +336,8 @@ const ProductDetails = () => {
                                     className="form-check-label"
                                     htmlFor="flexRadioDefault3"
                                   >
-                                    <div className="d-flex justify-content-between ">
-                                      <span>
+                                    <div className="d-flex justify-content-between flex-wrap">
+                                      <span className="text-start">
                                         {productDetails.packSize3}-pack (SEK{" "}
                                         {productDetails.unitPrice3} / pc)
                                       </span>
@@ -360,8 +364,8 @@ const ProductDetails = () => {
                                     className="form-check-label "
                                     htmlFor="flexRadioDefault5"
                                   >
-                                    <div className="d-flex justify-content-between">
-                                      <span>
+                                    <div className="d-flex justify-content-between flex-wrap">
+                                      <span className="text-start">
                                         {productDetails.packSize5}-pack (SEK{" "}
                                         {productDetails.unitPrice5} / pc)
                                       </span>
@@ -391,8 +395,8 @@ const ProductDetails = () => {
                                     className="form-check-label "
                                     htmlFor="flexRadioDefault2"
                                   >
-                                    <div className="d-flex justify-content-between ">
-                                      <span>
+                                    <div className="d-flex justify-content-between flex-wrap">
+                                      <span className="text-start">
                                         {productDetails.packSize2}-pack (SEK{" "}
                                         {productDetails.unitPrice2} / pc)
                                       </span>
@@ -419,8 +423,8 @@ const ProductDetails = () => {
                                     className="form-check-label "
                                     htmlFor="flexRadioDefault4"
                                   >
-                                    <div className="d-flex justify-content-between ">
-                                      <span>
+                                    <div className="d-flex justify-content-between flex-wrap">
+                                      <span className="text-start">
                                         {productDetails.packSize4}-pack (SEK{" "}
                                         {productDetails.unitPrice4} / pc)
                                       </span>
@@ -432,7 +436,7 @@ const ProductDetails = () => {
                                 </div>
                               </div>
                             )}
-                          </Col>{" "}
+                          </Col>
                         </Row>
                       </div>
                       {isOnChanged == "" || isOnChanged == null ? (
@@ -618,7 +622,7 @@ const ProductDetails = () => {
                         ""
                       )}
                       <div className="checkbox_addCart">
-                        <div className="d-flex justify-content-between align-items-center ms-4">
+                        <div className="d-flex justify-content-between align-items-center ms-4 btn_wrapper">
                           <Button
                             className="w_45 border-0 bg_brown"
                             size="lg"
@@ -627,8 +631,7 @@ const ProductDetails = () => {
                             Danger
                           </Button>
                           <Button
-                            className="w_45 border-0"
-                            variant="success"
+                            className="w_45 border-0 bg_green"
                             size="lg"
                             onClick={() => addToCart(productDetails.id)}
                           >
@@ -645,17 +648,24 @@ const ProductDetails = () => {
 
           <Row>
             <Tabs
-              defaultActiveKey="Product Description"
+              defaultActiveKey="BESKRIVNING"
               id="uncontrolled-tab-example"
-              className="mb-3"
+              className="mb-3 tab_wrapper"
             >
-              <Tab eventKey="Product Description" title="Product Description">
+              <Tab
+                eventKey="BESKRIVNING"
+                title="BESKRIVNING"
+                className="tab_body"
+              >
                 {/* product_description */}
                 <Col md={12} className="product_description">
                   {Parser("" + productDetails.description)}
                 </Col>
               </Tab>
-              <Tab eventKey="Product Review" title="Product Review">
+              <Tab
+                eventKey=" RECENSIONER"
+                title={`RECENSIONER (${ratingCount})`}
+              >
                 {/* product review */}
                 <Col md={12}>
                   <div className="product_review">
@@ -664,7 +674,7 @@ const ProductDetails = () => {
                       <div className="rating  d-flex justify-content-center align-items-center mb-4">
                         <Rating
                           className="me-2"
-                          style={{ color: "#666666", fontSize: "30px" }}
+                          style={{ fontSize: "30px" }}
                           name="read-only"
                           value={Math.round(avgRating)}
                           readOnly
@@ -688,21 +698,29 @@ const ProductDetails = () => {
                         <Row>
                           <Col md={2}>
                             <img
-                              className="w-100"
-                              src={`${Link_Path_URL}${productDetails.image}`}
+                              className="w-100 p-4 p-sm-0"
+                              src={`${BACKEND_BASE_URL}/${productDetails.image}`}
                               alt=""
                             />
                           </Col>
                           <Col md={10}>
+                            <p>
+                              Din e-postadress kommer inte att publiceras.
+                              Obligatoriska fält är markerade med{" "}
+                              <span className="text-danger">*</span>
+                            </p>
                             <Form onSubmit={submitRating}>
-                              <div className="rating_padding bg-light">
-                                <div className="d-flex justify-content-center align-items-center mb-4 py-2">
-                                  <p className="mb-0 me-2 fs20">Your rating:</p>
+                              <div className="rating_padding ">
+                                <div className="d-flex justify-content-start align-items-center mb-4 py-2">
+                                  <Form.Label className="me-2 mb-0">
+                                    Ditt betyg
+                                    <span className="text-danger mx-1"> *</span>
+                                    :
+                                  </Form.Label>
                                   <Rating
-                                    className=""
+                                    className="rating"
                                     style={{
-                                      color: "#666666",
-                                      fontSize: "30px",
+                                      fontSize: "24px",
                                     }}
                                     name="half-rating"
                                     value={Number(rating)}
@@ -714,51 +732,88 @@ const ProductDetails = () => {
                                   />
                                 </div>
                               </div>
-                              <FloatingLabel
-                                controlId="floatingTextarea"
-                                label="Write a headline for your review"
+                              <Form.Group
+                                as={Col}
+                                md="6"
+                                controlId="validationCustom01"
                                 className="mb-3"
                               >
+                                <Form.Label className="">
+                                  Din recension{" "}
+                                  <span className="text-danger">*</span>
+                                </Form.Label>
                                 <Form.Control
                                   as="textarea"
-                                  placeholder="Leave a comment here"
                                   required
-                                  style={{ height: "70px" }}
+                                  style={{
+                                    height: "150px",
+                                    border: "2px solid #a5a5a554",
+                                    borderRadius: "0px",
+                                  }}
                                   ref={ratingTitle}
                                 />
-                              </FloatingLabel>
-                              <FloatingLabel
-                                controlId="floatingTextarea"
-                                label="What did you think of the product?"
-                                className="mb-3"
-                              >
-                                <Form.Control
-                                  as="textarea"
-                                  placeholder="Leave a comment here"
-                                  required
-                                  style={{ height: "100px" }}
-                                  ref={ratingComments}
-                                />
-                              </FloatingLabel>
-                              <FloatingLabel
-                                controlId="floatingTextarea"
-                                label="What name do you want to be displayed?"
-                                className="mb-3"
-                              >
-                                <Form.Control
-                                  as="textarea"
-                                  placeholder="Leave a comment here"
-                                  required
-                                  style={{ height: "70px" }}
-                                  ref={ratingUser}
-                                />
-                              </FloatingLabel>
+                              </Form.Group>
+                              <Row>
+                                <Form.Group
+                                  as={Col}
+                                  md="4"
+                                  controlId="validationCustom01"
+                                  className="mb-3"
+                                >
+                                  {" "}
+                                  <Form.Label className="">
+                                    Namn
+                                    <span className="text-danger"> *</span>
+                                  </Form.Label>
+                                  <Form.Control
+                                    required
+                                    ref={ratingComments}
+                                    style={{
+                                      border: "2px solid #a5a5a554",
+                                      borderRadius: "0px",
+                                    }}
+                                  />
+                                </Form.Group>
+                                <Form.Group
+                                  as={Col}
+                                  md="4"
+                                  controlId="validationCustom01"
+                                  className="mb-3"
+                                >
+                                  <Form.Label className="">
+                                    E-post
+                                    <span className="text-danger"> *</span>
+                                  </Form.Label>
+                                  <Form.Control
+                                    a
+                                    required
+                                    style={{
+                                      border: "2px solid #a5a5a554",
+                                      borderRadius: "0px",
+                                    }}
+                                    ref={ratingUserEmail}
+                                  />
+                                </Form.Group>
+                                <div className="form_check mb-4">
+                                  <Form.Check
+                                    type="checkbox"
+                                    id="custom-switch"
+                                    label="Spara mitt namn, e-post och webbplats i den hår webbläsaren till nästa
+                                  gång jag kommenterar."
+                                  />
+                                </div>
+                              </Row>
                               <Button
-                                className="w-100 border-0"
-                                variant="light"
+                                className="fw-bold"
                                 type="submit"
+                                style={{
+                                  backgroundColor: "#212529",
+                                  borderRadius: "0",
+                                  padding: "5px 14px",
+                                  fontSize: "14px",
+                                }}
                               >
-                                Submit
+                                SKICKA IN
                               </Button>
                             </Form>
                           </Col>
@@ -768,32 +823,55 @@ const ProductDetails = () => {
                       {/* review */}
                       <div className="review">
                         {allRatings.map((data, index) => (
-                          <div key={index}>
-                            <Rating
-                              className="mb-2"
-                              style={{ color: "#666666", fontSize: "25px" }}
-                              name="half-rating"
-                              defaultValue={data.rating}
-                              precision={0.5}
-                              readOnly
-                            />
-                            <h6 className="mb-1">{data.ratingTitle}</h6>
-                            <p className="mb-1">
-                              <span className="fw-bold me-2">
-                                {data.ratingUser}
-                              </span>
-                              <span>
-                                {data.created_at.toString().slice(0, 10)}
-                              </span>
-                            </p>
-                            <p>{data.ratingComments}</p>
-                          </div>
+                          <>
+                            <div key={index}>
+                              <Rating
+                                className="mb-2"
+                                style={{ fontSize: "25px" }}
+                                name="half-rating"
+                                defaultValue={data.rating}
+                                precision={0.5}
+                                readOnly
+                              />
+                              <h6 className="mb-1">{data.ratingUser}</h6>
+                              <div className="mb-1">
+                                <p className="fw-bold mb-0">
+                                  {data.ratingUserEmail}
+                                </p>
+                                <span>
+                                  {data.created_at.toString().slice(0, 10)}
+                                </span>
+                              </div>
+                              <p>{data.ratingComments}</p>
+                            </div>
+                            <hr />
+                          </>
                         ))}
                       </div>
                     </div>
                   </div>
                 </Col>
               </Tab>
+              <Tab
+                eventKey="Frakt & Leverans"
+                title="Frakt & Leverans"
+                className="tab_body"
+              >
+                <Col>
+                  <h4>
+                    {shippingInfo.shippingMethod}
+                    <span className="text-muted">
+                      <small>&nbsp;({shippingInfo.shippingPrice})</small>{" "}
+                    </span>
+                  </h4>
+                  {Parser("" + shippingInfo.shippingDetails)}
+                </Col>
+              </Tab>
+              <Tab
+                eventKey=" Frågor och svar"
+                title=" Frågor och svar"
+                className="tab_body"
+              ></Tab>
             </Tabs>
           </Row>
 
@@ -802,274 +880,62 @@ const ProductDetails = () => {
           </div>
 
           {/* similar products */}
-          <div className="similar_products">
-            <div className="title w-100 text-center">
-              <p className="py-2">Similar Products</p>
+          {similarProduct.length >= 3 && (
+            <div className="similar_products">
+              <div className="title w-100 text-center">
+                <p className="py-2">Similar Products</p>
+              </div>
+              <div className="similar_products_slider">
+                <Slider {...settings}>
+                  {similarProduct.map((data, index) => (
+                    <div key={index}>
+                      <Card
+                        className="text-dark border-0 similar_Product_card"
+                        as={Link}
+                        to={`/products/details/${data.slug}`}
+                      >
+                        <Card.Img
+                          className="w-100"
+                          variant="top"
+                          src={`${BACKEND_BASE_URL}/${data.image}`}
+                          alt=""
+                        />
+                        <Card.Body className="text-center">
+                          <Card.Title>
+                            <div className="d-flex justify-content-between">
+                              {/* <h5>
+                              <Badge bg="secondary">NYTT PRIS</Badge>
+                            </h5> */}
+                              <h5>
+                                <Badge bg="info">{data.packSize1}-PACK</Badge>
+                              </h5>
+                            </div>
+                            <p className="text-dark">{data.name}</p>
+                          </Card.Title>
+                          <Card.Text>
+                            <small className="line_height_12 text-black-50">
+                              (SEK {data.unitPrice1} / PC)
+                            </small>
+
+                            <span className="d-flex flex-column">
+                              <span className="discount_price line_height_12 fw-bold">
+                                192.45 kr
+                              </span>
+                              {data.oldPrice1 && (
+                                <span className="text-decoration-line-through cl_light_grey fw-bold line_height_12 text-black-50">
+                                  {data.oldPrice1} kr
+                                </span>
+                              )}
+                            </span>
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    </div>
+                  ))}
+                </Slider>
+              </div>
             </div>
-            <div className="similar_products_slider">
-              <Slider {...settings}>
-                <div>
-                  <Card className="border-0">
-                    <Card.Img
-                      className="w-100"
-                      variant="top"
-                      src={require("../../../Assets/Products/volt-blue.png")}
-                      alt=""
-                    />
-                    <Card.Body className="text-center">
-                      <Card.Title>
-                        <div className="d-flex justify-content-between">
-                          <h5>
-                            <Badge bg="secondary">NYTT PRIS</Badge>
-                          </h5>
-                          <h5>
-                            <Badge bg="info">6-PACK</Badge>
-                          </h5>
-                        </div>
-                        <p>Volts Pearls TWisted Berry All white portions</p>
-                      </Card.Title>
-                      <Card.Text>
-                        <small className="line_height_12">
-                          (SEK 29.80 / PC)
-                        </small>
-
-                        <span className="d-flex flex-column">
-                          <span className="discount_price line_height_12">
-                            192.45 kr
-                          </span>
-                          <span className="text-decoration-line-through cl_light_grey fw-bold line_height_12">
-                            192.45 kr
-                          </span>
-                        </span>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div>
-                  <Card className="border-0">
-                    <Card.Img
-                      className="w-100"
-                      variant="top"
-                      src={require("../../../Assets/Products/volt-blue.png")}
-                      alt=""
-                    />
-                    <Card.Body className="text-center">
-                      <Card.Title>
-                        <div className="d-flex justify-content-between">
-                          <h5>
-                            <Badge bg="secondary">NYTT PRIS</Badge>
-                          </h5>
-                          <h5>
-                            <Badge bg="info">6-PACK</Badge>
-                          </h5>
-                        </div>
-                        <p>Volts Pearls TWisted Berry All white portions</p>
-                      </Card.Title>
-                      <Card.Text>
-                        <small className="line_height_12">
-                          (SEK 29.80 / PC)
-                        </small>
-
-                        <span className="d-flex flex-column">
-                          <span className="discount_price line_height_12">
-                            192.45 kr
-                          </span>
-                          <span className="text-decoration-line-through cl_light_grey fw-bold line_height_12">
-                            192.45 kr
-                          </span>
-                        </span>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div>
-                  <Card className="border-0">
-                    <Card.Img
-                      className="w-100"
-                      variant="top"
-                      src={require("../../../Assets/Products/volt-blue.png")}
-                      alt=""
-                    />
-                    <Card.Body className="text-center">
-                      <Card.Title>
-                        <div className="d-flex justify-content-between">
-                          <h5>
-                            <Badge bg="secondary">NYTT PRIS</Badge>
-                          </h5>
-                          <h5>
-                            <Badge bg="info">6-PACK</Badge>
-                          </h5>
-                        </div>
-                        <p>Volts Pearls TWisted Berry All white portions</p>
-                      </Card.Title>
-                      <Card.Text>
-                        <small className="line_height_12">
-                          (SEK 29.80 / PC)
-                        </small>
-
-                        <span className="d-flex flex-column">
-                          <span className="discount_price line_height_12">
-                            192.45 kr
-                          </span>
-                          <span className="text-decoration-line-through cl_light_grey fw-bold line_height_12">
-                            192.45 kr
-                          </span>
-                        </span>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div>
-                  <Card className="border-0">
-                    <Card.Img
-                      className="w-100"
-                      variant="top"
-                      src={require("../../../Assets/Products/volt-blue.png")}
-                      alt=""
-                    />
-                    <Card.Body className="text-center">
-                      <Card.Title>
-                        <div className="d-flex justify-content-between">
-                          <h5>
-                            <Badge bg="secondary">NYTT PRIS</Badge>
-                          </h5>
-                          <h5>
-                            <Badge bg="info">6-PACK</Badge>
-                          </h5>
-                        </div>
-                        <p>Volts Pearls TWisted Berry All white portions</p>
-                      </Card.Title>
-                      <Card.Text>
-                        <small className="line_height_12">
-                          (SEK 29.80 / PC)
-                        </small>
-
-                        <span className="d-flex flex-column">
-                          <span className="discount_price line_height_12">
-                            192.45 kr
-                          </span>
-                          <span className="text-decoration-line-through cl_light_grey fw-bold line_height_12">
-                            192.45 kr
-                          </span>
-                        </span>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div>
-                  <Card className="border-0">
-                    <Card.Img
-                      className="w-100"
-                      variant="top"
-                      src={require("../../../Assets/Products/volt-blue.png")}
-                      alt=""
-                    />
-                    <Card.Body className="text-center">
-                      <Card.Title>
-                        <div className="d-flex justify-content-between">
-                          <h5>
-                            <Badge bg="secondary">NYTT PRIS</Badge>
-                          </h5>
-                          <h5>
-                            <Badge bg="info">6-PACK</Badge>
-                          </h5>
-                        </div>
-                        <p>Volts Pearls TWisted Berry All white portions</p>
-                      </Card.Title>
-                      <Card.Text>
-                        <small className="line_height_12">
-                          (SEK 29.80 / PC)
-                        </small>
-
-                        <span className="d-flex flex-column">
-                          <span className="discount_price line_height_12">
-                            192.45 kr
-                          </span>
-                          <span className="text-decoration-line-through cl_light_grey fw-bold line_height_12">
-                            192.45 kr
-                          </span>
-                        </span>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div>
-                  <Card className="border-0">
-                    <Card.Img
-                      className="w-100"
-                      variant="top"
-                      src={require("../../../Assets/Products/volt-blue.png")}
-                      alt=""
-                    />
-                    <Card.Body className="text-center">
-                      <Card.Title>
-                        <div className="d-flex justify-content-between">
-                          <h5>
-                            <Badge bg="secondary">NYTT PRIS</Badge>
-                          </h5>
-                          <h5>
-                            <Badge bg="info">6-PACK</Badge>
-                          </h5>
-                        </div>
-                        <p>Volts Pearls TWisted Berry All white portions</p>
-                      </Card.Title>
-                      <Card.Text>
-                        <small className="line_height_12">
-                          (SEK 29.80 / PC)
-                        </small>
-
-                        <span className="d-flex flex-column">
-                          <span className="discount_price line_height_12">
-                            192.45 kr
-                          </span>
-                          <span className="text-decoration-line-through cl_light_grey fw-bold line_height_12">
-                            192.45 kr
-                          </span>
-                        </span>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-                <div>
-                  <Card className="border-0">
-                    <Card.Img
-                      className="w-100"
-                      variant="top"
-                      src={require("../../../Assets/Products/volt-blue.png")}
-                      alt=""
-                    />
-                    <Card.Body className="text-center">
-                      <Card.Title>
-                        <div className="d-flex justify-content-between">
-                          <h5>
-                            <Badge bg="secondary">NYTT PRIS</Badge>
-                          </h5>
-                          <h5>
-                            <Badge bg="info">6-PACK</Badge>
-                          </h5>
-                        </div>
-                        <p>Volts Pearls TWisted Berry All white portions</p>
-                      </Card.Title>
-                      <Card.Text>
-                        <small className="line_height_12">
-                          (SEK 29.80 / PC)
-                        </small>
-
-                        <span className="d-flex flex-column">
-                          <span className="discount_price line_height_12">
-                            192.45 kr
-                          </span>
-                          <span className="text-decoration-line-through cl_light_grey fw-bold line_height_12">
-                            192.45 kr
-                          </span>
-                        </span>
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-              </Slider>
-            </div>
-          </div>
+          )}
         </div>
       </Container>
       <Footer shippingPolicy="d-none" />
