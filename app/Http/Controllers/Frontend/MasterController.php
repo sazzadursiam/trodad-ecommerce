@@ -7,6 +7,7 @@ use App\Models\Banner;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
 
 class MasterController extends Controller
@@ -43,9 +44,12 @@ class MasterController extends Controller
 
         $relatedProducts = Product::with('ProductCategory', 'ProductSubCategory', 'ProductBrand')->where('categoryId', $categoryId)->get();
 
+        $shippingInfo = Shipping::first();
+
         return response()->json([
             'singleProductDetails' => $singleProductDetails,
             'relatedProducts' => $relatedProducts,
+            'shippingInfo' => $shippingInfo,
         ]);
     }
 

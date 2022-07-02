@@ -242,6 +242,11 @@ Route::group(['prefix' => '/admin'], function () {
         Route::get('/new-rating/status-update/{id}/{status}', [ProductRatingController::class, 'productRatingUpdateStatus']);
         Route::delete('/delete/{id}', [ProductRatingController::class, 'productRatingdelete']);
     });
+    /*
+    |--------------------------------------------------------------------------
+    | Shipping Routes
+    |--------------------------------------------------------------------------
+    */
     Route::group(['prefix' => '/shipping'], function () {
         Route::get('/edit', [ShippingController::class, 'edit']);
         Route::put('/update/{id}', [ShippingController::class, 'update']);

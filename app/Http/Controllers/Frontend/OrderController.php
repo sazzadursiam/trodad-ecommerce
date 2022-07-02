@@ -29,6 +29,8 @@ class OrderController extends Controller
         $model->paymentType = $request->paymentType;
         $model->paymentStatus = $request->paymentStatus;
         $model->totalAmount = $request->totalAmount;
+        $model->shippingMethod = $request->shippingMethod;
+        $model->shippingPrice = $request->shippingPrice;
         $model->save();
         $orderId = $model->id;
 

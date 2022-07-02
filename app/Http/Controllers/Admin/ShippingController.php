@@ -22,6 +22,7 @@ class ShippingController extends Controller
         $model = Shipping::find($id);
         $model->shippingMethod = $request->shippingMethod;
         $model->shippingPrice = $request->shippingPrice;
+        $model->shippingDetails = $request->shippingDetails;
         $model->save();
         return response()->json([
             'status' => 200,

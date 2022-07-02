@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\AddToCart;
 use App\Models\Product;
+use App\Models\Shipping;
 use Illuminate\Http\Request;
 
 class AddToCartController extends Controller
@@ -58,12 +59,13 @@ class AddToCartController extends Controller
     {
         $cartData = AddToCart::with('Products')->where('userId', $userId)->get();
         $cartOrderTotal = $cartData->sum('price');
-        // $products = AddToCart::where('userId', $cartData->userID)->get();
         $cartProductQuantity = $cartData->count();
+        $shippingInfo = Shipping::select('shippingMethod', 'shippingPrice')->first();
         return response()->json([
             'cartData' => $cartData,
             'cartOrderTotal' => $cartOrderTotal,
             'cartProductQuantity' => $cartProductQuantity,
+            'shippingInfo' => $shippingInfo,
         ]);
     }
 
