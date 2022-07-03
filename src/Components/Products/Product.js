@@ -25,7 +25,7 @@ import "./products.css";
 const Product = () => {
   const [clickState, setClickState] = useState("");
   const { setCartQuantity, setCartTotal } = useContext(UserContext);
-  const sendCol = useRef();
+  
 
   const [initialActive, setInitialActive] = useState(0);
 
@@ -120,8 +120,8 @@ const Product = () => {
     console.log("Final user Type", USER_TYPE);
 
     const formdata = new FormData();
-    // formdata.append("selectedPackSize", productPackSize.current.value);
-    formdata.append("selectedPackSize", sendCol.current.value);
+    
+    formdata.append("selectedPackSize", selectedValue);
     formdata.append("qty", 1);
     formdata.append("productId", productId);
     formdata.append("userId", USER_ID);
@@ -325,7 +325,7 @@ const Product = () => {
                     {/* Tab Products */}
                     <div className="d-none d-sm-flex mt-1 ">
                       <Form.Select
-                        ref={sendCol}
+                       
                         className="w-100 product-variant-select"
                         onChange={(e) => {
                           e.preventDefault();
@@ -523,7 +523,7 @@ const Product = () => {
                     {/* New Products */}
                     <div className="d-sm-flex mt-1 d-none">
                       <Form.Select
-                        ref={sendCol}
+                      
                         className="w-100 product-variant-select"
                         onChange={(e) => {
                           e.preventDefault();

@@ -50,9 +50,15 @@ const Index = () => {
                         className="w-100"
                       />
                       <Carousel.Caption>
-                        <Link to={data.btnLink}>
-                          <Button variant="danger">Buy Now</Button>
-                        </Link>
+                        <a href={data.btnLink} target={"_blank"}>
+                         
+                          {/* <Link
+                            exact={true}
+                            to={{ pathname: `${data.btnLink}` }}
+                          > */}
+                            <Button variant="danger">Buy Now</Button>
+                          {/* </Link> */}
+                        </a>
                       </Carousel.Caption>
                     </Carousel.Item>
                   ))}

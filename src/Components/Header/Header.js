@@ -77,28 +77,17 @@ const Header = (props) => {
     setscrollValue(window.scrollY);
   });
 
-  console.log(scrollValue);
-
   // =============== Search Product ====================
   const [open, setOpen] = useState(false);
   const [searchProduct, setSearchProduct] = useState([]);
-  const [searchVal, setSearchVal] = useState([]);
   const [filteredResult, setFilteredResult] = useState([]);
 
   const allProductForSearch = () => {
     axios.get(`${Link_Path_URL}api/all-product`).then((res) => {
       setSearchProduct(res.data.allProducts);
-      console.log(res.data);
+      // console.log(res.data);
     });
   };
-
-  // useEffect(() => {
-  //   const saearchResult = searchProduct.filter((productData) => {
-  //     return productData.name.toLowerCase().match(searchVal.toLowerCase());
-  //   });
-  //   setFilteredResult(saearchResult);
-  //   console.log(filteredResult);
-  // }, [searchVal]);
 
   const [searchText, setSearchText] = useState("");
   const handleSearch = (e) => {
@@ -108,7 +97,24 @@ const Header = (props) => {
     const matchedProducts = searchProduct.filter((product) =>
       product.name.toLowerCase().includes(searchText.toLowerCase())
     );
-    setFilteredResult(matchedProducts);
+    if(matchedProducts.length!=0) {
+
+      setFilteredResult(matchedProducts);
+    } 
+    console.log(matchedProducts.length);
+  };
+
+  const handleKeyPress = (event) => {
+    // console.log(event.target.value);
+
+    if (event.which === 13 || event.keyCode === 13 || event.key === "Enter") {
+      setSearchText(event.target.value);
+
+      const matchedProducts = searchProduct.filter((product) =>
+        product.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setFilteredResult(matchedProducts);
+    }
   };
 
   return (
@@ -181,9 +187,10 @@ const Header = (props) => {
                       type="text"
                       placeholder="Sökresultat för produkter"
                       onChange={handleSearch}
-                      onKeyUp={() =>
-                        searchText == "" ? setOpen(false) : setOpen(true)
-                      }
+                      onKeyUp={() => {
+                        searchText == "" ? setOpen(false) : setOpen(true);
+                      }}
+                      onKeyPress={handleKeyPress}
                     />
                     <Button
                       aria-controls="example-collapse-text"
@@ -198,7 +205,7 @@ const Header = (props) => {
                       className="search_result rounded-2"
                     >
                       {filteredResult.length == 0
-                        ? "No Product Found" 
+                        ? "No Product Found"
                         : filteredResult.map((data, i) => (
                             <Link to={`/products/details/${data.slug}`}>
                               <div key={i} className="d-flex">

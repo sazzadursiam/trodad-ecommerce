@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
-import * as AiIcons from "react-icons/ai";
-import * as BsIcons from "react-icons/bs";
+
 import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import { BACKEND_BASE_URL } from "../../../Components/GlobalVariables";
 import { Link } from "react-router-dom";
@@ -9,8 +8,6 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const AddProduct = () => {
-  const [productId, setProductId] = useState(0);
-
   const productName = useRef();
   const productImage = useRef();
   const brandId = useRef();
@@ -56,9 +53,6 @@ const AddProduct = () => {
   const flagText3 = useRef();
   const flagText4 = useRef();
   const flagText5 = useRef();
-
-  // const isNew = useRef();
-  // const isNewPrice = useRef();
 
   // Image Preview
   const [files, setFile] = useState([]);
@@ -184,44 +178,19 @@ const AddProduct = () => {
 
       .then((response) => {
         if (response.data.status === 200) {
-          setProductId(response.data.product.id);
           Swal.fire({
             icon: "success",
             text: response.data.message,
             confirmButtonColor: "#5eba86",
           });
-          // renderAllBrands();
-          // setChecked(false);
 
-          // event.target.reset();
-          // setDescValue("", "html");
-          // setShortDesc("", "html");
-          // setModalShow(false);
+          event.target.reset();
+          setDescValue("", "html");
+          setShortDesc("", "html");
         }
       });
 
     event.preventDefault();
-    // alert(JSON.stringify(formValues));
-  };
-
-  // ============================= Edit data ================================
-  const [Id, setId] = useState();
-
-  const fetchDataForEdit = () => {
-    console.log("Add More", productId);
-    if (productId != 0) {
-      axios
-        .get(
-          `${BACKEND_BASE_URL}/api/admin/products/product-attr-add/${productId}`
-        )
-        .then((res) => {
-          // const productAttrData = res.data.productInfo.product_attrs;
-          // setProductAttrData(res.data)
-
-          console.log("Add More", res.data);
-        });
-      console.log("Add More", productId);
-    }
   };
 
   // jodit editor options
@@ -257,18 +226,6 @@ const AddProduct = () => {
   //   Jodit Desc
   const [descValue, setDescValue] = useState();
   const [shortDesc, setShortDesc] = useState();
-
-  // Checkbox handle
-  const [isNewcheckboxChecked, setCheckeboxChecked] = useState(false);
-  const [isNewpricecheckboxChecked, setIsNewpricecheckboxChecked] =
-    useState(false);
-
-  const handleCheckbox = (e) => {
-    setCheckeboxChecked(e.target.checked);
-  };
-  const handleCheckbox1 = (e) => {
-    setIsNewpricecheckboxChecked(e.target.checked);
-  };
 
   // ================= price === unit price ========================
   const [pValue, setPValue] = useState({
@@ -365,6 +322,7 @@ const AddProduct = () => {
   const [UnitPrice5, setUnitPrice5] = useState();
 
   const changeUnitPrice2 = () => {
+    // console.log("in");
     const discountVal2 = productDiscountPrice2.current.value;
     const PriceVal = productPrice.current.value;
     const unitPrice2 = PriceVal - (PriceVal * discountVal2) / 100;
@@ -372,6 +330,9 @@ const AddProduct = () => {
     setVariantPrice2(
       Number(unitPrice2 * productPackSize2.current.value).toFixed(2)
     );
+    console.log("discountVal2", discountVal2);
+    console.log("PriceVal", PriceVal);
+    console.log("unitPrice2", unitPrice2);
   };
 
   const changeUnitPrice3 = () => {
@@ -580,7 +541,7 @@ const AddProduct = () => {
                       type="text"
                       placeholder="Price"
                       name="price"
-                      ref={productSku}
+                      ref={productPrice}
                       onChange={handleInput}
                       value={pValue.price}
                     />
@@ -597,7 +558,7 @@ const AddProduct = () => {
                     controlId="validationCustom03"
                   >
                     <Form.Label className="label fw-bold">SKU</Form.Label>
-                    <Form.Control type="text" name="sku" ref={productPrice} />
+                    <Form.Control type="text" name="sku" ref={productSku} />
                   </Form.Group>
 
                   {/* Product Short Description */}

@@ -27,7 +27,7 @@ const SubCategorizedProduct = () => {
   const { categotyId, categorySlug, subCategoryId, subCategorySlug } =
     useParams();
 
-  const sendCol = useRef();
+ 
 
   const cartFunction = () => {
     const cartQuantitycheck = localStorage.getItem("cartProductQuantity");
@@ -103,7 +103,7 @@ const SubCategorizedProduct = () => {
 
     const formdata = new FormData();
     // formdata.append("selectedPackSize", productPackSize.current.value);
-    formdata.append("selectedPackSize", sendCol.current.value);
+    formdata.append("selectedPackSize", selectedValue);
     formdata.append("qty", 1);
     formdata.append("productId", productId);
     formdata.append("userId", USER_ID);
@@ -301,7 +301,7 @@ const SubCategorizedProduct = () => {
                     {/* New Products */}
                     <div className="d-flex mt-1">
                       <Form.Select
-                        ref={sendCol}
+                       
                         className="w-100 product-variant-select"
                         onChange={(e) => {
                           e.preventDefault();
